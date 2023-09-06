@@ -1,0 +1,120 @@
+#!/bin/bash
+# ~/.bash_func_defs
+
+isfile() {
+    for __f_name in "$@"; do
+        test -f "$__f_name" && echo "+++ $__f_name exists. +++" || echo "--- $__f_name does not exist. ---"
+    done
+}
+
+isdir() {
+    for __dir_name in "$@"; do
+        test -d "$__dir_name" && echo "+++ $__dir_name exists. +++" || echo "--- $__dir_name does not exist. ---"
+    done
+}
+
+search-help-options() {
+    if [[ $# -lt 3 ]]; then
+        echo -e "usage: check-options <FUNC> <HELP_FLAG> <SHORT-OPTS>\n
+        If you have a list of short options that are used for a function and want to know what they do:\n
+        \tfunc [FUNC]      - function of interest
+        \thelp [HELP_FLAG] - the flag that shows the function's help.
+        \t[...]            - options as a concatenated sequence.\n"
+        return 0
+    fi
+
+    local _func=$1
+    local _help_flag=$2
+    local _opts=$3
+
+    echo "_func:$_func"
+    echo "_help_flag:$_help_flag"
+    echo "_opts:$_opts"
+
+    # Check if command exists
+    if ! command -v $_func &>/dev/null; then
+        echo "Command $_func could not be found"
+        return 1
+    fi
+
+    if ! "$_func" "$_help_flag" &>/dev/null; then
+        echo "Trying man..."
+        man $_func 2>&1 | egrep -n '^\s+(-['$_opts']){1,1}.*'
+    else
+        # Get the help output, then grep for the options
+        $_func $_help_flag 2>&1 | egrep '^\s+(-['$_opts']){1,1}.*'
+    fi
+}
+
+function test-pyqt-import() {
+    if [[ $# -gt 0 ]]; then
+        while [[ $CONDA_SHLVL -gt 0 ]]; do
+            conda deactivate
+        done
+        conda activate $1
+    else
+        conda activate
+    fi
+    python -c "from PyQt5.QtCore import Qt" 2>/tmp/pyqt_err
+
+    if [[ $? -ne 0 ]]; then
+        echo -e "Python import in $1 environment failed with the following error:\n"
+        cat /tmp/pyqt_err
+        while [[ $CONDA_SHLVL -gt 0 ]]; do
+            conda deactivate
+        done
+    else
+        echo "Python import was successful!"
+    fi
+}
+
+### Hydra convenience start:
+function py() { python "$@" "+setup=$TEN_B_RIG_NAME"; }
+
+### Conda environment activation:
+condaa() {
+    conda activate "$1"
+}
+
+### Conda environment deactivation:
+condad() {
+    conda deactivate
+}
+
+function reset-path() {
+    if [[ $# -eq 0 ]]; then
+        echo "No variable name provided. Resetting PATH to DEFAULT_PATH $($DEFAULT_PATH | tr ':' '\n')."
+        temp_env_var="DEFAULT_PATH"
+    else
+        echo "Resetting $1 to DEFAULT_PATH ($($DEFAULT_PATH | tr ':' '\n'))."
+        temp_env_var=$1
+    fi
+    source "$HOME/.bash_profile"
+    if [[ -z $temp_env_var ]]; then
+        read -p "Either environment variable not specified or was not found. Exitting in 5sec..." -t 1
+        echo
+        for i in 5 4 3 2 1; do
+            echo "Exiting in $i seconds..."
+            sleep 1
+        done
+    fi
+}
+
+function clean-path-var() {
+    local search_string="python"
+    local path_list="$PATH"
+
+    if [[ "$path_list" != *"$search_string"* ]]; then
+        if [[ -z "$PATH" ]]; then
+            export PATH=$DEFAULT_PATH
+        fi
+        export PATH=$PATH:$PYTHON_PATH:$CONDA_PATH
+    fi
+
+    local input_var="$1"
+
+    if [[ -z "$input_var" ]]; then
+        input_var="PATH"
+    fi
+    python3 ~/clean_path_var.py -n "$input_var"
+}

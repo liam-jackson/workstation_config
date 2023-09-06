@@ -1,0 +1,35 @@
+# ~/.bash_profile
+
+#################################################
+############# Environment Variables #############
+#################################################
+
+# Starship config:
+export STARSHIP_CONFIG=~/.config/starship_ljackson.toml
+
+# GOVEE API KEY:
+export API_KEY="a394ce42-5abc-45d2-9aa7-8690d5685d44"
+
+# MATLAB setup:
+export MATLAB_ROOT="$HOME/MATLAB/R2022b"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$MATLAB_ROOT/bin/glnxa64:$MATLAB_ROOT/sys/os/glnxa64"
+export PATH=$PATH:$MATLAB_ROOT
+
+export LOCAL_INSTALL_DIR="$HOME/lib"
+export PATH="$LOCAL_INSTALL_DIR/bin:$PATH"
+
+#################################################
+################### 10B Stuff ###################
+#################################################
+
+# 10B Rig Name:
+export TEN_B_RIG_NAME="lj_roadkill"
+export TOTAL_LEDS=18
+
+source "$HOME/.bash_history_config"
+source "$HOME/.bash_colors_config"
+source "$HOME/.bash_aliases"
+source "$HOME/.bash_func_defs"
+source "$HOME/.tenbeautyrc"
+
+eval "$(starship init bash)"
