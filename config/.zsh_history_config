@@ -15,7 +15,7 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 
 # Ignore specific commands
-HISTIGNORE="ls:ll:ls -alh:pwd:clear:history:echo"
+HISTIGNORE="ls:ll:ls -alh:pwd:clear:history:echo:clear:exit"
 # There is no direct HISTIGNORE in Zsh but you can simulate this feature with a hook
 zshaddhistory() {
     emulate -L zsh
@@ -33,6 +33,15 @@ zshaddhistory() {
 # Set time format (Zsh uses `print -P` formatting)
 # This will prepend the current timestamp as an EPOCH time to each history entry
 setopt EXTENDED_HISTORY
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="%Y-%m-%d-%H%M"
 
 # Multiple commands on one line show up as a single line
 setopt INC_APPEND_HISTORY

@@ -118,3 +118,11 @@ function clean-path-var() {
     fi
     python3 ~/clean_path_var.py -n "$input_var"
 }
+
+function upper() {
+    echo $1 | tr '[:lower:]' '[:upper:]'
+}
+
+function lower() {
+	echo $1 | tr '[:upper:]' '[:lower:]'
+}

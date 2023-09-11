@@ -134,6 +134,8 @@ export PATH="$LOCAL_INSTALL_DIR/bin:$PATH"
 
 export FZF_DEFAULT_OPTS="--height=60% --layout=reverse --info=inline --border --margin=1"
 
+export BAT_CONFIG_PATH="$HOME/workstation_config/config/bat/config"
+
 # endregion Environment Variables
 
 # region Sourcing rc Files

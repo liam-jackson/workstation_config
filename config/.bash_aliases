@@ -5,6 +5,8 @@
 ############### Alias Definitions ###############
 #################################################
 
+alias cat='bat --paging=auto --color=auto'
+
 alias ll='ls -lAF --color=auto'
 alias la='ls -A --color=auto'
 alias l='ls -CF --color=auto'
@@ -20,5 +22,8 @@ alias open="xdg-open"
 alias show_funcs="declare -F"
 
 alias matlab="$MATLAB_ROOT/bin/matlab"
+
+alias fzfpreview="fzf --preview 'bat --color=always --style=numbers {}'"
+alias findfzf="find . | fzfpreview"
 
 eval "$(thefuck --alias)"
