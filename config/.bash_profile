@@ -132,7 +132,7 @@ export PATH=$PATH:$MATLAB_ROOT
 export LOCAL_INSTALL_DIR="$HOME/lib"
 export PATH="$LOCAL_INSTALL_DIR/bin:$PATH"
 
-export FZF_DEFAULT_OPTS="--height=60% --layout=reverse --info=inline --border --margin=1"
+export FZF_DEFAULT_OPTS="--layout=reverse --info=inline --border --margin=1 --keep-right"
 
 export BAT_CONFIG_PATH="$HOME/workstation_config/config/bat/config"
 

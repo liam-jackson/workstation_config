@@ -26,4 +26,6 @@ alias matlab="$MATLAB_ROOT/bin/matlab"
 alias fzfpreview="fzf --preview 'bat --color=always --style=numbers {}'"
 alias findfzf="find . | fzfpreview"
 
+alias tnn='tilix -e nnn'
+
 eval "$(thefuck --alias)"
