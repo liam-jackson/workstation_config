@@ -28,4 +28,6 @@ alias findfzf="find . | fzfpreview"
 
 alias tnn='tilix -e nnn'
 
+alias wscfg="code $HOME/workstation-config/."
+
 eval "$(thefuck --alias)"

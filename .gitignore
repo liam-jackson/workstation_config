@@ -2,3 +2,11 @@
 /.vscode/**
 /config/.ten_b_rig_name
 
+/*aws*
+/*bash_history*
+/*lesshst*
+/*pythonhist*
+/*python_history*
+/*zcompdump*
+/*zsh_history*
+/*zshrc.zwc*

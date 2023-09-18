@@ -1,0 +1,9 @@
+[submodule "tpm"]
+	path = tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule "tabbed"]
+	path = tabbed
+	url = https://git.suckless.org/tabbed
+[submodule "nautilus-open-any-terminal"]
+	path = nautilus-open-any-terminal
+	url = git@github.com:Stunkymonkey/nautilus-open-any-terminal.git

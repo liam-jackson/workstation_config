@@ -136,6 +136,8 @@ export FZF_DEFAULT_OPTS="--layout=reverse --info=inline --border --margin=1 --ke
 
 export BAT_CONFIG_PATH="$HOME/workstation_config/config/bat/config"
 
+export NNN_PLUG='f:finder;o:fzopen;p:mocq;d:diffs;t:nmount;v:imgview;n:nuke'
+
 # endregion Environment Variables
 
 # region Sourcing rc Files

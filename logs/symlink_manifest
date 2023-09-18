@@ -1,0 +1,2 @@
+mv "/home/liam/.viminfo" "/home/liam/workstation_config/config/" && ln -s "/home/liam/workstation_config/config/.viminfo" "/home/liam/.viminfo" ||| rm "/home/liam/.viminfo" && mv "/home/liam/workstation_config/config/.viminfo" "/home/liam/.viminfo"
+mv "/home/liam/.tmux.conf" "/home/liam/workstation_config/config/" && ln -s "/home/liam/workstation_config/config/.tmux.conf" "/home/liam/.tmux.conf" ||| rm "/home/liam/.tmux.conf" && mv "/home/liam/workstation_config/config/.tmux.conf" "/home/liam/.tmux.conf"

@@ -1,7 +1,8 @@
 #!/bin/bash
 
-CONFIG_DIR="$HOME/workstation_config/test_dst"
-MANIFEST="$CONFIG_DIR/symlink_manifest"
+WS_CFG_DIR="$HOME/workstation_config"
+CONFIG_DIR="$WS_CFG_DIR/config"
+MANIFEST_LOG="$WS_CFG_DIR/logs/symlink_manifest"
 
 show_help() {
     echo "Usage: $0 [OPTIONS] [FILES]"
@@ -73,24 +74,24 @@ do_action() {
     if [ "$dry_run" -eq 1 ]; then
         echo "DRY-RUN: $action"
     else
-        echo "$manifest_line" >>"$MANIFEST"
+        echo "$manifest_line" >>"$MANIFEST_LOG"
         eval "$action"
     fi
 }
 
 # Function to perform undo
 undo_action() {
-    if [ -f "$MANIFEST" ]; then
-        cat -n "$MANIFEST"
+    if [ -f "$MANIFEST_LOG" ]; then
+        cat -n "$MANIFEST_LOG"
         read -p "Select a line number to undo (0 to exit): " -r line_number
         [[ "$line_number" -eq 0 ]] && exit 0
 
-        local manifest_line=$(sed -n "${line_number}p" "$MANIFEST")
+        local manifest_line=$(sed -n "${line_number}p" "$MANIFEST_LOG")
         local undo="${manifest_line##* ||| }"
 
         echo "Undoing: $undo"
         eval "$undo"
-        sed -i "${line_number}d" "$MANIFEST"
+        sed -i "${line_number}d" "$MANIFEST_LOG"
     else
         echo "Manifest file does not exist. Nothing to undo."
         exit 1
@@ -102,10 +103,27 @@ if [ "$undo" -eq 1 ]; then
     exit 0
 fi
 
+# Function to get the files, excluding those that match ./.gitignore patterns
+get_filtered_files() {
+    local dir=$1
+    local gitignore=".gitignore"
+
+    if [ -f "$gitignore" ]; then
+        find "$dir" -maxdepth 1 -type f | while read -r file; do
+            if ! git check-ignore -q "$(basename $file)"; then
+                echo "$file"
+            fi
+        done
+    else
+        # If .gitignore doesn't exist, return all files (but still try to support a
+        # future use case if a different ~/**.gitignore should be honored):
+        find "$dir" -type f
+    fi
+}
+
 DEFAULT_SRC="$HOME"
 if [ ${#file_args[@]} -eq 0 ]; then
-    echo "No arguments. Working on $DEFAULT_SRC."
-    for f in "$DEFAULT_SRC"/*; do
+    get_filtered_files "$DEFAULT_SRC" | while read -r f; do
         # Skip if not a regular file:
         [ -f "$f" ] || continue
         filename=$(basename "$f")
@@ -125,6 +143,7 @@ if [ ${#file_args[@]} -eq 0 ]; then
     done
 # One or more arguments:
 else
+    echo "${#file_args[@]} args supplied."
     for f in "${file_args[@]}"; do
         if [ ! -f "$f" ]; then
             echo "File $f does not exist. Skipping..."

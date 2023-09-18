@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 # ~/.bash_func_defs
 
 isfile() {
@@ -124,5 +124,5 @@ function upper() {
 }
 
 function lower() {
-	echo $1 | tr '[:upper:]' '[:lower:]'
+    echo $1 | tr '[:upper:]' '[:lower:]'
 }
