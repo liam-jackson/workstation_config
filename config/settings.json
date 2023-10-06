@@ -1,0 +1,359 @@
+{
+    "_a0_start_of_file": true,
+    "[cpp]": {
+        "editor.semanticHighlighting.enabled": true,
+        "editor.suggest.insertMode": "replace",
+        "editor.wordBasedSuggestions": false
+    },
+    "[matlab]": {
+        "editor.snippetSuggestions": "top",
+        "files.encoding": "windows1252"
+    },
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true,
+            "source.organizeImports": "explicit"
+        },
+        "editor.formatOnType": true
+    },
+    "autoDocstring.docstringFormat": "google",
+    "autoDocstring.includeExtendedSummary": false,
+    "autoDocstring.includeName": false,
+    "autoflake-extension.remove-all-unused-imports": true,
+    "autoflake-extension.expand-star-imports": true,
+    "autopep8.importStrategy": "fromEnvironment",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.includePath": [
+        "~/Workspace/tenbeauty/**"
+    ],
+    "C_Cpp.formatting": "clangFormat",
+    "commitReminder.interval": 30,
+    "commitReminder.intervalUnit": "minutes",
+    "commitReminder.minimumChanges": 10,
+    "commitReminder.minimumFileChanges": 2,
+    "compareFolders.diffViewTitle": "compared path",
+    "compareFolders.useDiffMerge": true,
+    "diffEditor.renderSideBySide": true,
+    "diffviewer.outputFormat": "side-by-side",
+    "editor.autoClosingDelete": "auto",
+    "editor.codeActionsOnSave": {
+        // "source.convertImportFormat": true,
+        "source.fixAll": "explicit",
+        "source.organizeImports": "explicit"
+    },
+    "editor.codeLens": true,
+    "editor.defaultFormatter": "trunk.io",
+    "editor.foldingHighlight": true,
+    "editor.foldingStrategy": "auto",
+    "editor.fontFamily": "JetBrainsMono Nerd Font",
+    "editor.fontLigatures": true,
+    "editor.fontWeight": "500",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.inlineSuggest.enabled": true,
+    "editor.inlineSuggest.showToolbar": "always",
+    "editor.minimap.renderCharacters": false,
+    "editor.parameterHints.enabled": false,
+    "editor.quickSuggestions": {
+        "comments": "on",
+        "other": "on",
+        "strings": "on"
+    },
+    "editor.quickSuggestionsDelay": 500,
+    "editor.showFoldingControls": "always",
+    "editor.snippetSuggestions": "bottom",
+    "editor.stickyScroll.defaultModel": "outlineModel",
+    "editor.stickyScroll.enabled": true,
+    "editor.stickyScroll.maxLineCount": 5,
+    "editor.suggest.insertMode": "replace",
+    "editor.suggest.localityBonus": true,
+    // "editor.suggest.preview": true,
+    "editor.trimAutoWhitespace": true,
+    "explorer.autoReveal": false,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "files.associations": {
+        "*.m": "matlab",
+        "*.mat": "matlab"
+    },
+    "files.exclude": {
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.svn": true,
+        "**/.trunk/*actions/": true,
+        "**/.trunk/*logs/": true,
+        "**/.trunk/*notifications/": true,
+        "**/.trunk/*out/": true,
+        "**/.trunk/*plugins/": true,
+        "**/*.gmo": true,
+        "**/*.lo": true,
+        "**/*.o": true,
+        "**/*.Po": true,
+        "**/*.so": true,
+        "**/*gtk3*": true,
+        "**/CVS": true,
+        "**/Thumbs.db": true
+    },
+    "files.watcherExclude": {
+        "**/.trunk/*actions/": true,
+        "**/.trunk/*logs/": true,
+        "**/.trunk/*notifications/": true,
+        "**/.trunk/*out/": true,
+        "**/.trunk/*plugins/": true,
+        "**/.trunk/*tmp/": true
+    },
+    "git-graph.repositoryDropdownOrder": "Name",
+    "git.autofetch": true,
+    "git.autoStash": true,
+    "github.copilot.advanced": {
+        "inlineSuggestCount": 5
+    },
+    "github.copilot.enable": {
+        "*": true,
+        "markdown": false,
+        "plaintext": false,
+        "scminput": false
+    },
+    "github.copilot.inlineSuggest.enable": true,
+    "gutterpreview.enableReferenceLookup": true,
+    "gutterpreview.imagePreviewMaxHeight": 600,
+    "gutterpreview.sourceFolder": "./",
+    "jupyter.askForKernelRestart": false,
+    "jupyter.inspectKernelMessages.enabled": true,
+    "jupyter.interactiveWindow.cellMarker.decorateCells": "currentCell",
+    "jupyter.interactiveWindow.viewColumn": "beside",
+    "jupyter.pythonExportMethod": "nbconvert",
+    "jupyter.showVariableViewWhenDebugging": true,
+    "jupyter.themeMatplotlibPlots": true,
+    "local-history.daysLimit": 30,
+    "local-history.exclude": [
+        "**/.history/**",
+        // "**/.vscode/**",
+        "**/node_modules/**",
+        "**/typings/**"
+        // "**/out/**",
+        // "**/Code/User/**"
+    ],
+    "local-history.saveDelay": 2,
+    "matlab-formatter.addSpaces": "exclude_pow",
+    "matlab-formatter.matrixIndent": "aligned",
+    // "matlab-formatter.pythonPath": "~/miniconda3/envs/matlab/bin/python",
+    "matlab-interactive-terminal.CursorBack": true,
+    "matlab-interactive-terminal.pythonPath": "~/miniconda3/envs/matlab/bin/python",
+    "matlab-interactive-terminal.unicodeSwitch": false,
+    "matlab.linterEncoding": "windows1252",
+    "mypy.enabled": true,
+    "mypy.runUsingActiveInterpreter": true,
+    "notebook.cellFocusIndicator": "border",
+    "notebook.cellToolbarLocation": {
+        "default": "left",
+        "jupyter-notebook": "right"
+    },
+    "notebook.formatOnCellExecution": true,
+    "notebook.formatOnSave.enabled": true,
+    "notebook.lineNumbers": "on",
+    "notebook.output.scrolling": true,
+    "notebook.output.textLineLimit": 30,
+    "path-autocomplete.extensionOnImport": true,
+    "path-intellisense.autoSlashAfterDirectory": true,
+    "path-intellisense.autoTriggerNextSuggestion": true,
+    "peacock.affectEditorGroupBorder": true,
+    "peacock.affectPanelBorder": true,
+    "peacock.affectSideBarBorder": true,
+    "peacock.affectTabActiveBorder": true,
+    "peacock.favoriteColors": [
+        {
+            "name": "Angular Red",
+            "value": "#dd0531"
+        },
+        {
+            "name": "Azure Blue",
+            "value": "#007fff"
+        },
+        {
+            "name": "JavaScript Yellow",
+            "value": "#f9e64f"
+        },
+        {
+            "name": "Mandalorian Blue",
+            "value": "#1857a4"
+        },
+        {
+            "name": "Node Green",
+            "value": "#215732"
+        },
+        {
+            "name": "React Blue",
+            "value": "#61dafb"
+        },
+        {
+            "name": "Something Different",
+            "value": "#832561"
+        },
+        {
+            "name": "Svelte Orange",
+            "value": "#ff3d00"
+        },
+        {
+            "name": "Vue Green",
+            "value": "#42b883"
+        },
+        {
+            "name": "midnight purp",
+            "value": "#7428a8"
+        }
+    ],
+    "peacock.surpriseMeOnStartup": true,
+    "postfix_complection.templates": [
+        {
+            "body": "self._print_status(f'{{{expr}} = }', severity_level=FLAG)\n$0",
+            "description": "uses self._print_status to print the expression with FLAG severity.",
+            "language": "python",
+            "name": "ps"
+        },
+        {
+            "body": "id({{expr}})",
+            "description": "Inserts id(expr).",
+            "language": "python",
+            "name": "id"
+        }
+    ],
+    "pylint.args": [
+        "--extension-pkg-whitelist=",
+        "--max-line-length=80",
+        "--jobs 8",
+        "--recursive n",
+        "--enable-all-extensions",
+        "--init-hook 'from pylint.config import find_pylintrc; import os, sys; sys.path.append(os.path.dirname(find_pylintrc()))'"
+    ],
+    "polyglot-notebook.defaultNotebookExtension": ".ipynb",
+    // "python.linting.flake8Args": [
+    //     "--max-line-length=120"
+    // ],
+    "pylint.importStrategy": "fromEnvironment",
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.importFormat": "relative",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.condaPath": "~/miniconda3",
+    "python.diagnostics.sourceMapsEnabled": true,
+    "autopep8.args": [
+        // "--ignore",
+        // "E402",
+        "--max-line-length=80"
+    ],
+    "yapf.args": [
+            "--style",
+            "~/Workspace/tenbeauty/vis_pipe_ref/.style.yapf"
+        ],
+    "python.languageServer": "Default",
+    "pythonIndent.keepHangingBracketOnLine": true,
+    "region-marker.languages": {
+        "bash": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "bashrc": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "matlab": {
+            "end": "%% endregion",
+            "start": "%% region"
+        },
+        "MATLAB": {
+            "end": "%%%%",
+            "start": "%%"
+        },
+        // Language id
+        "python": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "python3": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "sh": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "shellscript": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "zsh": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "zshrc": {
+            "end": "# endregion",
+            "start": "# region"
+        }
+    },
+    "region-marker.namedEndRegion": true,
+    "search.collapseResults": "alwaysCollapse",
+    "search.useIgnoreFiles": false,
+    "shell-syntax.defaultShell": "zsh",
+    "terminal.integrated.altClickMovesCursor": false,
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.enableFileLinks": "notRemote",
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+    "terminal.integrated.inheritEnv": true,
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "icon": "terminal-bash",
+            "path": "bash"
+        },
+        "zsh": {
+            "args": [
+                "-i"
+            ],
+            "path": "/bin/zsh"
+        }
+    },
+    "terminal.integrated.shellIntegration.decorationsEnabled": "both",
+    "terminal.integrated.shellIntegration.enabled": true,
+    "terminal.integrated.shellIntegration.suggestEnabled": true,
+    "terminal.integrated.showExitAlert": true,
+    "terminal.integrated.showLinkHover": true,
+    "terminal.integrated.smoothScrolling": true,
+    "terminal.integrated.tabs.defaultColor": "terminal.ansiBlue",
+    "trunk.inlineDecoratorsForAllExtensions": true,
+    "trunk.trunkGrayOutNonBlockingIssues": false,
+    "vscode-copy-from-terminal.enabled": true,
+    "python.analysis.inlayHints.pytestParameters": true,
+    "window.customMenuBarAltFocus": false,
+    "window.titleBarStyle": "custom",
+    "workbench.colorCustomizations": {
+        "diffEditor.insertedTextBackground": "#00a2ff4b",
+        "diffEditor.insertedTextBorder": "#139dc7c7",
+        "diffEditor.removedTextBackground": "#ff910057",
+        "diffEditor.removedTextBorder": "#ff6600c7",
+        "editorIndentGuide.activeBackground1": "#ff0000",
+        "editorIndentGuide.background1": "#a02e2e80",
+        "list.activeSelectionBackground": "#ff0000"
+    },
+    "workbench.colorTheme": "Default High Contrast",
+    "workbench.commandPalette.experimental.enableNaturalLanguageSearch": true,
+    "workbench.commandPalette.experimental.suggestCommands": true,
+    "workbench.editor.autoLockGroups": {
+        "jupyter-notebook": true
+    },
+    "workbench.editor.focusRecentEditorAfterClose": true,
+    "workbench.editorAssociations": {
+        "*.xlsx": "gc-excelviewer-excel-editor"
+    },
+    "workbench.iconTheme": "eq-material-theme-icons-darker",
+    "workbench.localHistory.enabled": true,
+    "workbench.startupEditor": "none",
+    "Z9_end_of_file": true
+}

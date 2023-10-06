@@ -1,0 +1,25 @@
+! Font settings
+Xft.dpi: 120
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+! URxvt terminal settings
+URxvt.font: xft:Monospace:size=14
+URxvt.boldFont: xft:Monospace:size=14:bold
+URxvt.scrollBar: false
+
+! XTerm settings
+XTerm*font: Monospace-14
+XTerm*faceName: Monospace:size=14
+XTerm*vt100.geometry: 80x24
+
+XTerm*decTerminalID: vt340
+
+! General UI elements
+*foreground:   #c0c0c0
+*background:   #000000
+

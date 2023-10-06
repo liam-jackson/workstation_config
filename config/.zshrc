@@ -169,6 +169,8 @@ source_sh() {
 
 source_sh "$HOME/.bash_profile"
 
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
 #################################################
 ############# Start Starship Prompt #############
 #################################################

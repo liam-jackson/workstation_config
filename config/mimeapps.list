@@ -1,0 +1,11 @@
+[Default Applications]
+text/html=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/unknown=google-chrome.desktop
+
+[Added Associations]
+application/vnd.debian.binary-package=snap-store_ubuntu-software-local-file.desktop;
+application/pdf=google-chrome.desktop;
+application/x-shellscript=code_code.desktop;
