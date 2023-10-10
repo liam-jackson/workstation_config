@@ -17,8 +17,6 @@ interactive=false
 undo=false
 # Create an array to hold file arguments.
 file_args=()
-# Create a variable to hold the new name for the file.
-target_file_name=""
 
 show_help() {
 	echo "Usage: $0 [OPTIONS] [ DIR or FILES ]"
@@ -27,7 +25,6 @@ show_help() {
 	echo "  -i, --interactive   Prompt for each file."
 	echo "  --dry-run        	Display actions without performing them."
 	echo "  --undo           	Undo specific symlink operations."
-	echo "  -N, --new-name      New name for the file in the repo."
 	echo
 	echo "  FILES            	List of files to be moved and symlinked."
 	echo "  DIR 				Directory of files to be symlinked."
@@ -220,8 +217,8 @@ for file_name in ${filtered_files}; do
 		read -p "File ${new_path} already exists. Choose a new name? [y/n] " -r new_name_requested
 
 		if [[ ${new_name_requested} =~ ^[Yy]$ ]]; then
-			read -p "Enter new name: " -r target_file_name_generic
-			new_path="${CONFIG_DIR}/${target_file_name_generic}"
+			read -p "Enter new name: " -r target_file_name
+			new_path="${CONFIG_DIR}/${target_file_name}"
 		else
 			echo "Skipping..."
 			continue 2
@@ -238,42 +235,3 @@ for file_name in ${filtered_files}; do
 	do_action "${action_str}" "${undo_str}"
 
 done
-# # One or more arguments:
-# else
-# 	for file_name in "${file_args[@]}"; do
-# 		if [[ ! -f ${file_name} ]] && [[ ! -d ${file_name} ]]; then
-# 			echo "File/directory ${file_name} does not exist. Skipping..."
-# 			continue
-# 		fi
-# 		old_path="${file_name}"
-
-# 		if [[ -n ${target_file_name} ]]; then
-# 			new_path="${CONFIG_DIR}/${target_file_name}"
-# 		else
-# 			filename=$(basename "${old_path}")
-# 			new_path="${CONFIG_DIR}/${filename}"
-# 		fi
-# 		while [[ -f ${new_path} ]]; do
-# 			read -p "File ${new_path} already exists. Choose a new name? [y/n] " -n 1 -r new_name_requested
-# 			echo
-# 			if [[ ${new_name_requested} =~ ^[Yy]$ ]]; then
-# 				read -p "Enter new name: " -r target_file_name
-# 				new_path="${CONFIG_DIR}/${target_file_name}"
-# 			else
-# 				echo "Skipping..."
-# 				break
-# 			fi
-# 		done
-
-# 		[[ -f ${new_path} ]] && continue
-
-# 		action_str="mv \"${old_path}\" \"${new_path}\" && ln -s \"${new_path}\" \"${old_path}\""
-# 		undo_str="trash \"${old_path}\" && mv \"${new_path}\" \"${old_path}\""
-
-# 		echo "Action: ${action_str}"
-# 		echo "Undo: ${undo_str}"
-
-# 		do_action "${action_str}" "${undo_str}"
-
-# 	done
-# fi
