@@ -11,17 +11,29 @@
     },
     "[python]": {
         "editor.codeActionsOnSave": {
-            "source.fixAll": true,
+            "source.fixAll": "explicit",
             "source.organizeImports": "explicit"
         },
-        "editor.formatOnType": true
+        "editor.formatOnType": true,
+        "editor.defaultFormatter": "ms-python.python"
     },
     "autoDocstring.docstringFormat": "google",
     "autoDocstring.includeExtendedSummary": false,
     "autoDocstring.includeName": false,
-    "autoflake-extension.remove-all-unused-imports": true,
     "autoflake-extension.expand-star-imports": true,
+    "autoflake-extension.remove-all-unused-imports": true,
+    "autopep8.args": [
+        // "--ignore",
+        // "E402",
+        "--max-line-length=80"
+    ],
     "autopep8.importStrategy": "fromEnvironment",
+    "bashIde.backgroundAnalysisMaxFiles": 1,
+    "bashIde.explainshellEndpoint": "http://localhost:5000",
+    // "bashIde.includeAllWorkspaceSymbols": true,
+    // "shellcheck.enable": true,
+    // "shellcheck.enableQuickFix": true,
+    "shellcheck.run": "onSave",
     "C_Cpp.default.cppStandard": "c++17",
     "C_Cpp.default.includePath": [
         "~/Workspace/tenbeauty/**"
@@ -205,6 +217,7 @@
         }
     ],
     "peacock.surpriseMeOnStartup": true,
+    "polyglot-notebook.defaultNotebookExtension": ".ipynb",
     "postfix_complection.templates": [
         {
             "body": "self._print_status(f'{{{expr}} = }', severity_level=FLAG)\n$0",
@@ -220,36 +233,36 @@
         }
     ],
     "pylint.args": [
-        "--extension-pkg-whitelist=",
-        "--max-line-length=80",
-        "--jobs 8",
-        "--recursive n",
+        "--extension-pkg-whitelist",
+        "--max-line-length",
+        "80",
+        "--jobs",
+        "8",
+        "--recursive",
+        "n",
         "--enable-all-extensions",
-        "--init-hook 'from pylint.config import find_pylintrc; import os, sys; sys.path.append(os.path.dirname(find_pylintrc()))'"
+        "--init-hook",
+        "from pylint.config import find_pylintrc; import os, sys; sys.path.append(os.path.dirname(find_pylintrc()))"
     ],
-    "polyglot-notebook.defaultNotebookExtension": ".ipynb",
     // "python.linting.flake8Args": [
     //     "--max-line-length=120"
     // ],
+    "ruff.organizeImports": true,
+    "ruff.codeAction.fixViolation": {
+        "enable": true
+    },
+    
     "pylint.importStrategy": "fromEnvironment",
     "python.analysis.autoFormatStrings": true,
     "python.analysis.autoImportCompletions": true,
     "python.analysis.autoSearchPaths": true,
     "python.analysis.importFormat": "relative",
     "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.pytestParameters": true,
     "python.analysis.inlayHints.variableTypes": true,
     "python.analysis.typeCheckingMode": "basic",
     "python.condaPath": "~/miniconda3",
     "python.diagnostics.sourceMapsEnabled": true,
-    "autopep8.args": [
-        // "--ignore",
-        // "E402",
-        "--max-line-length=80"
-    ],
-    "yapf.args": [
-            "--style",
-            "~/Workspace/tenbeauty/vis_pipe_ref/.style.yapf"
-        ],
     "python.languageServer": "Default",
     "pythonIndent.keepHangingBracketOnLine": true,
     "region-marker.languages": {
@@ -315,11 +328,13 @@
         },
         "zsh": {
             "args": [
-                "-i"
+                "-i",
+                "-l"
             ],
             "path": "/bin/zsh"
         }
     },
+    "bashIde.shellcheckPath": "/usr/bin/shellcheck",
     "terminal.integrated.shellIntegration.decorationsEnabled": "both",
     "terminal.integrated.shellIntegration.enabled": true,
     "terminal.integrated.shellIntegration.suggestEnabled": true,
@@ -330,7 +345,6 @@
     "trunk.inlineDecoratorsForAllExtensions": true,
     "trunk.trunkGrayOutNonBlockingIssues": false,
     "vscode-copy-from-terminal.enabled": true,
-    "python.analysis.inlayHints.pytestParameters": true,
     "window.customMenuBarAltFocus": false,
     "window.titleBarStyle": "custom",
     "workbench.colorCustomizations": {
@@ -355,5 +369,9 @@
     "workbench.iconTheme": "eq-material-theme-icons-darker",
     "workbench.localHistory.enabled": true,
     "workbench.startupEditor": "none",
+    "yapf.args": [
+        "--style",
+        "~/Workspace/tenbeauty/vis_pipe_ref/.style.yapf"
+    ],
     "Z9_end_of_file": true
 }

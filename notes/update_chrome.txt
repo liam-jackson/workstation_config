@@ -1,0 +1,20 @@
+https://askubuntu.com/questions/1275967/how-to-update-chrome-in-ubuntu-20-04
+
+cat /etc/apt/sources.list.d/google-chrome.list
+
+If it looks like this:
+
+### THIS FILE IS AUTOMATICALLY CONFIGURED ###
+# You may comment out this entry, but any other modifications may be lost.
+# deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+
+uncomment the last line, so that it looks like this:
+
+### THIS FILE IS AUTOMATICALLY CONFIGURED ###
+# You may comment out this entry, but any other modifications may be lost.
+deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+
+Then do:
+sudo apt update
+sudo apt-get --only-upgrade install google-chrome-stable
+

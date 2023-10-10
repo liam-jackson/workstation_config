@@ -1,12 +1,23 @@
-/.history/**
 /.vscode/**
 /config/.ten_b_rig_name
 
-/*aws*
-/*bash_history*
-/*lesshst*
-/*pythonhist*
-/*python_history*
-/*zcompdump*
-/*zsh_history*
-/*zshrc.zwc*
+# Ignore everything in ./.history/
+.history/*
+
+# Exclude the specific ./.history/.vscode/ folder from the above rule
+!/.history/.vscode/
+
+# Now ignore everything in ./.history/.vscode/
+.history/.vscode/*
+
+# But don't ignore files with "settings" in their name in ./.history/.vscode/
+!/.history/.vscode/*settings*
+
+*aws*
+*bash_history*
+*lesshst*
+*pythonhist*
+*python_history*
+*zcompdump*
+*zsh_history*
+*zshrc.zwc*
