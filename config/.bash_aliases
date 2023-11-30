@@ -8,6 +8,8 @@
 alias cat='bat --paging=auto --color=auto'
 
 alias ll='ls -lAF --color=auto'
+alias lt='ls -lAF --sort=time --color=auto'
+alias ltr='ls -lAF --sort=time --reverse --color=auto'
 alias la='ls -A --color=auto'
 alias l='ls -CF --color=auto'
 
@@ -23,25 +25,65 @@ alias show_funcs="declare -F"
 
 alias matlab='$MATLAB_ROOT/bin/matlab'
 
-alias fzfpreview="fzf --preview 'bat --color=always --style=numbers {}'"
-alias fzfhistory="history -f | fzf --keep-right --preview='echo Command: {3} ; man {3} || tldr {3}'"
-alias findfzf="find . | fzfpreview"
+function fzfp() {
+    fzf \
+        --preview \
+        "$(
+            if file --mime-type {} | grep -qF image/; then
+                echo 'kitty icat --clear --transfer-mode=memory --stdin=no --place"=${FZF_PREVIEW_COLUMNS"}"x${FZF_PREVIEW_LINES"}@0x0 {} | sed \$d'
+            else
+                echo 'bat --color=always {}'
+            fi
+        )"
+}
+_fzf_complete_fzfpreview() {
+    _fzf_complete_fzf "$@"
+}
+alias ffind="find . | fzfp"
+_fzf_complete_findfzf() {
+    _fzf_complete_fzf "$@"
+}
 
 # alias tnn='tilix -e nnn'
 
 alias pbcopy="xsel --clipboard --input"
+_fzf_complete_pbcopy() {
+    echo "completing pbcopy"
+    _fzf_complete_xsel "$@"
+}
 alias pbpaste="xsel --clipboard --output"
+_fzf_complete_pbpaste() {
+    _fzf_complete_xsel "$@"
+}
 
 alias copydir='pwd | pbcopy'
 
 alias numlines="wc --lines"
+_fzf_complete_numlines() {
+    _fzf_complete_wc "$@"
+}
 alias numwords="wc --words"
+_fzf_complete_numwords() {
+    _fzf_complete_wc "$@"
+}
 alias numchars="wc --chars"
+_fzf_complete_numchars() {
+    _fzf_complete_wc "$@"
+}
 
 # alias xterm="xterm -ti vt340"
 
 alias wscfg='code $HOME/workstation_config/.'
+_fzf_complete_wscfg() {
+    _fzf_complete_code "$@"
+}
 
 alias src='source $HOME/.zshrc'
 
-eval "$(thefuck --alias)"
+alias watchdir='watch -n 1 --color tree --prune -C'
+_fzf_complete_watchdir() {
+    _fzf_complete_watch "$@"
+}
+
+alias frf="${HOME}"'/workstation_config/bin/rfv.sh'
+alias menu="${HOME}"'/workstation_config/bin/fzfmenu.sh'

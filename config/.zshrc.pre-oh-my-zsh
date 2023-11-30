@@ -1,6 +1,7 @@
 # ~/.zshrc
 # Created by newuser for 5.8.1
 
-source "$HOME/.bash_profile"
+# source "$HOME/.bash_profile"
+source "$HOME/.zsh_history_config"
 
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"

@@ -14,14 +14,14 @@
 
 # Display the autocomplete list as you type (default: True).
 # When this is off, you can hit tab to see the suggestions.
-# auto_display_list = True
+auto_display_list = True
 
 # Syntax highlighting as you type (default: True).
-# syntax = True
+syntax = True
 
 # Display the arg spec (list of arguments) for callables,
 # when possible (default: True).
-# arg_spec = True
+arg_spec = True
 
 # History file (default: ~/.pythonhist):
 # hist_file = ~/.pythonhist

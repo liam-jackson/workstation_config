@@ -1,0 +1,2 @@
+docker login -u liamjackson
+dckr_pat_8iEXRYIjzXS98LghZJw-z5Fn1yw

@@ -14,7 +14,6 @@ import numpy as np
 try:
     from arepl_dump import dump
 except ImportError:
-
     def dump(*args, **kwargs):
         pass
 

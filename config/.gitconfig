@@ -3,9 +3,9 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[user]
-	name = Liam Jackson
-	email = liam@10beauty.co
+#[user]
+#	name = Liam Jackson
+#	email = liam@10beauty.co
 
 [core]
 #    pager = less -RFX

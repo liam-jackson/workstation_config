@@ -1,17 +1,13 @@
-/.vscode/**
-/config/.ten_b_rig_name
+.vscode/**
+config/.ten_b_rig_name
 
-# Ignore everything in ./.history/
+# Ignore everything in ./.history/ except for ./.history/.vscode/
 .history/*
+!.history/.vscode/
 
-# Exclude the specific ./.history/.vscode/ folder from the above rule
-!/.history/.vscode/
-
-# Now ignore everything in ./.history/.vscode/
+# Now ignore everything in ./.history/.vscode/ except those with "settings" in their name
 .history/.vscode/*
-
-# But don't ignore files with "settings" in their name in ./.history/.vscode/
-!/.history/.vscode/*settings*
+!.history/.vscode/*settings*
 
 *aws*
 *bash_history*

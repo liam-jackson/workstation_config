@@ -99,10 +99,10 @@ fi
 verbose_echo "Source directory: ${SRC_DIR}"
 # If no files are specified, use the files in the source directory.
 if [[ ${#file_args[@]} -eq 0 ]]; then
-	file_args=$(find "${SRC_DIR}" -maxdepth 1 -type f)
+	dir_files="$(find "${SRC_DIR}" -maxdepth 1 -type f)"
+	read -r -a file_args <"${dir_files}"
 fi
-verbose_echo "File arguments: "
-verbose_echo "${file_args}"
+verbose_echo "File arguments: ${file_args[*]}"
 
 if [[ ! -d ${CONFIG_DIR} ]]; then
 	read -p "Directory ${CONFIG_DIR} does not exist. Create? [y/n] " -r create_config_dir_response
@@ -166,8 +166,26 @@ undo_action() {
 	done
 }
 
+check_gitignore() {
+	if [[ -z ${1} ]]; then
+		return 0
+	elif [[ ${#1} -eq 1 ]]; then
+		return 0
+	fi
+
+	if [[ -f ${gitignore} ]]; then
+		if ! git check-ignore -q "$(basename "${1}")"; then
+			echo "${1}"
+		fi
+	else
+		# TODO: support a future use case if a different ~/**.gitignore should be honored
+		# If .gitignore doesn't exist, return all files:
+		${1}
+	fi
+}
+
 # Function to get the files, excluding those that match ./.gitignore patterns
-get_filtered_files() {
+get_filtered_files_from_dir() {
 	local source_dir="$1"
 	local find_results=""
 	local gitignore=".gitignore"
@@ -179,17 +197,9 @@ get_filtered_files() {
 	find_results=$(find "${source_dir}" -maxdepth 1 -type f)
 	[[ -z ${find_results} ]] && return 0
 
-	if [[ -f ${gitignore} ]]; then
-		for file_path in ${find_results}; do
-			if ! git check-ignore -q "$(basename "${file_path}")"; then
-				echo "${file_path}"
-			fi
-		done
-	else
-		# TODO: support a future use case if a different ~/**.gitignore should be honored
-		# If .gitignore doesn't exist, return all files:
-		${find_results}
-	fi
+	for file_name in ${find_results}; do
+		check_gitignore "${file_name}"
+	done
 }
 
 if ${undo}; then
@@ -197,7 +207,10 @@ if ${undo}; then
 	exit 0
 fi
 
-filtered_files=$(get_filtered_files "${SRC_DIR}")
+filtered_files=$(get_filtered_files_from_dir "${SRC_DIR}")
+verbose_echo "Filtered files: ${filtered_files}"
+echo
+filtered_files=$(check_gitignore "${filtered_files}")
 verbose_echo "Filtered files: ${filtered_files}"
 for file_name in ${filtered_files}; do
 	verbose_echo "File: ${file_name}"

@@ -67,11 +67,11 @@ COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+source ${ZSH}/oh-my-zsh.sh
 
 # User configuration
 
-source "$HOME/antigen.zsh"
+source "${HOME}/antigen.zsh"
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -84,6 +84,7 @@ antigen bundle lein
 antigen bundle command-not-found
 antigen bundle "MichaelAquilina/zsh-you-should-use"
 antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle Aloxaf/fzf-tab
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -91,7 +92,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 # Load the theme.
 antigen theme robbyrussell
 
-export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH="/usr/local/man:${MANPATH}"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -128,7 +129,7 @@ else
     if [ -f "/home/liam/miniconda3/etc/profile.d/conda.sh" ]; then
         . "/home/liam/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/liam/miniconda3/bin:$PATH"
+        export PATH="/home/liam/miniconda3/bin:${PATH}"
     fi
 fi
 unset __conda_setup
@@ -167,9 +168,15 @@ source_sh() {
     . "$@"
 }
 
-source_sh "$HOME/.bash_profile"
-
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+# source "${HOME}/workstation_config/src/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh"
+
+autoload -Uz compinit
+[[ -f "${HOME}/.fzf.zsh" ]] && source "${HOME}/.fzf.zsh"
+zstyle ':completion:*' menu select
+fpath+=~/.zfunc
+
+source_sh "$HOME/.bash_profile"
 
 #################################################
 ############# Start Starship Prompt #############

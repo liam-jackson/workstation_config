@@ -1,16 +1,6 @@
 #!/bin/bash
 # ~/.bash_profile
 
-# region History Config
-
-if [[ -n $ZSH_VERSION ]]; then
-	source "$HOME/.zsh_history_config"
-elif [[ -n $BASH_VERSION ]]; then
-	source "$HOME/.bash_history_config"
-fi
-
-# endregion History Config
-
 # region Prompt Colors
 
 # set a fancy prompt (non-color, unless we know we "want" color)
@@ -125,28 +115,42 @@ export GROFF_NO_SGR=1 # For Konsole and Gnome-terminal
 # region Environment Variables
 
 # Starship config:
-export STARSHIP_CONFIG="$HOME/.config/starship_ljackson.toml"
+export STARSHIP_CONFIG="${HOME}/.config/starship_ljackson.toml"
 
 # GOVEE API KEY:
 export API_KEY="a394ce42-5abc-45d2-9aa7-8690d5685d44"
 
 # MATLAB setup:
-export MATLAB_ROOT="$HOME/MATLAB/R2022b"
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$MATLAB_ROOT/bin/glnxa64:$MATLAB_ROOT/sys/os/glnxa64"
-export PATH=$PATH:$MATLAB_ROOT
+export MATLAB_ROOT="${HOME}/MATLAB/R2022b"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${MATLAB_ROOT}/bin/glnxa64:${MATLAB_ROOT}/sys/os/glnxa64"
+export PATH="${PATH}:${MATLAB_ROOT}"
 
-export LOCAL_INSTALL_DIR="$HOME/lib"
-export PATH="$LOCAL_INSTALL_DIR/bin:$PATH"
+export LOCAL_INSTALL_DIR="${HOME}/lib"
+export PATH="${LOCAL_INSTALL_DIR}/bin:${PATH}"
 
-export FZF_DEFAULT_OPTS="--layout=reverse
---info=inline
+export FZF_DEFAULT_OPTS="
+--multi
+--cycle
+--keep-right
+--filepath-word
+--layout=reverse
 --border
 --margin=1
---keep-right
+--info=inline
 --marker='+'
---multi"
+--ansi
+--tabstop=4
+--preview-window 'border-top'
+--bind 'ctrl-/:change-preview-window(75%|50%|25%|hidden|)'
+"
+export FZF_COMPLETION_OPTS="
+--border
+--info=inline
+--height 50%
+--preview-window 'right:60%:wrap'
+"
 
-export BAT_CONFIG_PATH="$HOME/workstation_config/config/bat/config"
+export BAT_CONFIG_PATH="${HOME}/workstation_config/config/bat/config"
 
 # export NNN_PLUG='f:finder;o:fzopen;p:mocq;d:diffs;t:preview-tui;v:imgview;n:nuke'
 export NNN_PLUG='f:finder;o:fzopen;p:mocq;d:diffs;t:preview-tui;v:imgview;n:nuke'

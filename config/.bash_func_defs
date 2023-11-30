@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/zsh
 # ~/.bash_func_defs
+# trap 'echo "sourced bash_func_defs again at $(date) by $$"' DEBUG
 
 isfile() {
 	for __f_name in "$@"; do
@@ -32,17 +33,17 @@ search-help-options() {
 	echo "_opts:$_opts"
 
 	# Check if command exists
-	if ! command -v $_func &>/dev/null; then
+	if ! command -v "$_func" &>/dev/null; then
 		echo "Command $_func could not be found"
 		return 1
 	fi
 
 	if ! "$_func" "$_help_flag" &>/dev/null; then
 		echo "Trying man..."
-		man $_func 2>&1 | egrep -n '^\s+(-['$_opts']){1,1}.*'
+		man "$_func" 2>&1 | egrep -n '^\s+(-['"$_opts"']){1,1}.*'
 	else
 		# Get the help output, then grep for the options
-		$_func $_help_flag 2>&1 | egrep '^\s+(-['$_opts']){1,1}.*'
+		$_func "$_help_flag" 2>&1 | egrep '^\s+(-['"$_opts"']){1,1}.*'
 	fi
 }
 
@@ -51,7 +52,7 @@ function test-pyqt-import() {
 		while [[ $CONDA_SHLVL -gt 0 ]]; do
 			conda deactivate
 		done
-		conda activate $1
+		conda activate "$1"
 	else
 		conda activate
 	fi
@@ -71,14 +72,64 @@ function test-pyqt-import() {
 ### Hydra convenience start:
 function py() { python "$@" "+setup=$TEN_B_RIG_NAME"; }
 
+fzf-delta() {
+	fzf --multi=2 \
+		--preview 'delta {+} --width=${FZF_PREVIEW_COLUMNS} || echo "Select 2 files using TAB"' \
+		--preview-window '~3'
+	# --preview "([ ! -s $temp_file ] && echo 'Select a file using TAB') || (diff -u $temp_file {} || true)"
+}
+
 ### Conda environment activation:
+fzf-conda-activate() {
+	choice=(
+		"$(
+			conda env list |
+				sed 's/\*/ /;1,2d' |
+				xargs -I {} bash -c '
+                name_path=( {} );
+                py_version=( $(${name_path[1]}/bin/python --version) );
+                echo ${name_path[0]} ${py_version[1]} ${name_path[1]}
+            ' |
+				column -t |
+				fzf --info=inline \
+					--border=rounded \
+					--bind "alt-d:reload()+change-preview()" \
+					--preview-window="right:50%" \
+					--preview-label=" environment packages " \
+					--preview=$'
+                    conda list -n {1} | sort
+                '
+		)"
+	)
+	[[ -z "$choice" ]] && return 0
+	choice="$(echo ${choice} | awk {'print $3'})" || return 1
+	conda activate ${choice}
+}
 condaa() {
-	conda activate "$1"
+	if [[ $# -gt 0 ]]; then
+		conda activate "$1"
+	else
+		zle
+		fzf-conda-activate && return 0
+	fi
 }
 
 ### Conda environment deactivation:
 condad() {
 	conda deactivate
+}
+
+function fman() {
+	if [[ $# -eq 0 ]]; then
+		zle
+		fzf-man-widget
+	else
+		man $1
+	fi
+}
+function fenv() {
+	env | fzf --preview "echo {} | cut -d'=' -f2" \
+		--bind "enter:execute(echo {} | tr -d '\n' | pbcopy)"
 }
 
 function reset-path() {
@@ -120,11 +171,11 @@ function clean-path-var() {
 }
 
 function upper() {
-	echo $1 | tr '[:lower:]' '[:upper:]'
+	echo "$1" | tr '[:lower:]' '[:upper:]'
 }
 
 function lower() {
-	echo $1 | tr '[:upper:]' '[:lower:]'
+	echo "$1" | tr '[:upper:]' '[:lower:]'
 }
 
 function sandbox() {
@@ -137,5 +188,93 @@ function sandbox() {
 		echo "Created temporary directory: $tmpdir"
 		cd "$tmpdir" || return 1
 	fi
-	code $tmpdir
+	code "$tmpdir"
+}
+
+if [[ -n $ZSH_VERSION ]]; then
+	fzf-man-widget() {
+		batman="man {1} | col -bx | bat --language=man --plain --color always --theme=\"Monokai Extended\""
+		man -k . | sort |
+			awk -v cyan=$(tput setaf 6) -v blue=$(tput setaf 4) -v res=$(tput sgr0) -v bld=$(tput bold) '{ $1=cyan bld $1; $2=res blue;} 1' |
+			fzf \
+				-q "$1" \
+				--ansi \
+				--tiebreak=begin \
+				--prompt=' Man > ' \
+				--preview-window '50%,rounded,<50(up,85%,border-bottom)' \
+				--preview "${batman}" \
+				--bind "enter:execute(man {1})" \
+				--bind "alt-c:+change-preview(cht.sh {1})+change-prompt(ﯽ Cheat > )" \
+				--bind "alt-m:+change-preview(${batman})+change-prompt( Man > )" \
+				--bind "alt-t:+change-preview(tldr {1})+change-prompt(ﳁ TLDR > )"
+		zle reset-prompt
+	}
+	# `Ctrl-H` keybinding to launch the widget (this widget works only on zsh, don't know how to do it on bash and fish
+	# (additionaly pressing`ctrl-backspace` will trigger the widget to be executed too because both share the same keycode)
+	bindkey '^h' fzf-man-widget
+	zle -N fzf-man-widget
+	# Icon used is nerdfont
+fi
+
+function get_color_code() {
+	local str="$1"
+	local hash=0
+	for ((i = 0; i < ${#str}; i++)); do
+		char="${str:$i:1}"
+		ord=$(printf '%d' "'$char")
+		hash=$(((hash * 31 + ord) % 7 + 31))
+	done
+	echo "$hash"
+}
+
+function cdd() {
+	builtin cd
+}
+
+function cd() {
+	if [[ "$#" != 0 ]]; then
+		builtin cd "$@"
+		return
+	fi
+
+	while true; do
+		local lsd=".."$'\n'"$(ls -pAFG --color=always | grep '/$' | sed 's;/$;;')"
+		IFS=$'\n' read -d "${IFS}" -A dirArray <<<"${lsd}"
+
+		# --bind='left:execute(cd ..)' --bind='right:execute(cd {})'
+		local dir=$(
+			for dir_entry in "${dirArray[@]}"; do
+				color=$(get_color_code "${dir_entry}")
+				printf $'\033['"%s"$'\033[0m\n' "${color}m${dir_entry}"
+			done | fzf --reverse --preview '
+				__cd_nxt=$(echo {});
+				__cd_path="$(echo $(pwd)/${__cd_nxt} | sed "s;//;/;")";
+				echo ${__cd_path};
+				echo;
+				ls -pAFG --color=always ${__cd_path};
+			'
+		)
+		[[ ${#dir} != 0 ]] || return 0
+		builtin cd "$dir" &>"/dev/null"
+	done
+}
+
+function lf() {
+	if [[ "$#" != 0 ]]; then
+		builtin ls -AFG "$@"
+		return
+	fi
+	while true; do
+		local lsd=$(echo ".." && ls -AFG | grep '/$' | sed 's;/$;;')
+		local dir="$(printf '%s\n' "${lsd[@]}" |
+			fzf --reverse --preview '
+                __cd_nxt="$(echo {})";
+                __cd_path="$(echo $(pwd)/${__cd_nxt} | sed "s;//;/;")";
+                echo $__cd_path;
+                echo;
+				ls -lAF --color=always "${__cd_path}";
+        ')"
+		[[ ${#dir} != 0 ]] || return 0
+		builtin cd "${dir}" &>"/dev/null" && builtin ls -lAF --color=always "${dir}"
+	done
 }
