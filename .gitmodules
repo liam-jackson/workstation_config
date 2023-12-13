@@ -7,3 +7,9 @@
 [submodule "nautilus-open-any-terminal"]
 	path = nautilus-open-any-terminal
 	url = git@github.com:Stunkymonkey/nautilus-open-any-terminal.git
+[submodule "src/zsh"]
+	path = src/zsh
+	url = git://git.code.sf.net/p/zsh/code
+[submodule "src/zsh-interactive-cd"]
+	path = src/zsh-interactive-cd
+	url = git@github.com:johannchangpro/zsh-interactive-cd.git

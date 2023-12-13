@@ -1,6 +1,8 @@
 #!/bin/zsh
 # ~/.zshrc: executed by zsh(1) for interactive shells.
 
+zmodload zsh/zprof
+
 # If not running interactively, don't do anything
 [[ $- == *i* ]] || return
 
@@ -20,7 +22,7 @@ ZSH_THEME="robbyrussell"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="true"
+# CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -55,7 +57,7 @@ COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -82,12 +84,13 @@ antigen bundle heroku
 antigen bundle pip
 antigen bundle lein
 antigen bundle command-not-found
-antigen bundle "MichaelAquilina/zsh-you-should-use"
 antigen bundle zsh-users/zsh-autosuggestions
+# antigen bundle goarano/zsh-packagemanager-fzf
 antigen bundle Aloxaf/fzf-tab
+antigen bundle ytet5uy4/fzf-widgets
 
 # Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zdharma-continuum/fast-syntax-highlighting
 
 # Load the theme.
 antigen theme robbyrussell
@@ -95,7 +98,7 @@ antigen theme robbyrussell
 export MANPATH="/usr/local/man:${MANPATH}"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -162,24 +165,46 @@ compctl -K _pip3_completion pip3
 # Tell Antigen that you're done.
 antigen apply
 
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi
+if [[ -f "${HOME}/.fzf.zsh" ]]; then
+    source "${HOME}/.fzf.zsh"
+fi
+
+autoload -Uz compinit
+compinit
+
+source "${HOME}/workstation_config/config/fzf/config"
+source "${HOME}/workstation_config/src/pip-fzf/pip_fzf.sh"
+source "${HOME}/workstation_config/src/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh"
+source "${HOME}/workstation_config/src/fzf/shell/key-bindings.zsh"
+
+zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}'
+zstyle ':completion:*' max-errors 2
+zstyle ':completion:*' menu select
+zstyle :compinstall filename '${HOME}/.zshrc'
+
 # source bash_profile, if desired. Be cautious of any Bash-specific syntax.
 source_sh() {
     emulate -LR sh
     . "$@"
 }
-
-[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
-# source "${HOME}/workstation_config/src/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh"
-
-autoload -Uz compinit
-[[ -f "${HOME}/.fzf.zsh" ]] && source "${HOME}/.fzf.zsh"
-zstyle ':completion:*' menu select
-fpath+=~/.zfunc
-
 source_sh "$HOME/.bash_profile"
+source "${HOME}/.bash_aliases"
+source "${HOME}/.bash_func_defs"
+source "${HOME}/Workspace/tenbeauty/.tenbeautyrc"
+source_sh "$HOME/.bash_profile"
+
+fpath=( ~/.zfunc "${fpath[@]}" )
 
 #################################################
 ############# Start Starship Prompt #############
 #################################################
 
 eval "$(starship init zsh)"
+
+fpath+=~/.zfunc

@@ -17,3 +17,10 @@ config/.ten_b_rig_name
 *zcompdump*
 *zsh_history*
 *zshrc.zwc*
+src/**
+src/**/bin/**
+src/**tar
+src/**tar.gz
+!src/**/*zsh*
+!src/**/*sh*
+*.diff

@@ -80,6 +80,34 @@ fzf-delta() {
 }
 
 ### Conda environment activation:
+# fzf-conda-activate() {
+# 	choice=(
+# 		$(
+# 			conda env list |
+# 				sed 's/\*/ /;1,2d' |
+# 				xargs -I {} bash -c '
+#                 name_path=( {} );
+#                 py_version=( $(${name_path[1]}/bin/python --version) );
+#                 echo ${name_path[0]} ${py_version[1]} ${name_path[1]}
+#             ' |
+# 				column -t |
+# 				fzf --layout=reverse \
+# 					--info=inline \
+# 					--border=rounded \
+# 					--height=40 \
+# 					--preview-window="right:30%" \
+# 					--preview-label=" conda tree leaves " \
+# 					--preview=$'
+#                     conda tree -p {3} leaves |
+#                     perl -F\'[^\\w-_]\' -lae \'print for grep /./, @F;\' |
+#                     sort
+#                 '
+# 		)
+# 	)
+# 	[[ -n "$choice" ]] && conda activate "$choice"
+# }
+
+### Conda environment activation:
 fzf-conda-activate() {
 	choice=(
 		"$(
@@ -88,21 +116,21 @@ fzf-conda-activate() {
 				xargs -I {} bash -c '
                 name_path=( {} );
                 py_version=( $(${name_path[1]}/bin/python --version) );
-                echo ${name_path[0]} ${py_version[1]} ${name_path[1]}
+                echo ${name_path[0]} ${py_version[1]}
             ' |
 				column -t |
 				fzf --info=inline \
 					--border=rounded \
-					--bind "alt-d:reload()+change-preview()" \
 					--preview-window="right:50%" \
-					--preview-label=" environment packages " \
+					--preview-label=" {1} packages " \
 					--preview=$'
                     conda list -n {1} | sort
                 '
 		)"
 	)
 	[[ -z "$choice" ]] && return 0
-	choice="$(echo ${choice} | awk {'print $3'})" || return 1
+	choice="$(echo ${choice} | awk {'print $1'})" || return 1
+	echo "Activating conda environment: ${choice}"
 	conda activate ${choice}
 }
 condaa() {
@@ -112,6 +140,21 @@ condaa() {
 		zle
 		fzf-conda-activate && return 0
 	fi
+}
+_fzf_complete_condaa() {
+	_fzf_complete --prompt="env >" -- "$@" < <(
+		conda env list |
+			sed 's/\*/ /;1,2d' |
+			xargs -I {} bash -c '
+				name_path=( {} );
+				py_version=( $(${name_path[1]}/bin/python --version) );
+				echo ${name_path[0]} ${py_version[1]}
+			' |
+			column -t
+	)
+}
+_fzf_complete_condaa_post() {
+	awk '{print $1}'
 }
 
 ### Conda environment deactivation:
@@ -193,7 +236,12 @@ function sandbox() {
 
 if [[ -n $ZSH_VERSION ]]; then
 	fzf-man-widget() {
-		batman="man {1} | col -bx | bat --language=man --plain --color always --theme=\"Monokai Extended\""
+		batman="man {1} | col -bx |
+		bat --language=man
+		--plain
+		--color always
+		--theme=\"Monokai Extended\"
+		"
 		man -k . | sort |
 			awk -v cyan=$(tput setaf 6) -v blue=$(tput setaf 4) -v res=$(tput sgr0) -v bld=$(tput bold) '{ $1=cyan bld $1; $2=res blue;} 1' |
 			fzf \
@@ -227,11 +275,14 @@ function get_color_code() {
 	echo "$hash"
 }
 
-function cdd() {
-	builtin cd
+function cdh() {
+	builtin cd ~
+}
+_fzf_complete_cdh() {
+	_fzf_complete_cd "$@"
 }
 
-function cd() {
+function cdd() {
 	if [[ "$#" != 0 ]]; then
 		builtin cd "$@"
 		return
@@ -258,6 +309,14 @@ function cd() {
 		builtin cd "$dir" &>"/dev/null"
 	done
 }
+_fzf_complete_cdd() {
+	_fzf_complete -- "$@"
+}
+
+function cdwscfg() {
+    cd "${HOME}/workstation_config/" || exit
+    conda deactivate
+}
 
 function lf() {
 	if [[ "$#" != 0 ]]; then
@@ -278,3 +337,35 @@ function lf() {
 		builtin cd "${dir}" &>"/dev/null" && builtin ls -lAF --color=always "${dir}"
 	done
 }
+
+# function show_colored() {
+# 	echo "$@" | awk '/Package:|Version:/{print "\033[1;31m" $0 "\033[0m"; next} /Description:/{print "\033[1;32m" $0 "\033[0m"; next} {print}'
+# }
+
+# function fapt() {
+# 	sudo apt -qq update
+# 	"${HOME}/workstation_config/bin/pkgsearch.sh"
+# 	# sudo apt -qq list --installed |
+# 	# 	sed 's/\[installed.*\]//;s/\/.*//' |
+# 	# 	sort >/tmp/apt-fzf-installed
+# 	# sudo apt -qq list |
+# 	# 	sed 's/\/.*//; /\[installed.*\]/d' |
+# 	# 	sort >/tmp/apt-fzf-available
+
+# 	# APT_AVAILABLE='cat /tmp/apt-fzf-available'
+# 	# APT_INSTALLED='cat /tmp/apt-fzf-installed'
+
+# 	# INITIAL_QUERY="${*:-}"
+# 	# : | fzf --ansi --disabled --query "${INITIAL_QUERY}" \
+# 	# 	--bind "start:reload(${APT_AVAILABLE})" \
+# 	# 	--bind "alt-r:change-prompt( REMOVE > )+unbind(alt-r)+rebind(alt-i)+reload(${APT_INSTALLED})" \
+# 	# 	--bind "alt-i:change-prompt(INSTALL > )+unbind(alt-i)+rebind(alt-r)+reload(${APT_AVAILABLE})" \
+# 	# 	--prompt 'INSTALL >' \
+# 	# 	--preview 'show_colored "$(apt show {})"' \
+# 	# 	--preview-window 'right:50%' \
+# 	# 	>'/tmp/apt-fzf-selections'
+
+# 	# cat /tmp/apt-fzf-selections
+
+# 	# /bin/rm -f /tmp/apt-fzf-{available, installed}
+# }

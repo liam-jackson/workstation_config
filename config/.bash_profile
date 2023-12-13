@@ -56,7 +56,7 @@ if [ -x "/usr/bin/dircolors" ]; then
 
 	alias diff='diff --color'
 	alias howdoi='howdoi --color'
-	alias less='less -RFX'
+	alias less='less -RFX --shift=10'
 fi
 
 # colored GCC warnings and errors
@@ -131,7 +131,7 @@ export PATH="${LOCAL_INSTALL_DIR}/bin:${PATH}"
 export FZF_DEFAULT_OPTS="
 --multi
 --cycle
---keep-right
+--hscroll-off=80
 --filepath-word
 --layout=reverse
 --border
@@ -142,13 +142,11 @@ export FZF_DEFAULT_OPTS="
 --tabstop=4
 --preview-window 'border-top'
 --bind 'ctrl-/:change-preview-window(75%|50%|25%|hidden|)'
+--bind shift-up:preview-up
+--bind shift-down:preview-down
 "
-export FZF_COMPLETION_OPTS="
---border
---info=inline
---height 50%
---preview-window 'right:60%:wrap'
-"
+export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree"
+export FZF_COMPLETION_OPTS="${FZF_DEFAULT_OPTS} --border --info=inline --prompt=' FZF  '"
 
 export BAT_CONFIG_PATH="${HOME}/workstation_config/config/bat/config"
 
@@ -162,8 +160,8 @@ export NNN_SEL="/tmp/.sel"
 
 # region Sourcing rc Files
 
-source "$HOME/.bash_aliases"
-source "$HOME/.bash_func_defs"
-source "$HOME/Workspace/tenbeauty/.tenbeautyrc"
+# source "${HOME}/.bash_aliases"
+# source "${HOME}/.bash_func_defs"
+# source "${HOME}/Workspace/tenbeauty/.tenbeautyrc"
 
 # endregion Sourcing rc Files

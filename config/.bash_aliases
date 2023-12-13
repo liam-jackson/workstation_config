@@ -5,7 +5,7 @@
 ############### Alias Definitions ###############
 #################################################
 
-alias cat='bat --paging=auto --color=auto'
+alias cat='bat'
 
 alias ll='ls -lAF --color=auto'
 alias lt='ls -lAF --sort=time --color=auto'
@@ -23,7 +23,10 @@ alias open="xdg-open"
 
 alias show_funcs="declare -F"
 
+alias binvox='${HOME}/Workspace/tenbeauty/ROM_analysis_pipeline/binvox'
 alias matlab='$MATLAB_ROOT/bin/matlab'
+alias python='python3'
+alias untar='tar -x -f'
 
 function fzfp() {
     fzf \
@@ -36,12 +39,12 @@ function fzfp() {
             fi
         )"
 }
-_fzf_complete_fzfpreview() {
+_fzf_complete_fzfp() {
     _fzf_complete_fzf "$@"
 }
 alias ffind="find . | fzfp"
-_fzf_complete_findfzf() {
-    _fzf_complete_fzf "$@"
+_fzf_complete_ffind() {
+    _fzf_complete_find "$@"
 }
 
 # alias tnn='tilix -e nnn'
@@ -78,12 +81,12 @@ _fzf_complete_wscfg() {
     _fzf_complete_code "$@"
 }
 
-alias src='source $HOME/.zshrc'
-
 alias watchdir='watch -n 1 --color tree --prune -C'
 _fzf_complete_watchdir() {
     _fzf_complete_watch "$@"
 }
 
-alias frf="${HOME}"'/workstation_config/bin/rfv.sh'
-alias menu="${HOME}"'/workstation_config/bin/fzfmenu.sh'
+alias frf='${HOME}/workstation_config/bin/rfv.sh'
+alias fapt='${HOME}/workstation_config/bin/pkgsearch.sh'
+alias menu='${HOME}/workstation_config/bin/fzfmenu.sh'
+alias src='source ${HOME}/.zshrc'
