@@ -106,6 +106,7 @@ export LANG=en_US.UTF-8
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR='nano'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -200,6 +201,11 @@ source "${HOME}/Workspace/tenbeauty/.tenbeautyrc"
 source_sh "$HOME/.bash_profile"
 
 fpath=( ~/.zfunc "${fpath[@]}" )
+fpath+=~/.zfunc
+
+autoload -U edit-command-line;
+zle -N edit-command-line;
+bindkey '^Fc' edit-command-line;
 
 #################################################
 ############# Start Starship Prompt #############
@@ -207,4 +213,3 @@ fpath=( ~/.zfunc "${fpath[@]}" )
 
 eval "$(starship init zsh)"
 
-fpath+=~/.zfunc
