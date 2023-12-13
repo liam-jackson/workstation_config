@@ -17,10 +17,14 @@ config/.ten_b_rig_name
 *zcompdump*
 *zsh_history*
 *zshrc.zwc*
-src/**
-src/**/bin/**
+src/Open3D
+src/Slicer*
+src/VTK*
+src/open3d
 src/**tar
 src/**tar.gz
+src/python_stubs
 !src/**/*zsh*
 !src/**/*sh*
+
 *.diff

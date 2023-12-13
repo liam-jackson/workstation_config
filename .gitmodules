@@ -1,11 +1,8 @@
-[submodule "tpm"]
-	path = tpm
-	url = https://github.com/tmux-plugins/tpm
-[submodule "tabbed"]
-	path = tabbed
+[submodule "src/tabbed"]
+	path = src/tabbed
 	url = https://git.suckless.org/tabbed
-[submodule "nautilus-open-any-terminal"]
-	path = nautilus-open-any-terminal
+[submodule "src/nautilus-open-any-terminal"]
+	path = src/nautilus-open-any-terminal
 	url = git@github.com:Stunkymonkey/nautilus-open-any-terminal.git
 [submodule "src/zsh"]
 	path = src/zsh
@@ -13,3 +10,24 @@
 [submodule "src/zsh-interactive-cd"]
 	path = src/zsh-interactive-cd
 	url = git@github.com:johannchangpro/zsh-interactive-cd.git
+[submodule "src/fzf-git"]
+	path = src/fzf-git
+	url = git@github.com:junegunn/fzf-git.sh.git
+[submodule "src/fzf"]
+	path = src/fzf
+	url = git@github.com:junegunn/fzf.git
+[submodule "src/pip-fzf"]
+	path = src/pip-fzf
+	url = git@github.com:paw-lu/pip-fzf.git
+[submodule "src/explainshell"]
+	path = src/explainshell
+	url = git@github.com:idank/explainshell.git
+[submodule "src/icons-in-terminal"]
+	path = src/icons-in-terminal
+	url = https://github.com/sebastiencs/icons-in-terminal.git
+[submodule "src/nnn"]
+	path = src/nnn
+	url = git@github.com:jarun/nnn.git
+[submodule "src/tmux"]
+	path = src/tmux
+	url = https://github.com/tmux/tmux.git
