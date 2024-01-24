@@ -2,11 +2,9 @@
 config/.ten_b_rig_name
 
 # Ignore everything in ./.history/ except for ./.history/.vscode/
-.history/*
-!.history/.vscode/
+.history/**
 
 # Now ignore everything in ./.history/.vscode/ except those with "settings" in their name
-.history/.vscode/*
 !.history/.vscode/*settings*
 
 *aws*

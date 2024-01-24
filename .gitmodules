@@ -31,3 +31,12 @@
 [submodule "src/tmux"]
 	path = src/tmux
 	url = https://github.com/tmux/tmux.git
+[submodule "src/entr"]
+	path = src/entr
+	url = git@github.com:eradman/entr.git
+[submodule "src/midnight-commander"]
+	path = src/midnight-commander
+	url = git://repo.or.cz/midnight-commander.git
+[submodule "src/zsh-autocomplete"]
+	path = src/zsh-autocomplete
+	url = https://github.com/marlonrichert/zsh-autocomplete.git

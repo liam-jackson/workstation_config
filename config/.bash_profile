@@ -56,25 +56,16 @@ if [ -x "/usr/bin/dircolors" ]; then
 
 	alias diff='diff --color'
 	alias howdoi='howdoi --color'
-	alias less='less -RFX --shift=10'
 fi
+alias less='less -RFX --shift=10 --mouse --header=1 --jump-target=2 --LINE-NUMBERS'
+export LESS='-RFX --shift=10 --mouse --header=1 --jump-target=2 --LINE-NUMBERS'
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+export MANPAGER="less $LESS -s -M +Gg"
+
 # # Have less display colours
-# # from: https://wiki.archlinux.org/index.php/Color_output_in_console#man
-# export LESS_TERMCAP_mb=$'\e[1;31m'     # begin bold
-# export LESS_TERMCAP_md=$'\e[1;33m'     # begin blink
-# export LESS_TERMCAP_so=$'\e[01;44;37m' # begin reverse video
-# export LESS_TERMCAP_us=$'\e[01;37m'    # begin underline
-# export LESS_TERMCAP_me=$'\e[0m'        # reset bold/blink
-# export LESS_TERMCAP_se=$'\e[0m'        # reset reverse video
-# export LESS_TERMCAP_ue=$'\e[0m'        # reset underline
-# export GROFF_NO_SGR=1                  # for konsole and gnome-terminal
-
-# export MANPAGER='less -s -M +Gg'
-
 export LESS_TERMCAP_mb=$(
 	tput bold
 	tput setaf 2
@@ -109,44 +100,13 @@ export LESS_TERMCAP_ZV=$(tput rsubm)
 export LESS_TERMCAP_ZO=$(tput ssupm)
 export LESS_TERMCAP_ZW=$(tput rsupm)
 export GROFF_NO_SGR=1 # For Konsole and Gnome-terminal
-
 # endregion Prompt Colors
 
 # region Environment Variables
+export EXA_ICON_SPACING=2
 
 # Starship config:
 export STARSHIP_CONFIG="${HOME}/.config/starship_ljackson.toml"
-
-# GOVEE API KEY:
-export API_KEY="a394ce42-5abc-45d2-9aa7-8690d5685d44"
-
-# MATLAB setup:
-export MATLAB_ROOT="${HOME}/MATLAB/R2022b"
-export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${MATLAB_ROOT}/bin/glnxa64:${MATLAB_ROOT}/sys/os/glnxa64"
-export PATH="${PATH}:${MATLAB_ROOT}"
-
-export LOCAL_INSTALL_DIR="${HOME}/lib"
-export PATH="${LOCAL_INSTALL_DIR}/bin:${PATH}"
-
-export FZF_DEFAULT_OPTS="
---multi
---cycle
---hscroll-off=80
---filepath-word
---layout=reverse
---border
---margin=1
---info=inline
---marker='+'
---ansi
---tabstop=4
---preview-window 'border-top'
---bind 'ctrl-/:change-preview-window(75%|50%|25%|hidden|)'
---bind shift-up:preview-up
---bind shift-down:preview-down
-"
-export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree"
-export FZF_COMPLETION_OPTS="${FZF_DEFAULT_OPTS} --border --info=inline --prompt=' FZF  '"
 
 export BAT_CONFIG_PATH="${HOME}/workstation_config/config/bat/config"
 
@@ -156,12 +116,5 @@ export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_TRASH=1
 export NNN_SEL="/tmp/.sel"
 
+export ENTR_INOTIFY_SYMLINK=1
 # endregion Environment Variables
-
-# region Sourcing rc Files
-
-# source "${HOME}/.bash_aliases"
-# source "${HOME}/.bash_func_defs"
-# source "${HOME}/Workspace/tenbeauty/.tenbeautyrc"
-
-# endregion Sourcing rc Files

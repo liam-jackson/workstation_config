@@ -1,10 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/zsh
 
 # Switch between Ripgrep launcher mode (CTRL-R) and fzf filtering mode (CTRL-F)
 /bin/rm -f /tmp/rg-fzf-{r,f}
-RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case --hidden "
 INITIAL_QUERY="${*:-}"
-: | fzf --ansi --disabled --query "$INITIAL_QUERY" \
+: | fzf --ansi --disabled --extended --query "$INITIAL_QUERY" \
     --bind "start:reload($RG_PREFIX {q})+unbind(ctrl-r)" \
     --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
     --bind "ctrl-f:unbind(change,ctrl-f)+change-prompt(2. fzf > )+enable-search+rebind(ctrl-r)+transform-query(echo {q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f)" \
@@ -14,5 +14,5 @@ INITIAL_QUERY="${*:-}"
     --delimiter : \
     --header '╱ CTRL-R (ripgrep mode) ╱ CTRL-F (fzf mode) ╱' \
     --preview 'bat --color=always {1} --highlight-line {2}' \
-    --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-    --bind 'enter:become(gedit {1} +{2})'
+    --preview-window 'up,60%,border-bottom,+{2}+3/3,~3'
+# --bind 'enter:become(gedit {1} +{2})

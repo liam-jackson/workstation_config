@@ -1,44 +1,69 @@
 #!/bin/zsh
 
-# if [[ -f "${HOME}/.fzf.zsh" ]]; then
-#     source "${HOME}/.fzf.zsh"
-# fi
+export FZF_DEFAULT_OPTS="
+--multi
+--cycle
+--hscroll-off=10
+--filepath-word
+--layout=reverse
+--border
+--margin=1
+--info=inline
+--marker='+'
+--ansi
+--tabstop=4
+--preview-window 'border-top'
+--bind 'ctrl-/:change-preview-window(75%|50%|25%|hidden|)'
+--bind shift-up:preview-up
+--bind shift-down:preview-down
+"
+export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree trash"
+export FZF_COMPLETION_OPTS="${FZF_DEFAULT_OPTS} --border --info=inline --prompt=' FZF  ' --bind=bspace:backward-delete-char/eof,ctrl-h:backward-delete-char/eof"
+
+# export FZF_CTRL_T_COMMAND="command -v exa --all --sort=type --oneline --color=always --icons"
+# export FZF_ALT_C_COMMAND="command -v exa --all --all --only-dirs --oneline --color=always --icons "
+
+# export FZF_CTRL_T_OPTS=""
+# export FZF_ALT_C_OPTS="${FZF_DEFAULT_OPTS} --prompt=' FZF  ' \
+# --preview='local sel; sel="\$(echo {} | cut -d' ' -f3-)"; \
+# 	[[ \$(file --mime-type \${sel}) =~ binary ]] && echo {} is a binary file || \$(bat ${sel})' \
+# 	"
 
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 
 # Map widgets to key
-bindkey '^@'  fzf-select-widget
-bindkey '^@.' fzf-edit-dotfiles
-bindkey '^@c' fzf-change-directory
-bindkey '^@n' fzf-change-named-directory
-bindkey '^@f' fzf-edit-files
-bindkey '^@k' fzf-kill-processes
-bindkey '^@s' fzf-exec-ssh
-bindkey '^\'  fzf-change-recent-directory
-bindkey '^r'  fzf-insert-history
-bindkey '^xf' fzf-insert-files
-bindkey '^xd' fzf-insert-directory
-bindkey '^xn' fzf-insert-named-directory
+bindkey '^@' fzf-select-widget
+# bindkey '^@.' fzf-edit-dotfiles
+# bindkey '^@c' fzf-change-directory
+# bindkey '^@n' fzf-change-named-directory
+# bindkey '^@f' fzf-edit-files
+bindkey '^kp' fzf-kill-processes
+# bindkey '^@s' fzf-exec-ssh
+bindkey '\e[' fzf-change-recent-directory
+bindkey '\e]' fzf-insert-history
+bindkey '\ef' fzf-insert-files
+bindkey '\ed' fzf-insert-directory
+# bindkey '^xn' fzf-insert-named-directory
 
 ## Git
-bindkey '^@g'  fzf-select-git-widget
-bindkey '^@ga' fzf-git-add-files
-bindkey '^@gc' fzf-git-change-repository
+bindkey '^gg' fzf-select-git-widget
+bindkey '^ga' fzf-git-add-files
+bindkey '^gc' fzf-git-change-repository
 
 # GitHub
-bindkey '^@h'  fzf-select-github-widget
-bindkey '^@hs' fzf-github-show-issue
-bindkey '^@hc' fzf-github-close-issue
+# bindkey '^@h' fzf-select-github-widget
+# bindkey '^@hs' fzf-github-show-issue
+# bindkey '^@hc' fzf-github-close-issue
 
 ## Docker
-bindkey '^@d'  fzf-select-docker-widget
-bindkey '^@dc' fzf-docker-remove-containers
-bindkey '^@di' fzf-docker-remove-images
-bindkey '^@dv' fzf-docker-remove-volumes
+# bindkey '^@d' fzf-select-docker-widget
+# bindkey '^@dc' fzf-docker-remove-containers
+# bindkey '^@di' fzf-docker-remove-images
+# bindkey '^@dv' fzf-docker-remove-volumes
 
 # Enable Exact-match by fzf-insert-history
 # FZF_WIDGET_OPTS[insert-history]='--exact'
 
 # Start fzf in a tmux pane
-FZF_WIDGET_TMUX=1
+# FZF_WIDGET_TMUX=1

@@ -1,13 +1,71 @@
 #!/bin/zsh
-# ~/.zshrc: executed by zsh(1) for interactive shells.
 
-zmodload zsh/zprof
+# zmodload zsh/zprof
 
 # If not running interactively, don't do anything
 [[ $- == *i* ]] || return
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+fpath=(~/.zfunc "${fpath[@]}")
+
+export ZSH="${HOME}/.oh-my-zsh"
+
+export LANG=en_US.UTF-8
+export EDITOR='nano'
+export VISUAL='code'
+
+export LOCAL_INSTALL_DIR="${HOME}/lib"
+export LOCAL_INSTALL_DIR="${LOCAL_INSTALL_DIR}:${HOME}/.local"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${LOCAL_INSTALL_DIR}/lib:/usr/local/lib"
+
+export MANPATH="/usr/local/man:${MANPATH}"
+export MANPATH="/snap/htop/current/usr/local/share/man:${MANPATH}"
+
+export XDG_DATA_HOME="${HOME}/.local/share"
+export _ZO_ECHO=1
+export _ZO_EXCLUDE_DIRS="${HOME}"
+export _ZO_FZF_OPTS="--height 40% --layout=reverse --border --ansi --preview-window=right:60% --preview '[[ \$(file --mime-type {}) =~ binary ]] && echo {} is a binary file || (bat --color=always --style=numbers --line-range :500 {} || cat {}) 2> /dev/null | head -500'"
+export _ZO_MAXAGE=2000
+export _ZO_RESOLVE_SYMLINKS=1
+
+export WORKSPACE_PATH="${HOME}/Workspace"
+export WORKSPACE_DIR="${WORKSPACE_PATH}"
+
+export PYTHONPATH="${HOME}/bin:${PYTHONPATH}"
+
+export PATH="${PATH}:${LOCAL_INSTALL_DIR}/bin"
+export PATH="${PATH}:/usr/local/go/bin"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/liam/miniconda3/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/liam/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/liam/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/liam/miniconda3/bin:${PATH}"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git copybuffer web-search safe-paste zman)
+
+source "${ZSH}/oh-my-zsh.sh"
+
+# User configuration
+source "${HOME}/antigen.zsh"
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+antigen bundle esc/conda-zsh-completion
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -26,7 +84,7 @@ ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
@@ -50,9 +108,8 @@ zstyle ':omz:update' frequency 6
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
-COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 # Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -62,84 +119,8 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
-source ${ZSH}/oh-my-zsh.sh
-
-# User configuration
-
-source "${HOME}/antigen.zsh"
-
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
-
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle git
-antigen bundle heroku
-antigen bundle pip
-antigen bundle lein
-antigen bundle command-not-found
-antigen bundle zsh-users/zsh-autosuggestions
-# antigen bundle goarano/zsh-packagemanager-fzf
-antigen bundle Aloxaf/fzf-tab
-antigen bundle ytet5uy4/fzf-widgets
-
-# Syntax highlighting bundle.
-antigen bundle zdharma-continuum/fast-syntax-highlighting
-
 # Load the theme.
 antigen theme robbyrussell
-
-export MANPATH="/usr/local/man:${MANPATH}"
-
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-export EDITOR='nano'
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-setopt EXTENDED_GLOB
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/liam/miniconda3/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/liam/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/liam/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/liam/miniconda3/bin:${PATH}"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-antigen bundle esc/conda-zsh-completion
 
 # Custom pip completion
 _pip_completion() {
@@ -163,25 +144,54 @@ _pip3_completion() {
 }
 compctl -K _pip3_completion pip3
 
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle heroku
+antigen bundle pip
+antigen bundle lein
+antigen bundle command-not-found
+antigen bundle lukechilds/zsh-better-npm-completion
+antigen bundle Aloxaf/fzf-tab
+antigen bundle ytet5uy4/fzf-widgets
+antigen bundle 'NullSense/fuzzy-sys'
+antigen bundle zsh-users/zsh-autosuggestions
+
+# Syntax highlighting bundle.
+antigen bundle zdharma-continuum/fast-syntax-highlighting
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+setopt EXTENDED_GLOB
+
 # Tell Antigen that you're done.
 antigen apply
 
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
+    source /etc/profile.d/vte.sh
 fi
+
 if [[ -f "${HOME}/.fzf.zsh" ]]; then
     source "${HOME}/.fzf.zsh"
 fi
-
-autoload -Uz compinit
-compinit
 
 source "${HOME}/workstation_config/config/fzf/config"
 source "${HOME}/workstation_config/src/pip-fzf/pip_fzf.sh"
 source "${HOME}/workstation_config/src/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh"
 source "${HOME}/workstation_config/src/fzf/shell/key-bindings.zsh"
+source "${HOME}/workstation_config/src/fzf-git/fzf-git.sh"
+source "${HOME}/.cargo/env"
+
+# source bash_profile, if desired. Be cautious of any Bash-specific syntax.
+source_sh() {
+    emulate -LR sh
+    . "$@"
+}
+source "${HOME}/.bash_profile"
+source "${HOME}/.bash_aliases"
+source "${HOME}/.bash_func_defs"
+source "${WORKSPACE_PATH}/tenbeauty/.tenbeautyrc"
 
 zstyle ':completion:*' completer _complete _ignored _approximate
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}'
@@ -189,27 +199,11 @@ zstyle ':completion:*' max-errors 2
 zstyle ':completion:*' menu select
 zstyle :compinstall filename '${HOME}/.zshrc'
 
-# source bash_profile, if desired. Be cautious of any Bash-specific syntax.
-source_sh() {
-    emulate -LR sh
-    . "$@"
-}
-source_sh "$HOME/.bash_profile"
-source "${HOME}/.bash_aliases"
-source "${HOME}/.bash_func_defs"
-source "${HOME}/Workspace/tenbeauty/.tenbeautyrc"
-source_sh "$HOME/.bash_profile"
-
-fpath=( ~/.zfunc "${fpath[@]}" )
-fpath+=~/.zfunc
-
-autoload -U edit-command-line;
-zle -N edit-command-line;
-bindkey '^Fc' edit-command-line;
+autoload -Uz compinit && compinit
 
 #################################################
 ############# Start Starship Prompt #############
 #################################################
 
+eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
-

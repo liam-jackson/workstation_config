@@ -78,6 +78,9 @@ source /home/liam/.bash_completions/nbpreview.sh
 # endregion Conda Setup
 
 source "$HOME/.bash_profile"
+source "$HOME/.bash_aliases"
+source "$HOME/.bash_func_defs"
+source "$HOME/workstation_config/config/.tenbeautyrc"
 [[ -f "${HOME}/.fzf.bash" ]] && source "${HOME}/.fzf.bash"
 
 #################################################
@@ -85,3 +88,4 @@ source "$HOME/.bash_profile"
 #################################################
 
 eval "$(starship init bash)"
+. "$HOME/.cargo/env"

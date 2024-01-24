@@ -1,17 +1,11 @@
-#!/usr/bin/bash
-# ~/.tenbeautyrc
+#!/usr/bin/zsh
 
 ##################################################
 ############## Paths to Directories ##############
 ##################################################
 
-export WORKSPACE_PATH="${HOME}/Workspace"
 export TENBEAUTY_PATH="${WORKSPACE_PATH}/tenbeauty"
-
-export LOCAL_INSTALL_DIR="${LOCAL_INSTALL_DIR}:${HOME}/.local"
-export PATH="${PATH}:${LOCAL_INSTALL_DIR}/bin"
-export PATH="${PATH}:${TENBEAUTY_PATH}/ROM_analysis_pipeline/binvox"
-export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${LOCAL_INSTALL_DIR}/lib:/usr/local/lib"
+export TENBEAUTY_DIR="${WORKSPACE_PATH}/tenbeauty"
 
 export AARCH64GCC_DIR=/usr
 
@@ -21,9 +15,100 @@ export PYTHONPATH="${TENBEAUTY_PATH}:${PYTHONPATH}"
 ############### Alias Definitions ################
 ##################################################
 
-# git shortcuts
-alias gss="git status"
-alias gsu="git status -uno"
+cdt() {
+    if [[ $# -gt 0 ]]; then
+        cd "$1" || exit
+    else
+        cd "${TENBEAUTY_PATH}" || exit
+    fi
+}
+_fzf_complete_cdt() {
+    _fzf_complete +m --reverse --border --ansi \
+        --preview 'exa --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+            fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${TENBEAUTY_PATH}"
+        )
+}
+
+function cdvp() {
+    if [[ $# -gt 0 ]]; then
+        cd "$1" || exit
+    else
+        cd "${TENBEAUTY_PATH}/vision_pipeline/" || exit
+    fi
+    conda activate vision
+    clear
+}
+_fzf_complete_cdvp() {
+    _fzf_complete +m --reverse --border --ansi \
+        --preview 'exa --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+            fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${TENBEAUTY_PATH}/vision_pipeline/"
+        )
+}
+
+function cdvr() {
+    if [[ $# -gt 0 ]]; then
+        cd "$1" || exit
+    else
+        cd "${TENBEAUTY_PATH}/vis_pipe_ref/" || exit
+    fi
+    conda activate vision
+    clear
+}
+_fzf_complete_cdvr() {
+    _fzf_complete +m --reverse --border --ansi \
+        --preview 'exa --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+            fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${TENBEAUTY_PATH}/vis_pipe_ref/"
+        )
+}
+
+function cdvhc() {
+    if [[ $# -gt 0 ]]; then
+        cd "$1" || exit
+    else
+        cd "${TENBEAUTY_PATH}/vision_hardware_control/" || exit
+    fi
+    conda deactivate
+}
+_fzf_complete_cdvhc() {
+    _fzf_complete +m --reverse --border --ansi \
+        --preview 'exa --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+            fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${TENBEAUTY_PATH}/vision_hardware_control/"
+        )
+}
+
+function cdpp() {
+    if [[ $# -gt 0 ]]; then
+        cd "$1" || exit
+    else
+        cd "${TENBEAUTY_PATH}/path_planner_cpp/" || exit
+    fi
+    conda deactivate
+}
+_fzf_complete_cdpp() {
+    _fzf_complete +m --reverse --border --ansi \
+        --preview 'exa --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+            fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${TENBEAUTY_PATH}/path_planner_cpp/"
+        )
+}
+
+function cdrap() {
+    if [[ $# -gt 0 ]]; then
+        cd "$1" || exit
+    else
+        cd "${TENBEAUTY_PATH}/ROM_analysis_pipeline/" || exit
+    fi
+    while [[ ${CONDA_SHLVL} -gt 0 ]]; do
+        conda deactivate
+    done
+    conda deactivate
+    conda activate vision_vtk
+}
+_fzf_complete_cdrap() {
+    _fzf_complete +m --reverse --border --ansi \
+        --preview 'exa --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+            fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${TENBEAUTY_PATH}/ROM_analysis_pipeline/"
+        )
+}
 
 ##################################################
 ############## Function Definitions ##############
@@ -44,46 +129,7 @@ function set-gantry() {
     echo "$TEN_B_RIG_NAME" >"$HOME/.ten_b_rig_name"
 }
 
-### Switch to most used working dir:
-function cdt() {
-    cd "${TENBEAUTY_PATH}" || exit
-}
-
-function cdvp() {
-    cd "${TENBEAUTY_PATH}/vision_pipeline/" || exit
-    conda activate vision
-    clear
-    if [[ $# -gt 0 ]]; then
-        set-gantry "$1"
-    fi
-}
-
-function cdvr() {
-    cd "${TENBEAUTY_PATH}/vis_pipe_ref/" || exit
-    conda activate vision
-    clear
-    if [[ $# -gt 0 ]]; then
-        set-gantry "$1"
-    fi
-}
-
-function cdvhc() {
-    cd "${TENBEAUTY_PATH}/vision_hardware_control/" || exit
-    conda deactivate
-}
-
-function cdpp() {
-    cd "${TENBEAUTY_PATH}/path_planner_cpp/" || exit
-    conda deactivate
-}
-
-function cdrap() {
-    cd "${TENBEAUTY_PATH}/ROM_analysis_pipeline/" || exit
-    conda deactivate
-    conda activate vision_vtk
-}
-
-ppverbosefunc() {
+function ppverbosefunc() {
     ppsrc_path="${HOME}/Workspace/tenbeauty/build/path_planner_cpp/src"
     cd "${ppsrc_path}" || {
         echo "${ppsrc_path} not a directory!"
@@ -97,6 +143,9 @@ ppverbosefunc() {
 ##################################################
 ########## Vision Environment Variables ##########
 ##################################################
+
+### Hydra convenience start:
+function py() { python "$@" "+setup=$TEN_B_RIG_NAME"; }
 
 if [ -e "${HOME}/.ten_b_rig_name" ] &&
     [ -n "$(cat "${HOME}"/.ten_b_rig_name)" ]; then

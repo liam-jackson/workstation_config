@@ -2,83 +2,77 @@
 # ~/.bash_func_defs
 # trap 'echo "sourced bash_func_defs again at $(date) by $$"' DEBUG
 
-isfile() {
+# To use custom commands instead of find, override _fzf_compgen_{path,dir}
+_fzf_compgen_path() {
+	command exa --all --color=always "$1" 2>/dev/null
+}
+
+_fzf_compgen_dir() {
+	command exa --all --only-dirs --color=always "$1" 2>/dev/null
+}
+
+function cdh() {
+	if [[ $# -gt 0 ]]; then
+		cd "$1" || exit
+	else
+		cd "${HOME}" || exit
+	fi
+}
+_fzf_complete_cdh() {
+	_fzf_complete +m --reverse --border --ansi \
+		--preview 'exa --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+			dir -a -1 "${HOME}"
+			# fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${HOME}"
+		)
+}
+
+function cdwscfg() {
+	if [[ $# -gt 0 ]]; then
+		cd "$1" || exit
+	else
+		cd "${HOME}/workstation_config/" || exit
+	fi
+	conda deactivate
+}
+_fzf_complete_cdwscfg() {
+	_fzf_complete +m --reverse --border --ansi \
+		--preview 'exa --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+			fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${HOME}/workstation_config/"
+		)
+}
+
+function fzfp() {
+	fzf \
+		--preview \
+		"$(
+			if file --mime-type {} | grep image; then
+				echo 'kitty icat --clear --transfer-mode=memory --stdin=no --place"=${FZF_PREVIEW_COLUMNS"}"x${FZF_PREVIEW_LINES"}@0x0 {} | sed \$d'
+			else
+				echo 'cat --color=always {}'
+			fi
+		)"
+}
+
+function isfile() {
 	for __f_name in "$@"; do
 		test -f "$__f_name" && echo "+++ $__f_name exists. +++" || echo "--- $__f_name does not exist. ---"
 	done
 }
 
-isdir() {
+function isdir() {
 	for __dir_name in "$@"; do
 		test -d "$__dir_name" && echo "+++ $__dir_name exists. +++" || echo "--- $__dir_name does not exist. ---"
 	done
 }
 
-search-help-options() {
-	if [[ $# -lt 3 ]]; then
-		echo -e "usage: check-options <FUNC> <HELP_FLAG> <SHORT-OPTS>\n
-        If you have a list of short options that are used for a function and want to know what they do:\n
-        \tfunc [FUNC]      - function of interest
-        \thelp [HELP_FLAG] - the flag that shows the function's help.
-        \t[...]            - options as a concatenated sequence.\n"
-		return 0
-	fi
-
-	local _func=$1
-	local _help_flag=$2
-	local _opts=$3
-
-	echo "_func:$_func"
-	echo "_help_flag:$_help_flag"
-	echo "_opts:$_opts"
-
-	# Check if command exists
-	if ! command -v "$_func" &>/dev/null; then
-		echo "Command $_func could not be found"
-		return 1
-	fi
-
-	if ! "$_func" "$_help_flag" &>/dev/null; then
-		echo "Trying man..."
-		man "$_func" 2>&1 | egrep -n '^\s+(-['"$_opts"']){1,1}.*'
-	else
-		# Get the help output, then grep for the options
-		$_func "$_help_flag" 2>&1 | egrep '^\s+(-['"$_opts"']){1,1}.*'
-	fi
-}
-
-function test-pyqt-import() {
-	if [[ $# -gt 0 ]]; then
-		while [[ $CONDA_SHLVL -gt 0 ]]; do
-			conda deactivate
-		done
-		conda activate "$1"
-	else
-		conda activate
-	fi
-	python -c "from PyQt5.QtCore import Qt" 2>/tmp/pyqt_err
-
-	if [[ $? -ne 0 ]]; then
-		echo -e "Python import in $1 environment failed with the following error:\n"
-		cat /tmp/pyqt_err
-		while [[ $CONDA_SHLVL -gt 0 ]]; do
-			conda deactivate
-		done
-	else
-		echo "Python import was successful!"
-	fi
-}
-
-### Hydra convenience start:
-function py() { python "$@" "+setup=$TEN_B_RIG_NAME"; }
-
-fzf-delta() {
+function fzf-delta() {
 	fzf --multi=2 \
 		--preview 'delta {+} --width=${FZF_PREVIEW_COLUMNS} || echo "Select 2 files using TAB"' \
 		--preview-window '~3'
 	# --preview "([ ! -s $temp_file ] && echo 'Select a file using TAB') || (diff -u $temp_file {} || true)"
 }
 
+# region conda fzf env act
 ### Conda environment activation:
 # fzf-conda-activate() {
 # 	choice=(
@@ -106,9 +100,10 @@ fzf-delta() {
 # 	)
 # 	[[ -n "$choice" ]] && conda activate "$choice"
 # }
+# endregion conda fzf env act
 
 ### Conda environment activation:
-fzf-conda-activate() {
+function fzf-conda-activate() {
 	choice=(
 		"$(
 			conda env list |
@@ -133,6 +128,7 @@ fzf-conda-activate() {
 	echo "Activating conda environment: ${choice}"
 	conda activate ${choice}
 }
+
 condaa() {
 	if [[ $# -gt 0 ]]; then
 		conda activate "$1"
@@ -142,23 +138,30 @@ condaa() {
 	fi
 }
 _fzf_complete_condaa() {
-	_fzf_complete --prompt="env >" -- "$@" < <(
-		conda env list |
-			sed 's/\*/ /;1,2d' |
-			xargs -I {} bash -c '
+	_fzf_complete --info=inline \
+		--border=rounded \
+		--preview-window="right:50%" \
+		--preview-label=" {1} packages " \
+		--preview=$'
+                    conda list -n {1} | sort
+                ' \
+		--prompt="env >" -- "$@" < <(
+			conda env list |
+				sed 's/\*/ /;1,2d' |
+				xargs -I {} bash -c '
 				name_path=( {} );
 				py_version=( $(${name_path[1]}/bin/python --version) );
 				echo ${name_path[0]} ${py_version[1]}
 			' |
-			column -t
-	)
+				column -t
+		)
 }
 _fzf_complete_condaa_post() {
 	awk '{print $1}'
 }
 
 ### Conda environment deactivation:
-condad() {
+function condad() {
 	conda deactivate
 }
 
@@ -170,9 +173,20 @@ function fman() {
 		man $1
 	fi
 }
+
 function fenv() {
-	env | fzf --preview "echo {} | cut -d'=' -f2" \
-		--bind "enter:execute(echo {} | tr -d '\n' | pbcopy)"
+	: | command='env' | fzf \
+		--preview 'echo {} | cut -d'=' -f2 '
+	#  \
+	# 	--bind "enter:execute(echo {} | tr -d '\n' | pbcopy)"
+}
+
+function upper() {
+	echo "$1" | tr '[:lower:]' '[:upper:]'
+}
+
+function lower() {
+	echo "$1" | tr '[:upper:]' '[:lower:]'
 }
 
 function reset-path() {
@@ -213,14 +227,6 @@ function clean-path-var() {
 	python3 ~/clean_path_var.py -n "$input_var"
 }
 
-function upper() {
-	echo "$1" | tr '[:lower:]' '[:upper:]'
-}
-
-function lower() {
-	echo "$1" | tr '[:upper:]' '[:lower:]'
-}
-
 function sandbox() {
 	local tmpdir="$(mktemp -d -t sandbox-$(date +%Y-%m-%d-%H-%M-%S)-XXXXXX)"
 
@@ -236,10 +242,10 @@ function sandbox() {
 
 if [[ -n $ZSH_VERSION ]]; then
 	fzf-man-widget() {
-		batman="man {1} | col -bx |
-		bat --language=man
-		--plain
-		--color always
+		batman="man {1} | col -bx | \
+		bat --language=man \
+		--plain \
+		--color always \
 		--theme=\"Monokai Extended\"
 		"
 		man -k . | sort |
@@ -275,13 +281,6 @@ function get_color_code() {
 	echo "$hash"
 }
 
-function cdh() {
-	builtin cd ~
-}
-_fzf_complete_cdh() {
-	_fzf_complete_cd "$@"
-}
-
 function cdd() {
 	if [[ "$#" != 0 ]]; then
 		builtin cd "$@"
@@ -308,14 +307,6 @@ function cdd() {
 		[[ ${#dir} != 0 ]] || return 0
 		builtin cd "$dir" &>"/dev/null"
 	done
-}
-_fzf_complete_cdd() {
-	_fzf_complete -- "$@"
-}
-
-function cdwscfg() {
-    cd "${HOME}/workstation_config/" || exit
-    conda deactivate
 }
 
 function lf() {
