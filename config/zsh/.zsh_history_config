@@ -1,0 +1,52 @@
+#!/bin/zsh
+# echo "entered .zsh_history_config"
+
+# Save 100,000 lines of history in memory
+HISTSIZE=100000
+# Save 2,000,000 lines of history to disk
+SAVEHIST=2000000
+# History file
+HISTFILE=~/.zsh_history
+
+# Append to history instead of overwrite
+setopt APPEND_HISTORY
+
+# Ignore redundant or space commands
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+
+# Ignore specific commands
+HISTIGNORE="ls:ll:ls -alh:pwd:clear:history:echo:clear:exit"
+# There is no direct HISTIGNORE in Zsh but you can simulate this feature with a hook
+zshaddhistory() {
+    emulate -L zsh
+    local cmd="$1"
+    case "$cmd" in
+    $HISTIGNORE)
+        return 1
+        ;;
+    *)
+        return 0
+        ;;
+    esac
+}
+
+# Set time format (Zsh uses `print -P` formatting)
+# This will prepend the current timestamp as an EPOCH time to each history entry
+setopt EXTENDED_HISTORY
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="%Y-%m-%d-%H%M"
+
+# Multiple commands on one line show up as a single line
+setopt INC_APPEND_HISTORY
+
+# Append new history lines, clear the history list, re-read the history list, print prompt.
+# Note: history management is automatically handled in Zsh so we don't need an equivalent for PROMPT_COMMAND
+# However, you could use the precmd hook for similar functionality if needed.

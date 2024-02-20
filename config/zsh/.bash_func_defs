@@ -1,0 +1,362 @@
+#!/usr/bin/zsh
+# ~/.bash_func_defs
+# trap 'echo "sourced bash_func_defs again at $(date) by $$"' DEBUG
+
+# To use custom commands instead of find, override _fzf_compgen_{path,dir}
+_fzf_compgen_path() {
+	command exa --all --color=always "$1" 2>/dev/null
+}
+
+_fzf_compgen_dir() {
+	command exa --all --only-dirs --color=always "$1" 2>/dev/null
+}
+
+function cdh() {
+	if [[ $# -gt 0 ]]; then
+		cd "$1" || exit
+	else
+		cd "${HOME}" || exit
+	fi
+}
+_fzf_complete_cdh() {
+	_fzf_complete +m --reverse --border --ansi \
+		--preview 'exa --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+			dir -a -1 "${HOME}"
+			# fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${HOME}"
+		)
+}
+
+function cdwscfg() {
+	if [[ $# -gt 0 ]]; then
+		cd "$1" || exit
+	else
+		cd "${HOME}/workstation_config/" || exit
+	fi
+	conda deactivate
+}
+_fzf_complete_cdwscfg() {
+	_fzf_complete +m --reverse --border --ansi \
+		--preview 'exa --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+			fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${HOME}/workstation_config/"
+		)
+}
+
+function fzfp() {
+	fzf \
+		--preview \
+		"$(
+			if file --mime-type {} | grep image; then
+				echo 'kitty icat --clear --transfer-mode=memory --stdin=no --place"=${FZF_PREVIEW_COLUMNS"}"x${FZF_PREVIEW_LINES"}@0x0 {} | sed \$d'
+			else
+				echo 'bat --color=always {}'
+			fi
+		)"
+}
+
+function isfile() {
+	for __f_name in "$@"; do
+		test -f "$__f_name" && echo "+++ $__f_name exists. +++" || echo "--- $__f_name does not exist. ---"
+	done
+}
+
+function isdir() {
+	for __dir_name in "$@"; do
+		test -d "$__dir_name" && echo "+++ $__dir_name exists. +++" || echo "--- $__dir_name does not exist. ---"
+	done
+}
+
+function fzf-delta() {
+	fzf --multi=2 \
+		--preview 'delta {+} --width=${FZF_PREVIEW_COLUMNS} || echo "Select 2 files using TAB"' \
+		--preview-window '~3'
+	# --preview "([ ! -s $temp_file ] && echo 'Select a file using TAB') || (diff -u $temp_file {} || true)"
+}
+
+# region conda fzf env act
+### Conda environment activation:
+# fzf-conda-activate() {
+# 	choice=(
+# 		$(
+# 			conda env list |
+# 				sed 's/\*/ /;1,2d' |
+# 				xargs -I {} bash -c '
+#                 name_path=( {} );
+#                 py_version=( $(${name_path[1]}/bin/python --version) );
+#                 echo ${name_path[0]} ${py_version[1]} ${name_path[1]}
+#             ' |
+# 				column -t |
+# 				fzf --layout=reverse \
+# 					--info=inline \
+# 					--border=rounded \
+# 					--height=40 \
+# 					--preview-window="right:30%" \
+# 					--preview-label=" conda tree leaves " \
+# 					--preview=$'
+#                     conda tree -p {3} leaves |
+#                     perl -F\'[^\\w-_]\' -lae \'print for grep /./, @F;\' |
+#                     sort
+#                 '
+# 		)
+# 	)
+# 	[[ -n "$choice" ]] && conda activate "$choice"
+# }
+# endregion conda fzf env act
+
+### Conda environment activation:
+function fzf-conda-activate() {
+	choice=(
+		"$(
+			conda env list |
+				sed 's/\*/ /;1,2d' |
+				xargs -I {} bash -c '
+                name_path=( {} );
+                py_version=( $(${name_path[1]}/bin/python --version) );
+                echo ${name_path[0]} ${py_version[1]}
+            ' |
+				column -t |
+				fzf --info=inline \
+					--border=rounded \
+					--preview-window="right:50%" \
+					--preview-label=" {1} packages " \
+					--preview=$'
+                    conda list -n {1} | sort
+                '
+		)"
+	)
+	[[ -z "$choice" ]] && return 0
+	choice="$(echo ${choice} | awk {'print $1'})" || return 1
+	echo "Activating conda environment: ${choice}"
+	conda activate ${choice}
+}
+
+condaa() {
+	if [[ $# -gt 0 ]]; then
+		conda activate "$1"
+	else
+		zle
+		fzf-conda-activate && return 0
+	fi
+}
+_fzf_complete_condaa() {
+	_fzf_complete --info=inline \
+		--border=rounded \
+		--preview-window="right:50%" \
+		--preview-label=" {1} packages " \
+		--preview=$'
+                    conda list -n {1} | sort
+                ' \
+		--prompt="env >" -- "$@" < <(
+			conda env list |
+				sed 's/\*/ /;1,2d' |
+				xargs -I {} bash -c '
+				name_path=( {} );
+				py_version=( $(${name_path[1]}/bin/python --version) );
+				echo ${name_path[0]} ${py_version[1]}
+			' |
+				column -t
+		)
+}
+_fzf_complete_condaa_post() {
+	awk '{print $1}'
+}
+
+### Conda environment deactivation:
+function condad() {
+	conda deactivate
+}
+
+function fman() {
+	if [[ $# -eq 0 ]]; then
+		zle
+		fzf-man-widget
+	else
+		man $1
+	fi
+}
+
+function fenv() {
+	: | command='env' | fzf \
+		--preview 'echo {} | cut -d'=' -f2 '
+	#  \
+	# 	--bind "enter:execute(echo {} | tr -d '\n' | pbcopy)"
+}
+
+function upper() {
+	echo "$1" | tr '[:lower:]' '[:upper:]'
+}
+
+function lower() {
+	echo "$1" | tr '[:upper:]' '[:lower:]'
+}
+
+function reset-path() {
+	if [[ $# -eq 0 ]]; then
+		echo "No variable name provided. Resetting PATH to DEFAULT_PATH $($DEFAULT_PATH | tr ':' '\n')."
+		temp_env_var="DEFAULT_PATH"
+	else
+		echo "Resetting $1 to DEFAULT_PATH ($($DEFAULT_PATH | tr ':' '\n'))."
+		temp_env_var=$1
+	fi
+	source "$HOME/.bash_profile"
+	if [[ -z $temp_env_var ]]; then
+		read -p "Either environment variable not specified or was not found. Exitting in 5sec..." -t 1
+		echo
+		for i in 5 4 3 2 1; do
+			echo "Exiting in $i seconds..."
+			sleep 1
+		done
+	fi
+}
+
+function clean-path-var() {
+	local search_string="python"
+	local path_list="$PATH"
+
+	if [[ $path_list != *"$search_string"* ]]; then
+		if [[ -z $PATH ]]; then
+			export PATH=$DEFAULT_PATH
+		fi
+		export PATH=$PATH:$PYTHON_PATH:$CONDA_PATH
+	fi
+
+	local input_var="$1"
+
+	if [[ -z $input_var ]]; then
+		input_var="PATH"
+	fi
+	python3 ~/clean_path_var.py -n "$input_var"
+}
+
+function sandbox() {
+	local tmpdir="$(mktemp -d -t sandbox-$(date +%Y-%m-%d-%H-%M-%S)-XXXXXX)"
+
+	if [[ -z $tmpdir ]]; then
+		echo "Failed to create temporary directory."
+		return 1
+	else
+		echo "Created temporary directory: $tmpdir"
+		cd "$tmpdir" || return 1
+	fi
+	code "$tmpdir"
+}
+
+if [[ -n $ZSH_VERSION ]]; then
+	fzf-man-widget() {
+		batman="man {1} | col -bx | \
+		bat --language=man \
+		--plain \
+		--color always \
+		--theme=\"Monokai Extended\"
+		"
+		man -k . | sort |
+			awk -v cyan=$(tput setaf 6) -v blue=$(tput setaf 4) -v res=$(tput sgr0) -v bld=$(tput bold) '{ $1=cyan bld $1; $2=res blue;} 1' |
+			fzf \
+				-q "$1" \
+				--ansi \
+				--tiebreak=begin \
+				--prompt=' Man > ' \
+				--preview-window '50%,rounded,<50(up,85%,border-bottom)' \
+				--preview "${batman}" \
+				--bind "enter:execute(man {1})" \
+				--bind "alt-c:+change-preview(cht.sh {1})+change-prompt(ﯽ Cheat > )" \
+				--bind "alt-m:+change-preview(${batman})+change-prompt( Man > )" \
+				--bind "alt-t:+change-preview(tldr {1})+change-prompt(ﳁ TLDR > )"
+		zle reset-prompt
+	}
+	# `Ctrl-H` keybinding to launch the widget (this widget works only on zsh, don't know how to do it on bash and fish
+	# (additionaly pressing`ctrl-backspace` will trigger the widget to be executed too because both share the same keycode)
+	bindkey '^h' fzf-man-widget
+	zle -N fzf-man-widget
+	# Icon used is nerdfont
+fi
+
+function get_color_code() {
+	local str="$1"
+	local hash=0
+	for ((i = 0; i < ${#str}; i++)); do
+		char="${str:$i:1}"
+		ord=$(printf '%d' "'$char")
+		hash=$(((hash * 31 + ord) % 7 + 31))
+	done
+	echo "$hash"
+}
+
+function cdd() {
+	if [[ "$#" != 0 ]]; then
+		builtin cd "$@"
+		return
+	fi
+
+	while true; do
+		local lsd=".."$'\n'"$(ls -pAFG --color=always | grep '/$' | sed 's;/$;;')"
+		IFS=$'\n' read -d "${IFS}" -A dirArray <<<"${lsd}"
+
+		# --bind='left:execute(cd ..)' --bind='right:execute(cd {})'
+		local dir=$(
+			for dir_entry in "${dirArray[@]}"; do
+				color=$(get_color_code "${dir_entry}")
+				printf $'\033['"%s"$'\033[0m\n' "${color}m${dir_entry}"
+			done | fzf --reverse --preview '
+				__cd_nxt=$(echo {});
+				__cd_path="$(echo $(pwd)/${__cd_nxt} | sed "s;//;/;")";
+				echo ${__cd_path};
+				echo;
+				ls -pAFG --color=always ${__cd_path};
+			'
+		)
+		[[ ${#dir} != 0 ]] || return 0
+		builtin cd "$dir" &>"/dev/null"
+	done
+}
+
+function lf() {
+	if [[ "$#" != 0 ]]; then
+		builtin ls -AFG "$@"
+		return
+	fi
+	while true; do
+		local lsd=$(echo ".." && ls -AFG | grep '/$' | sed 's;/$;;')
+		local dir="$(printf '%s\n' "${lsd[@]}" |
+			fzf --reverse --preview '
+                __cd_nxt="$(echo {})";
+                __cd_path="$(echo $(pwd)/${__cd_nxt} | sed "s;//;/;")";
+                echo $__cd_path;
+                echo;
+				ls -lAF --color=always "${__cd_path}";
+        ')"
+		[[ ${#dir} != 0 ]] || return 0
+		builtin cd "${dir}" &>"/dev/null" && builtin ls -lAF --color=always "${dir}"
+	done
+}
+
+# function show_colored() {
+# 	echo "$@" | awk '/Package:|Version:/{print "\033[1;31m" $0 "\033[0m"; next} /Description:/{print "\033[1;32m" $0 "\033[0m"; next} {print}'
+# }
+
+# function fapt() {
+# 	sudo apt -qq update
+# 	"${HOME}/workstation_config/bin/pkgsearch.sh"
+# 	# sudo apt -qq list --installed |
+# 	# 	sed 's/\[installed.*\]//;s/\/.*//' |
+# 	# 	sort >/tmp/apt-fzf-installed
+# 	# sudo apt -qq list |
+# 	# 	sed 's/\/.*//; /\[installed.*\]/d' |
+# 	# 	sort >/tmp/apt-fzf-available
+
+# 	# APT_AVAILABLE='cat /tmp/apt-fzf-available'
+# 	# APT_INSTALLED='cat /tmp/apt-fzf-installed'
+
+# 	# INITIAL_QUERY="${*:-}"
+# 	# : | fzf --ansi --disabled --query "${INITIAL_QUERY}" \
+# 	# 	--bind "start:reload(${APT_AVAILABLE})" \
+# 	# 	--bind "alt-r:change-prompt( REMOVE > )+unbind(alt-r)+rebind(alt-i)+reload(${APT_INSTALLED})" \
+# 	# 	--bind "alt-i:change-prompt(INSTALL > )+unbind(alt-i)+rebind(alt-r)+reload(${APT_AVAILABLE})" \
+# 	# 	--prompt 'INSTALL >' \
+# 	# 	--preview 'show_colored "$(apt show {})"' \
+# 	# 	--preview-window 'right:50%' \
+# 	# 	>'/tmp/apt-fzf-selections'
+
+# 	# cat /tmp/apt-fzf-selections
+
+# 	# /bin/rm -f /tmp/apt-fzf-{available, installed}
+# }

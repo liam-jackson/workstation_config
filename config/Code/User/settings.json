@@ -1,0 +1,798 @@
+{
+    "[a0_start_of_file": true,
+    "[cmake]": {
+        "editor.defaultFormatter": "josetr.cmake-language-support-vscode"
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "xaver.clang-format",
+        "editor.definitionLinkOpensInPeek": false,
+        "editor.semanticHighlighting.enabled": true,
+        "editor.suggest.insertMode": "replace",
+        "editor.wordBasedSuggestions": "off"
+    },
+    "[javascript][javascriptreact][typescript][typescriptreact]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[json][jsonc]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "never"
+        },
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+        "editor.formatOnSave": false,
+        "editor.quickSuggestions": {
+            "comments": "on",
+            "other": "on",
+            "strings": "on"
+        },
+        "editor.suggest.insertMode": "replace"
+    },
+    "[jupyter-notebook][notebook]": {
+        "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "[matlab]": {
+        "editor.defaultFormatter": "ms-python.autopep8",
+        "editor.snippetSuggestions": "top",
+        "files.encoding": "windows1252"
+    },
+    "[plaintext]": {
+        "editor.fontLigatures": false,
+        "editor.unicodeHighlight.ambiguousCharacters": false,
+        "editor.unicodeHighlight.includeStrings": false,
+        "editor.unicodeHighlight.invisibleCharacters": false
+    },
+    "[python]": {
+        "diffEditor.renderMarginRevertIcon": true,
+        "editor.autoClosingBrackets": "always",
+        "editor.autoClosingDelete": "always",
+        "editor.autoClosingOvertype": "always",
+        "editor.autoClosingQuotes": "always",
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.wordBasedSuggestions": "off"
+    },
+    "[shellscript][ignore]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "auto-close-tag.activationOnLanguage": [
+        "html",
+        "html5",
+        "javascript",
+        "javascriptreact",
+        "liquid",
+        "markdown",
+        "plaintext",
+        "typescript",
+        "typescriptreact",
+        "vue",
+        "xml"
+    ],
+    "autoDocstring.docstringFormat": "google",
+    "autoDocstring.includeExtendedSummary": false,
+    "autoDocstring.includeName": false,
+    "editor.unfoldOnClickAfterEndOfLine": true,
+    "autoflake-extension.expand-star-imports": true,
+    // "autoflake-extension.remove-all-unused-imports": false,
+    // "autopep8.args": [
+    //     "-v",
+    //     "--aggressive",
+    //     "--max-line-length",
+    //     "120",
+    //     "--ignore",
+    //     "F401",
+    //     "--ignore",
+    //     "F841"
+    // ],
+    "bashIde.backgroundAnalysisMaxFiles": 1,
+    "bashIde.explainshellEndpoint": "http://localhost:5000",
+    "bashIde.includeAllWorkspaceSymbols": true,
+    "bashIde.shellcheckPath": "/usr/bin/shellcheck",
+    "C_Cpp.clang_format_path": "/usr/bin/clang-format",
+    "C_Cpp.clang_format_style": "/home/liam/Workspace/tenbeauty/.clang-format",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.includePath": [
+        "~/Workspace/tenbeauty/**"
+    ],
+    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.intelliSenseUpdateDelay": 500,
+    "cmake.buildEnvironment": {
+        "CROSS_COMP": "OFF"
+    },
+    "cmake.configureEnvironment": {
+        "CROSS_COMP": "OFF"
+    },
+    "cmake.configureOnOpen": true,
+    "cmake.generator": "Unix Makefiles",
+    "cmake.preferredGenerators": [],
+    "cmake.showOptionsMovedNotification": false,
+    "cmake.sourceDirectory": "${workspaceFolder}",
+    "commitReminder.interval": 60,
+    "commitReminder.intervalUnit": "minutes",
+    "commitReminder.minimumChanges": 10,
+    "commitReminder.minimumFileChanges": 2,
+    "debug.console.wordWrap": false,
+    "debug.inlineValues": "on",
+    "debug.onTaskErrors": "showErrors",
+    "diffEditor.codeLens": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.renderSideBySide": false,
+    "diffEditor.renderSideBySideInlineBreakpoint": 900,
+    "docsView.documentationView.updateMode": "live",
+    "editor.autoClosingDelete": "always",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "never",
+        "source.quickfixAll": "never"
+    },
+    "editor.codeLens": true,
+    "editor.colorDecorators": true,
+    "editor.foldingHighlight": true,
+    "editor.foldingStrategy": "auto",
+    "editor.fontFamily": "JetBrainsMono Nerd Font",
+    "editor.fontLigatures": true,
+    "editor.fontWeight": "500",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "editor.guides.bracketPairs": "active",
+    "editor.guides.bracketPairsHorizontal": "active",
+    "editor.hideCursorInOverviewRuler": true,
+    "editor.inlineSuggest.enabled": true,
+    "editor.inlineSuggest.suppressSuggestions": true,
+    "editor.linkedEditing": true,
+    "editor.minimap.renderCharacters": false,
+    "editor.quickSuggestions": {
+        "comments": "on",
+        "other": "on",
+        "strings": "on"
+    },
+    "editor.quickSuggestionsDelay": 10,
+    "editor.renderLineHighlight": "all",
+    "editor.semanticHighlighting.enabled": true,
+    "editor.showFoldingControls": "always",
+    "editor.snippetSuggestions": "bottom",
+    "editor.stickyScroll.defaultModel": "outlineModel",
+    "editor.stickyScroll.enabled": true,
+    "editor.stickyScroll.maxLineCount": 5,
+    "editor.suggest.insertMode": "replace",
+    "editor.suggest.localityBonus": true,
+    "editor.suggest.showCustomcolors": false,
+    "editor.suggest.showInlineDetails": true,
+    // "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.trimAutoWhitespace": true,
+    "editor.unicodeHighlight.includeStrings": true,
+    "evenBetterToml.completion.maxKeys": 10,
+    "evenBetterToml.formatter.arrayTrailingComma": true,
+    "evenBetterToml.schema.catalogs": [
+        "https://www.schemastore.org/api/json/catalog.json"
+    ],
+    "evenBetterToml.schema.enabled": true,
+    "explorer.autoReveal": false,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+        "*.jsx": "${capture}.js",
+        "*.ts": "${capture}.js",
+        "*.tsx": "${capture}.ts",
+        "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml",
+        "tsconfig.json": "tsconfig.*.json"
+    },
+    "explorer.openEditors.sortOrder": "alphabetical",
+    "explorer.sortOrderLexicographicOptions": "upper",
+    "extensions.ignoreRecommendations": true,
+    "files.associations": {
+        "*.cfg": "json",
+        "*.m": "matlab",
+        "*.mat": "matlab"
+    },
+    // "files.autoSave": "afterDelay",
+    "files.exclude": {
+        "**/.DS_Store": true,
+        // "**/.git": true,
+        "**/.hg": true,
+        "**/.svn": true,
+        "**/*.gmo": true,
+        "**/*.lo": true,
+        "**/*.o": true,
+        "**/*.Po": true,
+        "**/*.so": true,
+        "**/*gtk3*": true,
+        "**/CVS": true,
+        "**/Thumbs.db": true
+    },
+    "files.insertFinalNewline": true,
+    "files.watcherExclude": {
+        "**/__pycache__/**": true,
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/.history/**": true,
+        "**/.ipynb_checkpoints/**": true,
+        "**/.jupyter/**": true,
+        "**/.mypy_cache/**": true,
+        "**/.pytest_cache/**": true,
+        "**/.vscode/**": true,
+        "**/build/**": true,
+        "**/dist/**": true,
+        "**/node_modules/*/**": true,
+        "**/out/**": true,
+        "**/tmp/**": true,
+        "**/venv*/**": true
+    },
+    // "flake8.args": [
+    //     "--max-line-length",
+    //     "120",
+    //     "--ignore",
+    //     "F401",
+    //     "--ignore",
+    //     "F841"
+    // ],
+    "git-graph.repositoryDropdownOrder": "Name",
+    "git.autofetch": true,
+    "git.autoStash": true,
+    "git.detectSubmodulesLimit": 15,
+    "git.mergeEditor": true,
+    "git.openRepositoryInParentFolders": "never",
+    "github.copilot.advanced": {
+        "authProvider": "github",
+        "inlineSuggestCount": 5
+    },
+    "github.copilot.editor.enableAutoCompletions": true,
+    "github.copilot.enable": {
+        "*": true,
+        "markdown": false,
+        "plaintext": false,
+        "scminput": false
+    },
+    "gitlens.menus": {
+        "editor": {
+            "blame": false,
+            "clipboard": true,
+            "compare": true,
+            "history": false,
+            "remote": false
+        },
+        "editorGroup": false,
+        "editorTab": {
+            "clipboard": true,
+            "compare": true,
+            "history": true,
+            "remote": true
+        },
+        "explorer": {
+            "clipboard": true,
+            "compare": true,
+            "history": true,
+            "remote": true
+        },
+        "scm": {
+            "authors": true
+        },
+        "scmGroup": {
+            "compare": true,
+            "openClose": true,
+            "stash": true
+        },
+        "scmGroupInline": {
+            "stash": true
+        },
+        "scmItem": {
+            "clipboard": true,
+            "compare": true,
+            "history": true,
+            "remote": false,
+            "stash": true
+        }
+    },
+    "gitlens.mode.statusBar.enabled": false,
+    "gitlens.statusBar.enabled": false,
+    "gutterpreview.enableReferenceLookup": true,
+    "gutterpreview.imagePreviewMaxHeight": 600,
+    "gutterpreview.sourceFolder": "./",
+    "inline-parameters.python.enabled": false,
+    "json.schemaDownload.enable": true,
+    "jupyter.askForKernelRestart": false,
+    "jupyter.inspectKernelMessages.enabled": true,
+    "jupyter.interactiveWindow.cellMarker.decorateCells": "currentCell",
+    "jupyter.interactiveWindow.viewColumn": "beside",
+    "jupyter.pythonExportMethod": "nbconvert",
+    "jupyter.showVariableViewWhenDebugging": true,
+    "jupyter.themeMatplotlibPlots": true,
+    "local-history.absolute": true,
+    "local-history.daysLimit": 30,
+    "local-history.exclude": [
+        "**/.history/**",
+        // "**/.vscode/**",
+        "**/.ipynb_checkpoints/**",
+        "**/.jupyter/**",
+        "**/.mypy_cache/**",
+        "**/.pytest_cache/**",
+        "**/__pycache__/**",
+        "**/build/**",
+        "**/dist/**",
+        "**/node_modules/**",
+        "**/out/**",
+        "**/tmp/**",
+        "**/typings/**",
+        "**/venv*/**",
+        "~/.config/Code/User/settings.json"
+    ],
+    "local-history.saveDelay": 5,
+    "markdown-preview-enhanced.enablePreviewZenMode": false,
+    "markdown-preview-enhanced.enableTypographer": true,
+    "markdown-preview-enhanced.hideDefaultVSCodeMarkdownPreviewButtons": true,
+    "markdown-preview-enhanced.liveUpdate": true,
+    "markdown-preview-enhanced.markdownFileExtensions": [
+        ".md",
+        ".markdown",
+        ".mdown",
+        ".mkdn",
+        ".mkd",
+        ".rmd",
+        ".qmd"
+    ],
+    "markdown-preview-enhanced.previewMode": "Previews Only",
+    "markdown-preview-enhanced.previewTheme": "github-dark.css",
+    "markdown-preview-enhanced.revealjsTheme": "black.css",
+    "markdown.occurrencesHighlight.enabled": true,
+    "mypy.configFile": "./mypy.ini",
+    "mypy.debugLogging": true,
+    "mypy.enabled": true,
+    "mypy.runUsingActiveInterpreter": true,
+    "notebook.cellFocusIndicator": "border",
+    "notebook.cellToolbarLocation": {
+        "jupyter-notebook": "right",
+        "notebook": "right",
+        "output": "right"
+    },
+    "notebook.formatOnCellExecution": true,
+    "notebook.formatOnSave.enabled": true,
+    "notebook.lineNumbers": "on",
+    "notebook.output.scrolling": true,
+    "notebook.output.textLineLimit": 30,
+    "outline.problems.colors": true,
+    "path-intellisense.autoSlashAfterDirectory": true,
+    "path-intellisense.autoTriggerNextSuggestion": true,
+    "path-intellisense.showHiddenFiles": true,
+    "peacock.affectEditorGroupBorder": true,
+    "peacock.affectPanelBorder": true,
+    "peacock.affectSideBarBorder": true,
+    "peacock.affectTabActiveBorder": true,
+    "peacock.favoriteColors": [
+        {
+            "name": "Angular Red",
+            "value": "#dd0531"
+        },
+        {
+            "name": "Azure Blue",
+            "value": "#007fff"
+        },
+        {
+            "name": "JavaScript Yellow",
+            "value": "#f9e64f"
+        },
+        {
+            "name": "Mandalorian Blue",
+            "value": "#1857a4"
+        },
+        {
+            "name": "Node Green",
+            "value": "#215732"
+        },
+        {
+            "name": "React Blue",
+            "value": "#61dafb"
+        },
+        {
+            "name": "Something Different",
+            "value": "#832561"
+        },
+        {
+            "name": "Svelte Orange",
+            "value": "#ff3d00"
+        },
+        {
+            "name": "Vue Green",
+            "value": "#42b883"
+        },
+        {
+            "name": "midnight purp",
+            "value": "#7428a8"
+        }
+    ],
+    "peacock.surpriseMeOnStartup": true,
+    "postfix_complection.templates": [
+        {
+            "body": "self._print_status(f'{{{expr}} = }', severity_level=FLAG)\n$0",
+            "description": "uses self._print_status to print the expression with FLAG severity.",
+            "language": "python",
+            "name": "ps"
+        },
+        {
+            "body": "id({{expr}})",
+            "description": "Inserts id(expr).",
+            "language": "python",
+            "name": "id"
+        }
+    ],
+    "pylint.args": [
+        "--enable-all-extensions",
+        "--extension-pkg-whitelist",
+        "",
+        "--jobs",
+        "8",
+        "--max-line-length",
+        "120",
+        "--recursive",
+        "n",
+        "--rcfile",
+        "~/.pylintrc",
+        "--disable",
+        "C0103"
+    ],
+    "pylint.cwd": "${workspaceFolder}",
+    "pylint.ignorePatterns": [
+        // "**miniconda3**/**/*",
+    ],
+    "pylint.importStrategy": "useBundled",
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.exclude": [
+        "${condaPath}/**",
+        // "${home}/miniconda3/**/*",
+        // "${home}/miniconda3/envs/**/*",
+        "**/.vscode/**/*",
+        "**/.history/**/*"
+    ],
+    "python.analysis.extraPaths": [
+        "${condaPath}/**",
+        "~/Workspace/tenbeauty/**",
+        "~/workstation_config/**",
+        "/home/liam/**/vtkmodules/**"
+    ],
+    "python.analysis.gotoDefinitionInStringLiteral": true,
+    "python.analysis.ignore": [
+        "${condaPath}/**",
+        "${home}/miniconda3/**/*",
+        "${home}/miniconda3/envs/**/*",
+        "**/.vscode/**/*",
+        "**/.history/**/*"
+    ],
+    "python.analysis.importFormat": "absolute",
+    "python.analysis.include": [
+        "./**.ipynb",
+        "./**.py",
+        "./**.pyi",
+        "/home/liam/Workspace/tenbeauty/**",
+        "/home/liam/workstation_config/**",
+        "/home/liam/miniconda3/envs/vision_vtk/**/vtkmodules/**.py",
+        "/home/liam/miniconda3/envs/vision_vtk/**/vtkmodules/**.pyi",
+        "/home/liam/miniconda3/envs/vision_vtk/**/vtkmodules/**.pyc",
+        "/home/liam/miniconda3/envs/vision_vtk/**/vtkmodules/**.ipynb"
+    ],
+    "python.analysis.indexing": true,
+    "python.analysis.inlayHints.callArgumentNames": "off",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.pytestParameters": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.packageIndexDepths": [
+        {
+            "depth": 10,
+            "includeAllSymbols": true,
+            "name": "PyQt5"
+        },
+        {
+            "depth": 10,
+            "includeAllSymbols": true,
+            "name": "vtkmodules"
+        }
+    ],
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.useLibraryCodeForTypes": true,
+    "python.analysis.userFileIndexingLimit": 500,
+    "python.autoComplete.extraPaths": [
+        "~/miniconda3/envs/vision_vtk/**",
+        "~/miniconda3/envs/vision_vtk/lib/python3.9/site-packages/**",
+        "~/Workspace/tenbeauty/**",
+        "~/workstation_config/**"
+        // "./venv/**"
+    ],
+    "python.createEnvironment.contentButton": "show",
+    "python.defaultInterpreterPath": "python",
+    "python.diagnostics.sourceMapsEnabled": true,
+    "python.experiments.enabled": false,
+    "python.formatting.yapfPath": "yapf",
+    "python.languageServer": "Pylance",
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.terminal.activateEnvironment": true,
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,
+    "python.testing.pytestArgs": [
+        "--code-highlight",
+        "yes",
+        "--color",
+        "yes"
+    ],
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestPath": "pytest",
+    "pythonDocsOpener.additionalLibraryToDocsMappings": {
+        "PyQt5": "https://doc.qt.io/qt-5/${symbol_name}.html",
+        "pytest": "https://docs.pytest.org/en/6.2.x/reference.html#${symbol_name}",
+        "vtk": "https://vtk.org/doc/nightly/html/class${symbol_name}.html",
+        "vtkmodules": "https://vtk.org/doc/nightly/html/class${symbol_name}.html"
+    },
+    "pythonTestExplorer.testFramework": "pytest",
+    "region-marker.languages": {
+        "bash": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "bashrc": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "matlab": {
+            "end": "%% endregion",
+            "start": "%% region"
+        },
+        "MATLAB": {
+            "end": "%%%%",
+            "start": "%%"
+        },
+        // Language id
+        "python": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "python3": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "sh": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "shellscript": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "zsh": {
+            "end": "# endregion",
+            "start": "# region"
+        },
+        "zshrc": {
+            "end": "# endregion",
+            "start": "# region"
+        }
+    },
+    "region-marker.namedEndRegion": true,
+    "ruff.codeAction.disableRuleComment": {
+        "enable": true
+    },
+    "ruff.enable": true,
+    "ruff.format.args": [
+        "--config",
+        "/home/liam/workstation_config/config/ruff/ruff.toml"
+    ],
+    "ruff.importStrategy": "useBundled",
+    "ruff.lint.args": [
+        "--config",
+        "/home/liam/workstation_config/config/ruff/ruff.toml",
+        "--ignore",
+        "F401",
+        "--ignore",
+        "F841"
+    ],
+    "ruff.organizeImports": true,
+    "search.collapseResults": "alwaysCollapse",
+    "search.exclude": {
+        "**/.history/**": true,
+        "**/*.code-search": true,
+        "**/bower_components": true,
+        "**/node_modules": true
+    },
+    "search.useIgnoreFiles": true,
+    "shell-syntax.defaultShell": "zsh",
+    "shellcheck.enable": true,
+    "shellcheck.enableQuickFix": true,
+    "shellcheck.run": "onSave",
+    "terminal.integrated.altClickMovesCursor": false,
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.enableFileLinks": "on",
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+    "terminal.integrated.inheritEnv": true,
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "icon": "terminal-bash",
+            "path": "bash"
+        },
+        "zsh": {
+            "args": [
+                "-i",
+                "-l"
+            ],
+            "path": "/bin/zsh"
+        }
+    },
+    "terminal.integrated.shellIntegration.decorationsEnabled": "both",
+    "terminal.integrated.shellIntegration.enabled": true,
+    "terminal.integrated.shellIntegration.suggestEnabled": true,
+    "terminal.integrated.showExitAlert": false,
+    "terminal.integrated.showLinkHover": true,
+    "terminal.integrated.smoothScrolling": true,
+    "terminal.integrated.tabs.defaultColor": "terminal.ansiBlue",
+    "testExplorer.addToEditorContextMenu": true,
+    "testExplorer.hideWhen": "noTests",
+    "testing.defaultGutterClickAction": "debug",
+    "testing.followRunningTest": false,
+    "testing.openTesting": "openOnTestFailure",
+    "todo-tree.filtering.useBuiltInExcludes": "file excludes",
+    "todo-tree.general.showActivityBarBadge": true,
+    "todo-tree.general.showIconsInsteadOfTagsInStatusBar": true,
+    "todo-tree.general.tags": [
+        "BUG",
+        "FIXME",
+        "HACK",
+        "QUESTION",
+        "TODO",
+        "WIP"
+    ],
+    "todo-tree.highlights.customHighlight": {
+        "BUG": {
+            "background": "#0004ff",
+            "icon": "bug",
+            "iconColour": "#0004ff"
+        },
+        "FIXME": {
+            "background": "#ff7b00",
+            "foreground": "#000000",
+            "icon": "flame",
+            "iconColour": "#ff7b00"
+        },
+        "HACK": {
+            "background": "#00ffff",
+            "foreground": "#000000",
+            "icon": "tools",
+            "iconColour": "#00ffff"
+        },
+        "QUESTION": {
+            "background": "#ff00ff",
+            "foreground": "#000000",
+            "icon": "question",
+            "iconColour": "#ff00ff"
+        },
+        "TODO": {
+            "background": "#00ff00",
+            "foreground": "#000000",
+            "icon": "checklist",
+            "iconColour": "#00ff00"
+        },
+        "WIP": {
+            "background": "#ffff00",
+            "foreground": "#000000",
+            "icon": "hourglass",
+            "iconColour": "#ffff00"
+        }
+    },
+    "todo-tree.highlights.defaultHighlight": {
+        "fontWeight": "1000",
+        "gutterIcon": true,
+        "type": "text-and-comment"
+    },
+    "todo-tree.highlights.useColourScheme": true,
+    "trailing-spaces.trimOnSave": true,
+    "ultimateHover.fileTextMaxLinesDisplayed": 500,
+    "ultimateHover.imageUseOriginalSize": true,
+    "window.customMenuBarAltFocus": false,
+    "window.titleBarStyle": "custom",
+    "workbench.colorCustomizations": {
+        "diffEditor.insertedTextBackground": "#00a2ff4b",
+        "diffEditor.insertedTextBorder": "#139dc7c7",
+        "diffEditor.removedTextBackground": "#ff910057",
+        "diffEditor.removedTextBorder": "#ff6600c7",
+        "editorIndentGuide.activeBackground1": "#ff0000",
+        "editorIndentGuide.background1": "#a02e2e80",
+        "editor.selectionHighlightBackground": "#ff000050",
+        "editor.selectionBackground": "#8800ff50",
+        "editor.selectionForeground": "#00ff00",
+        "editor.activeSelectionForeground": "#00ff00",
+        "editor.wordHighlightTextBackground": "#9128a850",
+        "editor.wordHighlightStrongBackground": "#9128a850",
+        "list.activeSelectionBackground": "#8800ff",
+        "list.activeSelectionForeground": "#00ff00",
+        "tab.inactiveBackground": "#7528a850",
+        "tab.activeBorder": "#ffff00",
+        "tab.activeBorderTop": "#ffff00",
+        "tab.unfocusedActiveBorder": "#ff6600",
+        "tab.unfocusedActiveBorderTop": "#ff6600",
+        "tab.activeModifiedBorder": "#ff00ff",
+        "tab.inactiveModifiedBorder": "#8800ff",
+        "gitDecoration.ignoredResourceForeground": "#FFFFFF50",
+        "gitDecoration.addedResourceForeground": "#00ff00",
+        "gitDecoration.deletedResourceForeground": "#ff0000",
+        "gitDecoration.modifiedResourceForeground": "#ffff00",
+        "gitDecoration.untrackedResourceForeground": "#00aaff",
+        "gitDecoration.conflictingResourceForeground": "#ff6600",
+        "gitDecoration.submoduleResourceForeground": "#ff00ff",
+    },
+    "workbench.colorTheme": "Shades of Purple (Super Dark)",
+    "workbench.commandPalette.experimental.enableNaturalLanguageSearch": true,
+    "workbench.commandPalette.experimental.suggestCommands": true,
+    "workbench.editor.autoLockGroups": {
+        "jupyter-notebook": true
+    },
+    "workbench.editor.focusRecentEditorAfterClose": true,
+    "workbench.editorAssociations": {
+        "*.markdown": "markdown-preview-enhanced",
+        "*.md": "markdown-preview-enhanced",
+        "*.mdown": "markdown-preview-enhanced",
+        "*.mkd": "markdown-preview-enhanced",
+        "*.mkdn": "markdown-preview-enhanced",
+        "*.py": "default",
+        "*.qmd": "markdown-preview-enhanced",
+        "*.rmd": "markdown-preview-enhanced",
+        "*.rst": "markdown-preview-enhanced",
+        "*.xlsx": "gc-excelviewer-excel-editor"
+    },
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.localHistory.enabled": true,
+    "yaml.schemas": {
+        "https://docs.sourcery.ai/resources/sourcery_yaml_schema.json": ".sourcery.yaml",
+        "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json": "docker-compose*.yml"
+    },
+    "yapf.args": [
+        "--ignore",
+        "F401",
+        "--style",
+        "~/Workspace/tenbeauty/vis_pipe_ref/.style.yapf"
+    ],
+    // "workbench.settings.useSplitJSON": true,
+    "Z9_end_of_file": true,
+    "colorize.colorized_variables": [
+        "CSS",
+        "LESS",
+        "SASS",
+        "STYLUS"
+    ],
+    "colorize.colorized_colors": [
+        "BROWSERS_COLORS",
+        "HEXA",
+        "RGB",
+        "ARGB",
+        "HSL"
+    ],
+    // "colorize.hide_current_line_decorations": false,
+    "colorize.languages": [
+        "css",
+        "sass",
+        "scss",
+        "less",
+        "postcss",
+        "sss",
+        "stylus",
+        "xml",
+        "svg",
+        "bash",
+        "zsh",
+        "javascript",
+        "shell",
+        "yaml",
+        "toml",
+        "json"
+    ],
+    "colorize.enable_search_variables": false,
+    "colorize.decoration_type": "underline",
+    "editor.screenReaderAnnounceInlineSuggestion": false,
+    "editor.suggest.preview": true,
+    "editor.formatOnType": true,
+    "color-highlight.matchWords": true,
+    "json.format.keepLines": true,
+    "git.branchPrefix": "liam/",
+    "emojisense.languages": {
+        "shellscript": false,
+    },
+    "security.workspace.trust.untrustedFiles": "open",
+    "explorer.excludeGitIgnore": false,
+}

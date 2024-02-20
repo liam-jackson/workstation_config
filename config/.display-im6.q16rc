@@ -1,9 +1,0 @@
-display-im6.q16.gammaCorrect:	False
-display-im6.q16.backdrop:	False
-display-im6.q16.usePixmap:	False
-display-im6.q16.undoCache:	256
-display-im6.q16.confirmEdit:	False
-display-im6.q16.dither:	True
-display-im6.q16.colormap:	Shared
-display-im6.q16.confirmExit:	False
-display-im6.q16.displayWarnings:	True

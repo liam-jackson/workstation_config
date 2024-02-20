@@ -40,3 +40,15 @@
 [submodule "src/zsh-autocomplete"]
 	path = src/zsh-autocomplete
 	url = https://github.com/marlonrichert/zsh-autocomplete.git
+[submodule "src/gnome-browser-connector"]
+	path = src/gnome-browser-connector
+	url = https://gitlab.gnome.org/nE0sIghT/gnome-browser-connector.git
+[submodule "src/src/WhiteSur-gtk-theme"]
+	path = src/WhiteSur-gtk-theme
+	url = https://github.com/vinceliuice/WhiteSur-gtk-theme.git
+[submodule "src/facetimehd-firmware"]
+	path = src/facetimehd-firmware
+	url = https://github.com/patjak/facetimehd-firmware.git
+[submodule "config/zsh/.antidote"]
+	path = config/zsh/.antidote
+	url = https://github.com/mattmc3/antidote.git

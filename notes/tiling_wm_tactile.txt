@@ -1,0 +1,3 @@
+# https://extensions.gnome.org/extension/4548/tactile/
+
+# need to install chrome-gnome-shell (ubuntu ver < 23.04)

@@ -14,14 +14,15 @@ export FZF_DEFAULT_OPTS="
 --tabstop=4
 --preview-window 'border-top'
 --bind 'ctrl-/:change-preview-window(75%|50%|25%|hidden|)'
---bind shift-up:preview-up
---bind shift-down:preview-down
+--bind 'shift-up:preview-up'
+--bind 'shift-down:preview-down'
+--bind 'bspace:backward-delete-char/eof,ctrl-h:backward-delete-char/eof'
 "
 export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree trash"
-export FZF_COMPLETION_OPTS="${FZF_DEFAULT_OPTS} --border --info=inline --prompt=' FZF  ' --bind=bspace:backward-delete-char/eof,ctrl-h:backward-delete-char/eof"
+export FZF_COMPLETION_OPTS="${FZF_DEFAULT_OPTS} --border --info=inline --prompt=' FZF completion  '"
 
-# export FZF_CTRL_T_COMMAND="command -v exa --all --sort=type --oneline --color=always --icons"
-# export FZF_ALT_C_COMMAND="command -v exa --all --all --only-dirs --oneline --color=always --icons "
+# export FZF_CTRL_T_COMMAND="command -v eza--all --sort=type --oneline --color=always --icons"
+# export FZF_ALT_C_COMMAND="command -v eza--all --all --only-dirs --oneline --color=always --icons "
 
 # export FZF_CTRL_T_OPTS=""
 # export FZF_ALT_C_OPTS="${FZF_DEFAULT_OPTS} --prompt=' FZF  ' \
@@ -33,7 +34,7 @@ autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 
 # Map widgets to key
-bindkey '^@' fzf-select-widget
+bindkey '^\' fzf-select-widget
 # bindkey '^@.' fzf-edit-dotfiles
 # bindkey '^@c' fzf-change-directory
 # bindkey '^@n' fzf-change-named-directory
@@ -47,9 +48,9 @@ bindkey '\ed' fzf-insert-directory
 # bindkey '^xn' fzf-insert-named-directory
 
 ## Git
-bindkey '^gg' fzf-select-git-widget
-bindkey '^ga' fzf-git-add-files
-bindkey '^gc' fzf-git-change-repository
+# bindkey '\egg' fzf-select-git-widget
+bindkey '\ega' fzf-git-add-files
+bindkey '\egc' fzf-git-change-repository
 
 # GitHub
 # bindkey '^@h' fzf-select-github-widget
@@ -64,6 +65,7 @@ bindkey '^gc' fzf-git-change-repository
 
 # Enable Exact-match by fzf-insert-history
 # FZF_WIDGET_OPTS[insert-history]='--exact'
+# FZF_WIDGET_OPTS[fzf-git-add-files]='--multi --bind ctrl-space:toggle'
 
 # Start fzf in a tmux pane
 # FZF_WIDGET_TMUX=1

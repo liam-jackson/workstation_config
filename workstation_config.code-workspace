@@ -1,0 +1,50 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"workbench.colorCustomizations": {
+			"activityBar.activeBackground": "#9034cf",
+			"activityBar.background": "#9034cf",
+			"activityBar.foreground": "#e7e7e7",
+			"activityBar.inactiveForeground": "#e7e7e799",
+			"activityBarBadge.background": "#ce8e31",
+			"activityBarBadge.foreground": "#15202b",
+			"commandCenter.border": "#e7e7e799",
+			"sash.hoverBorder": "#9034cf",
+			"statusBar.background": "#7428a8",
+			"statusBar.foreground": "#e7e7e7",
+			"statusBarItem.hoverBackground": "#9034cf",
+			"statusBarItem.remoteBackground": "#7428a8",
+			"statusBarItem.remoteForeground": "#e7e7e7",
+			"titleBar.activeBackground": "#7428a8",
+			"titleBar.activeForeground": "#e7e7e7",
+			"titleBar.inactiveBackground": "#7428a899",
+			"titleBar.inactiveForeground": "#e7e7e799",
+			"editorGroup.border": "#9034cf",
+			"panel.border": "#9034cf",
+			"sideBar.border": "#9034cf",
+			"tab.activeBorder": "#9034cf"
+		},
+		"peacock.color": "#7428a8",
+		"editor.tokenColorCustomizations": {
+			"textMateRules": [
+				{
+					"scope": "ref.license",
+					"settings": {
+						"foreground": "#cccccc"
+					}
+				},
+				{
+					"scope": "ref.snippet",
+					"settings": {
+						"foreground": "#606060"
+					}
+				}
+			],
+		},
+		"git.ignoreLimitWarning": true
+	}
+}

@@ -1,0 +1,76 @@
+#!/bin/bash
+# echo "entered aliases"
+
+#################################################
+############### Alias Definitions ###############
+#################################################
+
+if command -v bat &>/dev/null; then
+    alias cat='bat'
+fi
+
+alias less='less $LESS'
+
+alias ll='ls -lAF --color=auto'
+alias lt='ls -lAF --sort=time --color=auto'
+alias ltr='ls -lAF --sort=time --reverse --color=auto'
+alias la='ls -A --color=auto'
+alias l='ls -CF --color=auto'
+
+alias el='eza --all --long --header --icons'
+alias elt='eza --all --long --header --icons --sort=time'
+
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias diff='diff --color'
+alias howdoi='howdoi --color'
+
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+alias rm='echo "rm is disabled, use trash or /bin/rm instead."'
+
+alias open="xdg-open"
+
+alias matlab='$MATLAB_ROOT/bin/matlab'
+alias python='python3'
+alias untar='tar -x -f'
+
+alias nalalistup='sudo nala list --upgradable'
+alias nalaupall='sudo nala upgrade --fix-broken --full --install-recommends --install-suggests --update'
+
+alias pbcopy="xsel --clipboard --input"
+alias pbpaste="xsel --clipboard --output"
+
+alias copydir='pwd | pbcopy'
+
+alias numlines="wc --lines"
+alias numwords="wc --words"
+alias numchars="wc --chars"
+
+alias wscfg='code ${WORKSTATION_DIR}/workstation_config.code-workspace'
+alias cdwsc='cd ${WORKSTATION_DIR}'
+alias watchdir='watch -n 1 --color tree --prune -C'
+
+alias frf='${WORKSTATION_DIR}/bin/rfv.sh'
+alias fapt='${WORKSTATION_DIR}/bin/pkgsearch.sh'
+alias menu='${WORKSTATION_DIR}/bin/fzfmenu.sh'
+
+alias gss="git status"
+alias gsu="git status -uno"
+
+if command -v nala &>/dev/null; then
+    alias apt='nala'
+    alias apt-get='nala'
+fi
+
+if [[ "${SHELL}" == *"bash"* ]]; then
+    alias src='source ${CONFIG_DIR}/bash/.bashrc'
+elif [[ "${SHELL}" == *"zsh"* ]]; then
+    alias cd='z'
+    alias src='source ${ZDOTDIR}/.zshrc'
+fi

@@ -1,0 +1,16 @@
+#!/bin/zsh
+#
+# .zstyles - Set zstyle settings for plugins that need them.
+#
+zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}'
+zstyle ':completion:*' max-errors 2
+zstyle ':completion:*' menu select
+zstyle :compinstall filename '${HOME}/.zshrc'
+
+#
+# Antidote
+#
+
+# zstyle ':antidote:bundle' file ${ZDOTDIR:-~}/.zplugins.txt
+# zstyle ':antidote:bundle' use-friendly-names 'yes'
