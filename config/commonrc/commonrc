@@ -11,9 +11,9 @@ export COMMONRC_DIR="${CONFIG_DIR}/commonrc"
 
 export LOCAL_INSTALL_DIR="${HOME}/.local"
 export PATH="${PATH}:${LOCAL_INSTALL_DIR}/bin"
-export PATH="${PATH}:/usr/local/go/bin"
 
 export XDG_DATA_HOME="${HOME}/.local/share"
+
 export XDG_CONFIG_HOME="${CONFIG_DIR}"
 if ! [[ -d "${XDG_CONFIG_HOME}" ]]; then
     echo "Something is wrong. Destination config directory not found."
@@ -23,30 +23,63 @@ fi
 export MANPATH="/usr/local/man:${MANPATH}"
 export MANPATH="/snap/htop/current/usr/local/share/man:${MANPATH}"
 
-export EDITOR="nano"
+# if command -v most &>/dev/null; then
+#     export MOST_INITFILE="${CONFIG_DIR}/most/mostrc"
+#     export MOST_HELP="${CONFIG_DIR}/most/most.help"
+#     export PAGER="most"
+#     export MANPAGER="most"
+# else
+# fi
+export LESS='-s -M +Gg -iRFX --shift=10 --mouse --header=1 --jump-target=2 --LINE-NUMBERS --wordwrap'
+
+export PAGER="less ${LESS}"
+export MANPAGER="${PAGER}"
+
+if command -v nano &>/dev/null; then
+    export EDITOR="nano"
+else
+    export EDITOR="vim"
+fi
 
 if command -v code &>/dev/null; then
     export VISUAL="code"
 elif command -v gedit &>/dev/null; then
     export VISUAL="gedit"
-else
+elif command -v nano &>/dev/null; then
     export VISUAL="nano"
 fi
 
-export LESS='-iRFX --shift=10 --mouse --header=1 --jump-target=2 --LINE-NUMBERS --wordwrap'
-export PAGER="${PAGER:-"less ${LESS}"}"
-
-export MANPAGER="less" # "${LESS}" -s -M +Gg"
-
-export ALIASES="${COMMONRC_DIR}/aliases"
-if [[ -f "${ALIASES}" ]]; then
-    source "${ALIASES}"
-fi
-export FUNCDEFS="${COMMONRC_DIR}/funcdefs"
-if [[ -f "${FUNCDEFS}" ]]; then
-    source "${FUNCDEFS}"
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+    if [[ "${SHELL}" == *"bash"* && -n "${BASH_VERSION}" ]]; then
+        source "$(code --locate-shell-integration-path bash)"
+    elif [[ "${SHELL}" == *"zsh"* && -z "${BASH_VERSION}" ]]; then
+        source "$(code --locate-shell-integration-path zsh)"
+    fi
 fi
 
+if [ ${TILIX_ID} ] || [ ${VTE_VERSION} ]; then
+    if [[ -f /etc/profile.d/vte.sh ]]; then
+        source /etc/profile.d/vte.sh
+    elif [[ -f /etc/profile.d/vte-2.91.sh ]]; then
+        source /etc/profile.d/vte-2.91.sh
+    else
+        echo "vte.sh not found, it might need a symlink from the versioned file in the same directory."
+    fi
+fi
+
+### Languages (shell-agnostic setup):
+# Golang:
+export PATH="${PATH}:/usr/local/go/bin"
+if ! command -v go &>/dev/null; then
+    echo "Go binary not found, downloading and extracting go..."
+    URL=$(curl -s https://go.dev/dl/ | grep -oP 'href="/dl/go[0-9.]+.linux-amd64.tar.gz"' | head -n 1 | awk -F '"' '{print "https://go.dev"$2}')
+    FILE="${HOME}/Downloads/$(basename "${URL}")"
+    wget -P "${HOME}/Downloads" "${URL}"
+    sudo rm -rf /usr/local/go
+    sudo tar -C /usr/local -xzf "${FILE}" || echo "Failed to extract go, try running as root."
+fi
+
+# Rust:
 CARGO_PATH="${HOME}/.cargo/env"
 if ! [[ -f "${CARGO_PATH}" ]]; then
     echo "Cargo environment file not found, downloading rust..."
@@ -54,16 +87,43 @@ if ! [[ -f "${CARGO_PATH}" ]]; then
 fi
 source "${CARGO_PATH}"
 
+### Tools:
+# jq:
+if ! command -v jq &>/dev/null; then
+    echo "jq not found, installing..."
+    URL="$(curl -s https://api.github.com/repos/jqlang/jq/releases/latest | grep -o -e 'https.*tar.gz')"
+    FILE="$(basename ${URL})"
+    wget -q -P "${HOME}" "${URL}"
+    tar -xzf "${FILE}"
+    JQ_DIR="${HOME}/$(basename -s '.tar.gz' "${FILE}")"
+    sudo chown --recursive ${USER}:${USER} "${JQ_DIR}"
+    cd "${JQ_DIR}" && bash ./configure && make && sudo make install
+fi
+
+# Bat (cat replacement):
+if ! command -v bat &>/dev/null; then
+    echo "Bat not found, installing..."
+    URL="$(curl -s https://api.github.com/repos/sharkdp/bat/releases/latest | grep -o -e 'https.*bat_.*amd64.deb')"
+    FILE="$(basename ${URL})"
+    wget -q -P "${HOME}" "${URL}"
+    sudo dpkg -i "${FILE}"
+fi
+export BAT_CONFIG_PATH="${CONFIG_DIR}/bat/config"
+
+# EZA (ls replacement):
 if ! command -v eza &>/dev/null; then
     echo "eza not found, installing..."
     cargo install eza
 fi
-
 export EZA_ICON_SPACING=2
 
-if command -v bat &>/dev/null; then
-    export BAT_CONFIG_PATH="${CONFIG_DIR}/bat/config"
-fi
+# endregion Environment Variables
+
+# If not running interactively, don't do anything
+case $- in
+*i*) ;;
+*) return ;;
+esac
 
 if command -v nnn &>/dev/null; then
     # export NNN_PLUG='f:finder;o:fzopen;p:mocq;d:diffs;t:preview-tui;v:imgview;n:nuke'
@@ -77,64 +137,56 @@ if command -v entr &>/dev/null; then
     export ENTR_INOTIFY_SYMLINK=1
 fi
 
-# endregion Environment Variables
-
-# If not running interactively, don't do anything
-case $- in
-*i*) ;;
-*) return ;;
-esac
-
+# region Prompt & Colors
 if command -v starship &>/dev/null; then
     # Starship config:
     export STARSHIP_CONFIG="${CONFIG_DIR}/starship/starship_ljackson.toml"
-fi
-
-# region Colors
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-xterm-color | *-256color) color_prompt=yes ;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x "/usr/bin/tput" ] && tput setaf 1 >&/dev/null; then
-        # We have color support; assume it's compliant with Ecma-48
-        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-        # a case would tend to support setf rather than setaf.)
-        color_prompt=yes
-    else
-        color_prompt=
-    fi
-fi
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    # set a fancy prompt (non-color, unless we know we "want" color)
+    case "$TERM" in
+    xterm-color | *-256color) color_prompt=yes ;;
+    esac
+
+    # uncomment for a colored prompt, if the terminal has the capability; turned
+    # off by default to not distract the user: the focus in a terminal window
+    # should be on the output of commands, not on the prompt
+    force_color_prompt=yes
+
+    if [ -n "$force_color_prompt" ]; then
+        if [ -x "/usr/bin/tput" ] && tput setaf 1 >&/dev/null; then
+            # We have color support; assume it's compliant with Ecma-48
+            # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+            # a case would tend to support setf rather than setaf.)
+            color_prompt=yes
+        else
+            color_prompt=
+        fi
+    fi
+
+    # set variable identifying the chroot you work in (used in the prompt below)
+    if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+        debian_chroot=$(cat /etc/debian_chroot)
+    fi
+
+    if [ "$color_prompt" = yes ]; then
+        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    else
+        PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    fi
+    unset color_prompt force_color_prompt
+
+    # If this is an xterm set the title to user@host:dir
+    case "$TERM" in
+    xterm* | rxvt*)
+        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+        ;;
+    *) ;;
+    esac
 fi
-unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm* | rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*) ;;
-esac
-
-if [ -x "/usr/bin/dircolors" ]; then
+if [[ -x "/usr/bin/dircolors" ]]; then
     if test -r "${CONFIG_DIR}/dircolors/.dircolors"; then
-        eval "$(dircolors -b ${CONFIG_DIR}/dircolors/.dircolors)"
+        eval "$(dircolors -b "${CONFIG_DIR}/dircolors/.dircolors")"
     elif test -r ~/.dircolors; then
         eval "$(dircolors -b ~/.dircolors)"
     else
@@ -181,6 +233,18 @@ if command -v less &>/dev/null; then
 fi
 
 # colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+if command -v gcc &>/dev/null; then
+    export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+fi
 
-# endregion Colors
+# endregion Prompt & Colors
+
+ALIASES="${COMMONRC_DIR}/aliases"
+if [[ -f "${ALIASES}" ]]; then
+    source "${ALIASES}"
+fi
+
+FUNCDEFS="${COMMONRC_DIR}/funcdefs"
+if [[ -f "${FUNCDEFS}" ]]; then
+    source "${FUNCDEFS}"
+fi

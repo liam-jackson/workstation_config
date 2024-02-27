@@ -1,14 +1,13 @@
 #!/usr/bin/zsh
 # echo "entered funcdefs"
-# trap 'echo "sourced bash_func_defs again at $(date) by $$"' DEBUG
 
 # To use custom commands instead of find, override _fzf_compgen_{path,dir}
 _fzf_compgen_path() {
-	command eza--all --color=always "$1" 2>/dev/null
+	$(command -v eza) --all --color=always -1 "$1" 2>/dev/null
 }
 
 _fzf_compgen_dir() {
-	command eza--all --only-dirs --color=always "$1" 2>/dev/null
+	$(command -v eza) --all --all --only-dirs --color=always -1 "$1" 2>/dev/null
 }
 
 function cdh() {
@@ -20,10 +19,10 @@ function cdh() {
 }
 _fzf_complete_cdh() {
 	_fzf_complete +m --reverse --border --ansi \
-		--preview 'eza--all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+		--preview 'eza --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
 			dir -a -1 "${HOME}"
-			# fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${HOME}"
 		)
+	# fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${HOME}"
 }
 
 function cdwscfg() {

@@ -38,7 +38,7 @@ alias open="xdg-open"
 
 alias matlab='$MATLAB_ROOT/bin/matlab'
 alias python='python3'
-alias untar='tar -x -f'
+alias untar='tar -xzf'
 
 alias nalalistup='sudo nala list --upgradable'
 alias nalaupall='sudo nala upgrade --fix-broken --full --install-recommends --install-suggests --update'
@@ -46,7 +46,7 @@ alias nalaupall='sudo nala upgrade --fix-broken --full --install-recommends --in
 alias pbcopy="xsel --clipboard --input"
 alias pbpaste="xsel --clipboard --output"
 
-alias copydir='pwd | pbcopy'
+alias cpwd='pwd | pbcopy'
 
 alias numlines="wc --lines"
 alias numwords="wc --words"
@@ -68,9 +68,14 @@ if command -v nala &>/dev/null; then
     alias apt-get='nala'
 fi
 
-if [[ "${SHELL}" == *"bash"* ]]; then
+if [[ "${SHELL}" == *"bash"* && -n "${BASH_VERSION}" ]]; then
     alias src='source ${CONFIG_DIR}/bash/.bashrc'
-elif [[ "${SHELL}" == *"zsh"* ]]; then
-    alias cd='z'
+elif [[ "${SHELL}" == *"zsh"* && -z "${BASH_VERSION}" ]]; then
     alias src='source ${ZDOTDIR}/.zshrc'
+
+    if command -v z &>/dev/null; then
+        alias cd='z'
+    fi
+    alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+    alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 fi

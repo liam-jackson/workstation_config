@@ -9,9 +9,16 @@ fi
 
 export ZDOTDIR="${CONFIG_DIR:-${HOME}/.config}/zsh"
 export ZSH="${ZDOTDIR:-${HOME}}/.oh-my-zsh"
+
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/zsh"
 
 # You can use .zprofile to set environment vars for non-login, non-interactive shells.
 if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR}/.zprofile" ]]; then
     source "${ZDOTDIR}/.zprofile"
 fi
+
+# Emulate sh source command
+source_sh() {
+    emulate -LR sh
+    . "$@"
+}

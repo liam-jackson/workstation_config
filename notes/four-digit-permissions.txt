@@ -1,0 +1,22 @@
+[38;2;248;248;242mIn Linux and Unix-like systems, a 4-digit numeric code for file permissions is used in certain contexts, particularly when setting special modes in addition to the basic permissions. The digits in the 4-digit code represent the following:[0m
+
+[38;2;248;248;242m1. **Special Permissions**: The first digit is used for setting special permissions. This includes setuid (4), setgid (2), and sticky bit (1). If none of these special permissions are set, this digit is 0.[0m
+[38;2;248;248;242m   [0m
+[38;2;248;248;242m   - `4`: Setuid (Set User ID) - When set on an executable file, allows users to execute the file with the permissions of the file owner.[0m
+[38;2;248;248;242m   - `2`: Setgid (Set Group ID) - When set on an executable file, allows users to execute the file with the permissions of the group owner. When set on a directory, new files created in the directory inherit the directory's group.[0m
+[38;2;248;248;242m   - `1`: Sticky bit - Mainly used on directories to restrict deletion of files. When set, files within the directory can only be deleted by their owner, the directory owner, or the root user.[0m
+
+[38;2;248;248;242m2. **User Permissions**: The second digit is for the owner’s (user’s) permissions and works just like the first digit in the traditional 3-digit permission set. It ranges from 0 to 7, representing no permissions (0) up to full permissions (7).[0m
+
+[38;2;248;248;242m3. **Group Permissions**: The third digit is for the group’s permissions and uses the same numeric values (0-7) as the user permissions.[0m
+
+[38;2;248;248;242m4. **Others' Permissions**: The fourth and final digit is for the permissions of others (everyone else) and uses the same numeric values (0-7).[0m
+
+[38;2;248;248;242mFor example, a permission code of `2750` would mean:[0m
+[38;2;248;248;242m- `2`: Setgid is set.[0m
+[38;2;248;248;242m- `7`: The owner has read, write, and execute permissions.[0m
+[38;2;248;248;242m- `5`: The group has read and execute permissions.[0m
+[38;2;248;248;242m- `0`: Others have no permissions.[0m
+
+[38;2;248;248;242mThese permissions are crucial for managing security and access control on files and directories in Unix-like operating systems.[0m
+

@@ -1,28 +1,29 @@
 #!/bin/zsh
 
-export FZF_DEFAULT_OPTS="
---multi
---cycle
---hscroll-off=10
---filepath-word
---layout=reverse
---border
---margin=1
---info=inline
---marker='+'
---ansi
---tabstop=4
---preview-window 'border-top'
---bind 'ctrl-/:change-preview-window(75%|50%|25%|hidden|)'
---bind 'shift-up:preview-up'
---bind 'shift-down:preview-down'
---bind 'bspace:backward-delete-char/eof,ctrl-h:backward-delete-char/eof'
+export FZF_DEFAULT_OPTS=" \
+--multi \
+--cycle \
+--hscroll-off=10 \
+--filepath-word \
+--layout=reverse \
+--border \
+--margin=1 \
+--info=inline \
+--marker='+' \
+--ansi \
+--tabstop=4 \
+--preview-window 'border-top' \
+--bind 'ctrl-/:change-preview-window(75%|50%|25%|hidden|)' \
+--bind 'shift-up:preview-up' \
+--bind 'shift-down:preview-down' \
+--bind 'bspace:backward-delete-char/eof,ctrl-h:backward-delete-char/eof' \
 "
-export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree trash"
-export FZF_COMPLETION_OPTS="${FZF_DEFAULT_OPTS} --border --info=inline --prompt=' FZF completion  '"
 
-# export FZF_CTRL_T_COMMAND="command -v eza--all --sort=type --oneline --color=always --icons"
-# export FZF_ALT_C_COMMAND="command -v eza--all --all --only-dirs --oneline --color=always --icons "
+export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree trash"
+export FZF_COMPLETION_OPTS="${FZF_DEFAULT_OPTS} --border --info=inline --prompt=' FZF fzf/config > '"
+
+export FZF_CTRL_T_COMMAND="$(command -v eza) --all --sort=type --oneline --color=always --icons"
+export FZF_ALT_C_COMMAND="$(command -v eza) --all --all --only-dirs --oneline --color=always --icons"
 
 # export FZF_CTRL_T_OPTS=""
 # export FZF_ALT_C_OPTS="${FZF_DEFAULT_OPTS} --prompt=' FZF  ' \
@@ -30,8 +31,16 @@ export FZF_COMPLETION_OPTS="${FZF_DEFAULT_OPTS} --border --info=inline --prompt=
 # 	[[ \$(file --mime-type \${sel}) =~ binary ]] && echo {} is a binary file || \$(bat ${sel})' \
 # 	"
 
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
+# autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+# add-zsh-hook chpwd chpwd_recent_dirs
+
+# Enable Exact-match by fzf-insert-history
+# typeset -gA FZF_WIDGET_OPTS
+# FZF_WIDGET_OPTS[insert-history]='--exact'
+# FZF_WIDGET_OPTS[fzf-git-add-files]='--multi --bind ctrl-space:toggle'
+
+# Start fzf in a tmux pane
+# FZF_WIDGET_TMUX=1
 
 # Map widgets to key
 bindkey '^\' fzf-select-widget
@@ -39,18 +48,18 @@ bindkey '^\' fzf-select-widget
 # bindkey '^@c' fzf-change-directory
 # bindkey '^@n' fzf-change-named-directory
 # bindkey '^@f' fzf-edit-files
-bindkey '^kp' fzf-kill-processes
+# bindkey '^kp' fzf-kill-processes
 # bindkey '^@s' fzf-exec-ssh
-bindkey '\e[' fzf-change-recent-directory
-bindkey '\e]' fzf-insert-history
-bindkey '\ef' fzf-insert-files
-bindkey '\ed' fzf-insert-directory
+# bindkey '\e[' fzf-change-recent-directory
+# bindkey '\e]' fzf-insert-history
+# bindkey '\ef' fzf-insert-files
+# bindkey '\ed' fzf-insert-directory
 # bindkey '^xn' fzf-insert-named-directory
 
 ## Git
 # bindkey '\egg' fzf-select-git-widget
 bindkey '\ega' fzf-git-add-files
-bindkey '\egc' fzf-git-change-repository
+# bindkey '\egc' fzf-git-change-repository
 
 # GitHub
 # bindkey '^@h' fzf-select-github-widget
@@ -62,10 +71,3 @@ bindkey '\egc' fzf-git-change-repository
 # bindkey '^@dc' fzf-docker-remove-containers
 # bindkey '^@di' fzf-docker-remove-images
 # bindkey '^@dv' fzf-docker-remove-volumes
-
-# Enable Exact-match by fzf-insert-history
-# FZF_WIDGET_OPTS[insert-history]='--exact'
-# FZF_WIDGET_OPTS[fzf-git-add-files]='--multi --bind ctrl-space:toggle'
-
-# Start fzf in a tmux pane
-# FZF_WIDGET_TMUX=1

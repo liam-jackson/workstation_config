@@ -63,6 +63,8 @@ src/python_stubs
 !config/Code/User
 config/Code/User/**
 !config/Code/User/settings.json
+config/user-dirs.dirs
+config/user-dirs.locale
 
 # Filetypes:
 src/**/*tar

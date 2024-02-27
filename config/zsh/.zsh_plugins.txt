@@ -34,11 +34,12 @@ zsh-users/zsh-autosuggestions
 
 # With antidote, using Zephyr's completion plugin is recommended. This plugin is meant
 # to be run near the TOP of your .zsh_plugins.txt file.
-mattmc3/zephyr path:plugins/completion
+# mattmc3/zephyr path:plugins/completion
+# mattmc3/zephyr path:plugins/
 
 # zsh-users/zsh-completions is a popular plugin for adding supplemental completions.
 # We combine the `path:` and `kind:fpath` annotations here:
-zsh-users/zsh-completions path:src kind:fpath
+# zsh-users/zsh-completions path:src kind:fpath
 
 # Most other compinit plugins should be near the END of .zsh_plugins.txt so that $fpath
 # has been fully populated. One such plugin is zsh-utils and its completion subplugin.
@@ -52,8 +53,8 @@ zsh-users/zsh-completions path:src kind:fpath
 ###
 # https://github.com/peterhurford/up.zsh
 # rummik/zsh-tailf
-mattmc3/zman
-agkozak/zsh-z
+# mattmc3/zman
+# agkozak/zsh-z
 
 ### Local Plugins
 #
@@ -111,7 +112,7 @@ agkozak/zsh-z
 # bundles can often be made available simply with the `kind:path` annotation.
 #
 ###
-romkatv/zsh-bench kind:path
+# romkatv/zsh-bench kind:path
 
 ### Frameworks
 #
@@ -138,13 +139,13 @@ romkatv/zsh-bench kind:path
 #   ohmyzsh/ohmyzsh path:lib/clipboard.zsh
 #
 ####
-ohmyzsh/ohmyzsh path:lib/clipboard.zsh
-ohmyzsh/ohmyzsh path:plugins/copybuffer
-ohmyzsh/ohmyzsh path:plugins/copyfile
-ohmyzsh/ohmyzsh path:plugins/copypath
-ohmyzsh/ohmyzsh path:plugins/extract
-ohmyzsh/ohmyzsh path:plugins/magic-enter
-ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
+# ohmyzsh/ohmyzsh path:lib/clipboard.zsh
+# ohmyzsh/ohmyzsh path:plugins/copybuffer
+# ohmyzsh/ohmyzsh path:plugins/copyfile
+# ohmyzsh/ohmyzsh path:plugins/copypath
+# ohmyzsh/ohmyzsh path:plugins/extract
+# ohmyzsh/ohmyzsh path:plugins/magic-enter
+# ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
 
 ### Framework: Prezto
 #
@@ -191,9 +192,9 @@ ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
 # If you want a really thin framework, this is great.
 #
 ###
-belak/zsh-utils path:history
-belak/zsh-utils path:utility
-belak/zsh-utils path:editor
+# belak/zsh-utils path:history
+# belak/zsh-utils path:utility
+# belak/zsh-utils path:editor
 
 ### Deferred Plugins
 #
@@ -209,7 +210,7 @@ belak/zsh-utils path:editor
 
 # Syntax highlighting
 #zsh-users/zsh-syntax-highlighting kind:defer
-zdharma-continuum/fast-syntax-highlighting kind:defer
+zdharma-continuum/fast-syntax-highlighting # kind:defer
 
 ### Final Plugins
 #
@@ -220,6 +221,6 @@ zdharma-continuum/fast-syntax-highlighting kind:defer
 
 # These popular core plugins should be loaded at the end
 zsh-users/zsh-autosuggestions
-zsh-users/zsh-history-substring-search
+# zsh-users/zsh-history-substring-search
 
-belak/zsh-utils path:completion
+# belak/zsh-utils path:completion

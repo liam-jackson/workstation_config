@@ -34,12 +34,12 @@
         "editor.snippetSuggestions": "top",
         "files.encoding": "windows1252"
     },
-    "[plaintext]": {
-        "editor.fontLigatures": false,
-        "editor.unicodeHighlight.ambiguousCharacters": false,
-        "editor.unicodeHighlight.includeStrings": false,
-        "editor.unicodeHighlight.invisibleCharacters": false
-    },
+    // "[plaintext]": {
+    //     "editor.fontLigatures": false,
+    //     "editor.unicodeHighlight.ambiguousCharacters": false,
+    //     "editor.unicodeHighlight.includeStrings": false,
+    //     "editor.unicodeHighlight.invisibleCharacters": false
+    // },
     "[python]": {
         "diffEditor.renderMarginRevertIcon": true,
         "editor.autoClosingBrackets": "always",
@@ -125,7 +125,7 @@
     "editor.colorDecorators": true,
     "editor.foldingHighlight": true,
     "editor.foldingStrategy": "auto",
-    "editor.fontFamily": "JetBrainsMono Nerd Font",
+    "editor.fontFamily": "FiraCode Nerd Font, JetBrainsMono Nerd Font",
     "editor.fontLigatures": true,
     "editor.fontWeight": "500",
     "editor.formatOnPaste": true,
@@ -601,7 +601,7 @@
     "terminal.integrated.enableFileLinks": "on",
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.enablePersistentSessions": false,
-    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+    "terminal.integrated.fontFamily": "FiraCode Nerd Font",
     "terminal.integrated.inheritEnv": true,
     "terminal.integrated.profiles.linux": {
         "bash": {
