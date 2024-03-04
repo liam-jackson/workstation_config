@@ -30,10 +30,10 @@ export MANPATH="/snap/htop/current/usr/local/share/man:${MANPATH}"
 #     export MANPAGER="most"
 # else
 # fi
-export LESS='-s -M +Gg -iRFX --shift=10 --mouse --header=1 --jump-target=2 --LINE-NUMBERS --wordwrap'
+export LESS='-iRFX --shift=10 --mouse --header=1 --jump-target=2 --LINE-NUMBERS --wordwrap' # -s -M +Gg
 
 export PAGER="less ${LESS}"
-export MANPAGER="${PAGER}"
+export MANPAGER="less"
 
 if command -v nano &>/dev/null; then
     export EDITOR="nano"
@@ -65,6 +65,16 @@ if [ ${TILIX_ID} ] || [ ${VTE_VERSION} ]; then
     else
         echo "vte.sh not found, it might need a symlink from the versioned file in the same directory."
     fi
+fi
+
+ALIASES="${COMMONRC_DIR}/aliases"
+if [[ -f "${ALIASES}" ]]; then
+    source "${ALIASES}"
+fi
+
+FUNCDEFS="${COMMONRC_DIR}/funcdefs"
+if [[ -f "${FUNCDEFS}" ]]; then
+    source "${FUNCDEFS}"
 fi
 
 ### Languages (shell-agnostic setup):
@@ -238,13 +248,3 @@ if command -v gcc &>/dev/null; then
 fi
 
 # endregion Prompt & Colors
-
-ALIASES="${COMMONRC_DIR}/aliases"
-if [[ -f "${ALIASES}" ]]; then
-    source "${ALIASES}"
-fi
-
-FUNCDEFS="${COMMONRC_DIR}/funcdefs"
-if [[ -f "${FUNCDEFS}" ]]; then
-    source "${FUNCDEFS}"
-fi

@@ -140,7 +140,7 @@ _fzf_complete_condaa() {
 	_fzf_complete --info=inline \
 		--border=rounded \
 		--preview-window="right:50%" \
-		--preview-label=" {1} packages " \
+		--preview-label=$' {1} packages ' \
 		--preview=$'
                     conda list -n {1} | sort
                 ' \

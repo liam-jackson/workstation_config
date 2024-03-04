@@ -34,17 +34,21 @@ shopt -s globstar
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/liam/miniconda3/bin/conda' 'shell.sh' 'hook' 2>/dev/null)"
+__conda_setup="$('/home/liam/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
     if [ -f "/home/liam/miniconda3/etc/profile.d/conda.sh" ]; then
         . "/home/liam/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/liam/miniconda3/bin:${PATH}"
+        export PATH="/home/liam/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
+
+if [ -f "/home/liam/miniconda3/etc/profile.d/mamba.sh" ]; then
+    . "/home/liam/miniconda3/etc/profile.d/mamba.sh"
+fi
 # <<< conda initialize <<<
 
 # enable programmable completion features (you don't need to enable

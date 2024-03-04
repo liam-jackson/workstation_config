@@ -1,8 +1,7 @@
-auto_activate_base: false
+auto_activate_base: true
 changeps1: false
 channels:
-  - conda-forge
-  - defaults
+  - nodefaults
 channel_priority: strict
 pip_interop_enabled: true
 auto_stack: true

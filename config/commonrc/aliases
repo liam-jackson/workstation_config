@@ -9,73 +9,97 @@ if command -v bat &>/dev/null; then
     alias cat='bat'
 fi
 
-alias less='less $LESS'
-
-alias ll='ls -lAF --color=auto'
-alias lt='ls -lAF --sort=time --color=auto'
-alias ltr='ls -lAF --sort=time --reverse --color=auto'
-alias la='ls -A --color=auto'
-alias l='ls -CF --color=auto'
-
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias cdwsc='cd ${WORKSTATION_DIR}'
+alias cpwd='pwd | pbcopy'
+alias diff='diff --color'
+alias dir='dir --color=auto'
+alias egrep='egrep --color=auto'
 alias el='eza --all --long --header --icons'
 alias elt='eza --all --long --header --icons --sort=time'
-
-alias dir='dir --color=auto'
-alias vdir='vdir --color=auto'
-
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-
-alias diff='diff --color'
-alias howdoi='howdoi --color'
-
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-alias rm='echo "rm is disabled, use trash or /bin/rm instead."'
-
-alias open="xdg-open"
-
-alias matlab='$MATLAB_ROOT/bin/matlab'
-alias python='python3'
-alias untar='tar -xzf'
-
-alias nalalistup='sudo nala list --upgradable'
-alias nalaupall='sudo nala upgrade --fix-broken --full --install-recommends --install-suggests --update'
-
-alias pbcopy="xsel --clipboard --input"
-alias pbpaste="xsel --clipboard --output"
-
-alias cpwd='pwd | pbcopy'
-
-alias numlines="wc --lines"
-alias numwords="wc --words"
-alias numchars="wc --chars"
-
-alias wscfg='code ${WORKSTATION_DIR}/workstation_config.code-workspace'
-alias cdwsc='cd ${WORKSTATION_DIR}'
-alias watchdir='watch -n 1 --color tree --prune -C'
-
-alias frf='${WORKSTATION_DIR}/bin/rfv.sh'
 alias fapt='${WORKSTATION_DIR}/bin/pkgsearch.sh'
-alias menu='${WORKSTATION_DIR}/bin/fzfmenu.sh'
-
+alias fgrep='fgrep --color=auto'
+alias frf='${WORKSTATION_DIR}/bin/rfv.sh'
+alias grep='grep --color=auto'
 alias gss="git status"
 alias gsu="git status -uno"
+alias howdoi='howdoi --color'
+alias less='less $LESS'
 
-if command -v nala &>/dev/null; then
-    alias apt='nala'
-    alias apt-get='nala'
+# list aliases
+if command -v eza &>/dev/null; then
+    alias eza='eza --color=auto'
+    alias ls='eza'
+    alias l='eza --oneline --classify'
+    # ll - lists everything with directories first
+    alias ll='eza --long --all --group-directories-first'
+    # ld - lists only directories (no files)
+    alias ld='eza --long --only-dirs'
+    # lf - lists only files (no directories)
+    alias lf='eza --long --classify | grep --invert-match /'
+    # lh - lists only hidden files and directories
+    alias lh='eza --long --all --group-directories-first .*'
+    # lt - lists everything sorted by time modified
+    alias lt='eza -al --sort=modified'
+    alias ltr='eza -al --sort=modified --reverse'
+else
+    alias ls='ls --color=auto'
+    alias l='ls -CF'
+    alias la='ls -A'
+    alias ll='ls -lAF'
+    alias lt='ls -lAF --sort=time'
+    alias ltr='ls -lAF --sort=time --reverse'
 fi
+alias menu='${WORKSTATION_DIR}/bin/fzfmenu.sh'
+alias nalalistup='sudo nala list --upgradable'
+alias nalaupall='sudo nala upgrade --fix-broken --full --install-recommends --install-suggests --update'
+alias numchars="wc --chars"
+alias numlines="wc --lines"
+alias numwords="wc --words"
+alias open="xdg-open"
+alias pbcopy="xsel --clipboard --input"
+alias pbpaste="xsel --clipboard --output"
+alias rm='echo "rm is disabled, use trash or /bin/rm instead."'
+alias untar='tar -xzf'
+alias vdir='vdir --color=auto'
+alias watchdir='watch -n 1 --color tree --prune -C'
 
+alias wscfg='code ${WORKSTATION_DIR}/workstation_config.code-workspace'
+
+# Shell-specific aliases
 if [[ "${SHELL}" == *"bash"* && -n "${BASH_VERSION}" ]]; then
-    alias src='source ${CONFIG_DIR}/bash/.bashrc'
+    src() {
+        local bash_sources=(
+            "${CONFIG_DIR}/bash/.bash_profile"
+            "${CONFIG_DIR}/bash/.bashrc"
+        )
+        for bash_source in "${bash_sources[@]}"; do
+            if [[ -f "${bash_source}" ]]; then
+                source "${bash_source}"
+            else
+                echo "File not found: ${bash_source}"
+            fi
+        done
+    }
 elif [[ "${SHELL}" == *"zsh"* && -z "${BASH_VERSION}" ]]; then
-    alias src='source ${ZDOTDIR}/.zshrc'
+    src() {
+        local zsh_sources=(
+            "${CONFIG_DIR}/zsh/.zshenv"
+            "${CONFIG_DIR}/zsh/.zshrc"
+        )
+        for zsh_source in "${zsh_sources[@]}"; do
+            if [[ -f "${zsh_source}" ]]; then
+                source "${zsh_source}"
+            else
+                echo "File not found: ${zsh_source}"
+            fi
+        done
+    }
 
-    if command -v z &>/dev/null; then
-        alias cd='z'
-    fi
     alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
     alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+    alias -g -- \?='--help 2>&1 | bat --language=help --style=plain'
+
+    alias -s html='google-chrome'
+    alias -s py='python3'
 fi
