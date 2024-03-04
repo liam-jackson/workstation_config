@@ -22,3 +22,6 @@ echo "deb-src https://deb.volian.org/volian/ scar main" | sudo tee -a "/etc/apt/
 
 sudo apt update && sudo apt install nala
 
+mkdir -p "${CONFIG_DIR}/nala"
+sudo mv "/etc/nala/nala.conf" "${CONFIG_DIR}/nala"
+sudo ln -s "${CONFIG_DIR}/nala/nala.conf" "/etc/nala/nala.conf"

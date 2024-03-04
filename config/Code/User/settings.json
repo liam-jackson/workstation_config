@@ -187,7 +187,7 @@
     // "files.autoSave": "afterDelay",
     "files.exclude": {
         "**/.DS_Store": true,
-        // "**/.git": true,
+        "**/.git": false,
         "**/.hg": true,
         "**/.svn": true,
         "**/*.gmo": true,
@@ -238,8 +238,8 @@
     "github.copilot.editor.enableAutoCompletions": true,
     "github.copilot.enable": {
         "*": true,
-        "markdown": false,
         "plaintext": false,
+        "markdown": false,
         "scminput": false
     },
     "gitlens.menus": {
@@ -429,79 +429,51 @@
         "C0103"
     ],
     "pylint.cwd": "${workspaceFolder}",
-    "pylint.ignorePatterns": [
-        // "**miniconda3**/**/*",
-    ],
-    "pylint.importStrategy": "useBundled",
     "python.analysis.autoFormatStrings": true,
     "python.analysis.autoImportCompletions": true,
-    "python.analysis.autoSearchPaths": true,
     "python.analysis.exclude": [
-        "${condaPath}/**",
-        // "${home}/miniconda3/**/*",
-        // "${home}/miniconda3/envs/**/*",
-        "**/.vscode/**/*",
-        "**/.history/**/*"
+        "**/.vscode",
+        "**/.history",
+        "**/__pycache__"
     ],
     "python.analysis.extraPaths": [
         "${condaPath}/**",
-        "~/Workspace/tenbeauty/**",
         "~/workstation_config/**",
-        "/home/liam/**/vtkmodules/**"
+        "${workspaceFolder}/**"
     ],
-    "python.analysis.gotoDefinitionInStringLiteral": true,
     "python.analysis.ignore": [
-        "${condaPath}/**",
-        "${home}/miniconda3/**/*",
-        "${home}/miniconda3/envs/**/*",
-        "**/.vscode/**/*",
-        "**/.history/**/*"
+        "${condaPath}/**/*",
     ],
-    "python.analysis.importFormat": "absolute",
-    "python.analysis.include": [
-        "./**.ipynb",
-        "./**.py",
-        "./**.pyi",
-        "/home/liam/Workspace/tenbeauty/**",
-        "/home/liam/workstation_config/**",
-        "/home/liam/miniconda3/envs/vision_vtk/**/vtkmodules/**.py",
-        "/home/liam/miniconda3/envs/vision_vtk/**/vtkmodules/**.pyi",
-        "/home/liam/miniconda3/envs/vision_vtk/**/vtkmodules/**.pyc",
-        "/home/liam/miniconda3/envs/vision_vtk/**/vtkmodules/**.ipynb"
-    ],
-    "python.analysis.indexing": true,
-    "python.analysis.inlayHints.callArgumentNames": "off",
     "python.analysis.inlayHints.functionReturnTypes": true,
     "python.analysis.inlayHints.pytestParameters": true,
     "python.analysis.inlayHints.variableTypes": true,
     "python.analysis.packageIndexDepths": [
         {
+            "name": "PyQt5",
             "depth": 10,
-            "includeAllSymbols": true,
-            "name": "PyQt5"
+            "includeAllSymbols": true
         },
         {
+            "name": "PySide6",
             "depth": 10,
-            "includeAllSymbols": true,
-            "name": "vtkmodules"
+            "includeAllSymbols": true
+        },
+        {
+            "name": "vtkmodules",
+            "depth": 10,
+            "includeAllSymbols": true
         }
     ],
     "python.analysis.typeCheckingMode": "basic",
-    "python.analysis.useLibraryCodeForTypes": true,
-    "python.analysis.userFileIndexingLimit": 500,
+    // "python.analysis.userFileIndexingLimit": 500,
     "python.autoComplete.extraPaths": [
-        "~/miniconda3/envs/vision_vtk/**",
-        "~/miniconda3/envs/vision_vtk/lib/python3.9/site-packages/**",
-        "~/Workspace/tenbeauty/**",
-        "~/workstation_config/**"
-        // "./venv/**"
+        "${condaPath}/**",
+        "~/workstation_config/**",
+        "${workspaceFolder}/**"
     ],
-    "python.createEnvironment.contentButton": "show",
-    "python.defaultInterpreterPath": "python",
     "python.diagnostics.sourceMapsEnabled": true,
     "python.experiments.enabled": false,
     "python.formatting.yapfPath": "yapf",
-    "python.languageServer": "Pylance",
     "python.terminal.activateEnvInCurrentTerminal": true,
     "python.terminal.activateEnvironment": true,
     "python.testing.autoTestDiscoverOnSaveEnabled": true,
@@ -512,7 +484,6 @@
         "yes"
     ],
     "python.testing.pytestEnabled": true,
-    "python.testing.pytestPath": "pytest",
     "pythonDocsOpener.additionalLibraryToDocsMappings": {
         "PyQt5": "https://doc.qt.io/qt-5/${symbol_name}.html",
         "pytest": "https://docs.pytest.org/en/6.2.x/reference.html#${symbol_name}",
@@ -692,7 +663,10 @@
         "diffEditor.insertedTextBorder": "#139dc7c7",
         "diffEditor.removedTextBackground": "#ff910057",
         "diffEditor.removedTextBorder": "#ff6600c7",
-        "editorIndentGuide.activeBackground1": "#ff0000",
+        "editorGutter.addedBackground": "#00ff00",
+        "editorGutter.modifiedBackground": "#ffff00",
+        "editorGutter.deletedBackground": "#ff0000",
+        "editorIndentGuide.activeBackground1": "#ff6600",
         "editorIndentGuide.background1": "#a02e2e80",
         "editor.selectionHighlightBackground": "#ff000050",
         "editor.selectionBackground": "#8800ff50",
@@ -717,7 +691,6 @@
         "gitDecoration.conflictingResourceForeground": "#ff6600",
         "gitDecoration.submoduleResourceForeground": "#ff00ff",
     },
-    "workbench.colorTheme": "Shades of Purple (Super Dark)",
     "workbench.commandPalette.experimental.enableNaturalLanguageSearch": true,
     "workbench.commandPalette.experimental.suggestCommands": true,
     "workbench.editor.autoLockGroups": {
@@ -795,4 +768,5 @@
     },
     "security.workspace.trust.untrustedFiles": "open",
     "explorer.excludeGitIgnore": false,
+    "workbench.colorTheme": "ChromodynamicsV2",
 }

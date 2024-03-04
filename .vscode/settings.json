@@ -1,0 +1,61 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#ecdaf1",
+        "activityBar.background": "#ecdaf1",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#a28c3d",
+        "activityBarBadge.foreground": "#15202b",
+        "commandCenter.border": "#15202b99",
+        "sash.hoverBorder": "#ecdaf1",
+        "statusBar.background": "#dab5e3",
+        "statusBar.foreground": "#15202b",
+        "statusBarItem.hoverBackground": "#c790d5",
+        "statusBarItem.remoteBackground": "#dab5e3",
+        "statusBarItem.remoteForeground": "#15202b",
+        "titleBar.activeBackground": "#dab5e3",
+        "titleBar.activeForeground": "#15202b",
+        "titleBar.inactiveBackground": "#dab5e399",
+        "titleBar.inactiveForeground": "#15202b99",
+        "editorGroup.border": "#ecdaf1",
+        "panel.border": "#ecdaf1",
+        "sideBar.border": "#ecdaf1",
+        "tab.activeBorder": "#ecdaf1"
+    },
+    "peacock.color": "#dab5e3",
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "ref.license",
+                "settings": {
+                    "foreground": "#cccccc"
+                }
+            },
+            {
+                "scope": "ref.snippet",
+                "settings": {
+                    "foreground": "#606060"
+                }
+            }
+        ],
+        "comments": ""
+    }, 
+    "comment": "This file was created by Peacock.",
+    "files.exclude": {
+        "**/*.gmo": true,
+        "**/*.lo": true,
+        "**/*.o": true,
+        "**/*.Po": true,
+        "**/*.so": true,
+        "**/*gtk3*": true,
+        "config/zsh/.bash_aliases": true,
+        "config/zsh/.bash_func_defs": true,
+        "config/zsh/.bash_logout": true,
+        "config/zsh/.bash_history_config": true,
+        "config/zsh/.bash_colors_config": true,
+        "config/zsh/.bashrc": true,
+        "config/zsh/.bashrc_ORIGINAL": true,
+        "config/zsh/antigen.zsh": true,
+        "config/dconf/user": true
+    }
+}

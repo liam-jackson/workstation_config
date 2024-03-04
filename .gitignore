@@ -63,6 +63,8 @@ src/python_stubs
 !config/Code/User
 config/Code/User/**
 !config/Code/User/settings.json
+config/dconf/user
+config/monitors.xml
 config/user-dirs.dirs
 config/user-dirs.locale
 
@@ -76,10 +78,10 @@ src/**/*tar.gz
 config/**/*storage*
 config/.local/share/gnome-shell/*
 !config/.local/share/gnome-shell/extensions
+*cache*
 
 **/*.diff
 **/.history
-**/.vscode
 **/*.zwc
 
 **/*bash_history*
@@ -95,9 +97,10 @@ config/.local/share/gnome-shell/*
 **/*zcompdump
 **/*zsh_history
 
-# Logfiles and Backups:
+# Logs:
 logs/
 
+# Backups:
 **/*~
 **/*bak
 **/*backup
