@@ -35,9 +35,9 @@ export FZF_ALT_C_COMMAND="$(command -v eza) --all --all --only-dirs --oneline --
 # add-zsh-hook chpwd chpwd_recent_dirs
 
 # Enable Exact-match by fzf-insert-history
-# typeset -gA FZF_WIDGET_OPTS
-# FZF_WIDGET_OPTS[insert-history]='--exact'
-# FZF_WIDGET_OPTS[fzf-git-add-files]='--multi --bind ctrl-space:toggle'
+typeset -gA FZF_WIDGET_OPTS
+FZF_WIDGET_OPTS[insert-history]='--exact'
+FZF_WIDGET_OPTS[fzf-git-add-files]='--multi --bind ctrl-space:toggle'
 
 # Start fzf in a tmux pane
 # FZF_WIDGET_TMUX=1

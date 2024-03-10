@@ -62,7 +62,12 @@ src/python_stubs
 # Specific Files:
 !config/Code/User
 config/Code/User/**
-!config/Code/User/settings.json
+!config/Code/User/*.json
+!config/Code/User/snippets
+!config/Code/User/snippets/*.json
+!config/Code/User/sync
+!config/Code/User/sync/extensions
+!config/Code/User/**/*extensions.json
 config/dconf/user
 config/monitors.xml
 config/user-dirs.dirs

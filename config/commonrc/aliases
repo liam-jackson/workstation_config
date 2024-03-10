@@ -64,6 +64,7 @@ alias untar='tar -xzf'
 alias vdir='vdir --color=auto'
 alias watchdir='watch -n 1 --color tree --prune -C'
 
+alias allhist='find . \( -path '\''*zsh_history'\'' -o -path '\''*bash_history'\'' -o -path '\''*.history'\'' \) -a -type f | fzfp'
 alias wscfg='code ${WORKSTATION_DIR}/workstation_config.code-workspace'
 
 # Shell-specific aliases

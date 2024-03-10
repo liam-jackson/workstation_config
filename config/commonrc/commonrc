@@ -106,7 +106,7 @@ if ! command -v jq &>/dev/null; then
     wget -q -P "${HOME}" "${URL}"
     tar -xzf "${FILE}"
     JQ_DIR="${HOME}/$(basename -s '.tar.gz' "${FILE}")"
-    sudo chown --recursive ${USER}:${USER} "${JQ_DIR}"
+    sudo chown --recursive "${USER}":"${USER}" "${JQ_DIR}"
     cd "${JQ_DIR}" && bash ./configure && make && sudo make install
 fi
 

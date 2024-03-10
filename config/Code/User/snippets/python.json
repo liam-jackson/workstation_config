@@ -1,0 +1,10 @@
+{
+  "labelsetpix": {
+    "prefix": "labelsetpix",
+    "description": "Update a QLabel (label) with setPixmap()",
+    "body": [
+      "label.setPixmap(QPixmap.fromImage(image.scaled(label.width(), label.height(), Qt.AspectRatioMode.KeepAspectRatio)))",
+      ""
+    ]
+  }
+}

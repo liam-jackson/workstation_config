@@ -47,7 +47,7 @@
         "editor.autoClosingOvertype": "always",
         "editor.autoClosingQuotes": "always",
         "editor.defaultFormatter": "charliermarsh.ruff",
-        "editor.wordBasedSuggestions": "off"
+        "editor.wordBasedSuggestions": "off",
     },
     "[shellscript][ignore]": {
         "editor.defaultFormatter": "foxundermoon.shell-format"
@@ -143,6 +143,7 @@
         "other": "on",
         "strings": "on"
     },
+    "editor.inlineSuggest.showToolbar": "always",
     "editor.quickSuggestionsDelay": 10,
     "editor.renderLineHighlight": "all",
     "editor.semanticHighlighting.enabled": true,
@@ -296,6 +297,13 @@
     "jupyter.pythonExportMethod": "nbconvert",
     "jupyter.showVariableViewWhenDebugging": true,
     "jupyter.themeMatplotlibPlots": true,
+    "leetcode.filePath": {
+        "default": {
+            "folder": "${userHome}/.cache/leetcode/",
+            "filename": "${id}-${kebab-case-name}.${ext}"
+        }
+    },
+    "leetcode.defaultLanguage": "python",
     "local-history.absolute": true,
     "local-history.daysLimit": 30,
     "local-history.exclude": [
@@ -444,6 +452,7 @@
     "python.analysis.ignore": [
         "${condaPath}/**/*",
     ],
+    "editor.suggest.showStatusBar": true,
     "python.analysis.inlayHints.functionReturnTypes": true,
     "python.analysis.inlayHints.pytestParameters": true,
     "python.analysis.inlayHints.variableTypes": true,
@@ -552,13 +561,16 @@
         "--ignore",
         "F841"
     ],
+    "explorer.openEditors.minVisible": 0,
+    "explorer.openEditors.visible": 0,
     "ruff.organizeImports": true,
     "search.collapseResults": "alwaysCollapse",
     "search.exclude": {
         "**/.history/**": true,
         "**/*.code-search": true,
         "**/bower_components": true,
-        "**/node_modules": true
+        "**/node_modules": true,
+        "**/.git/**": true,
     },
     "search.useIgnoreFiles": true,
     "shell-syntax.defaultShell": "zsh",
@@ -668,14 +680,31 @@
         "editorGutter.deletedBackground": "#ff0000",
         "editorIndentGuide.activeBackground1": "#ff6600",
         "editorIndentGuide.background1": "#a02e2e80",
+
+        "editor.findMatchBackground": "#ffff0066",
+        "editor.findMatchBorder": "#ff770088",
+        "editor.findMatchHighlightBackground": "#ffff0033",
+        "editor.findMatchHighlightBorder": "#00ff0088",
+        "editor.findRangeHighlightBackground": "#0000ff88",
+        "editor.findRangeHighlightBorder": "#ff00ff44",
+
         "editor.selectionHighlightBackground": "#ff000050",
         "editor.selectionBackground": "#8800ff50",
         "editor.selectionForeground": "#00ff00",
         "editor.activeSelectionForeground": "#00ff00",
         "editor.wordHighlightTextBackground": "#9128a850",
         "editor.wordHighlightStrongBackground": "#9128a850",
+
+        "minimapGutter.addedBackground": "#00ff00",
+        "minimapGutter.deletedBackground": "#ff0000",
+        "minimap.modifiedResourceForeground": "#ffff00",
+        "minimap.untrackedResourceForeground": "#00aaff",
+        "minimap.conflictingResourceForeground": "#ff6600",
+        "minimap.submoduleResourceForeground": "#ff00ff",
+
         "list.activeSelectionBackground": "#8800ff",
         "list.activeSelectionForeground": "#00ff00",
+
         "tab.inactiveBackground": "#7528a850",
         "tab.activeBorder": "#ffff00",
         "tab.activeBorderTop": "#ffff00",
@@ -683,6 +712,7 @@
         "tab.unfocusedActiveBorderTop": "#ff6600",
         "tab.activeModifiedBorder": "#ff00ff",
         "tab.inactiveModifiedBorder": "#8800ff",
+
         "gitDecoration.ignoredResourceForeground": "#FFFFFF50",
         "gitDecoration.addedResourceForeground": "#00ff00",
         "gitDecoration.deletedResourceForeground": "#ff0000",
@@ -698,15 +728,6 @@
     },
     "workbench.editor.focusRecentEditorAfterClose": true,
     "workbench.editorAssociations": {
-        "*.markdown": "markdown-preview-enhanced",
-        "*.md": "markdown-preview-enhanced",
-        "*.mdown": "markdown-preview-enhanced",
-        "*.mkd": "markdown-preview-enhanced",
-        "*.mkdn": "markdown-preview-enhanced",
-        "*.py": "default",
-        "*.qmd": "markdown-preview-enhanced",
-        "*.rmd": "markdown-preview-enhanced",
-        "*.rst": "markdown-preview-enhanced",
         "*.xlsx": "gc-excelviewer-excel-editor"
     },
     "workbench.iconTheme": "material-icon-theme",
@@ -765,8 +786,17 @@
     "git.branchPrefix": "liam/",
     "emojisense.languages": {
         "shellscript": false,
+        "*": true
     },
     "security.workspace.trust.untrustedFiles": "open",
     "explorer.excludeGitIgnore": false,
-    "workbench.colorTheme": "ChromodynamicsV2",
+    "workbench.colorTheme": "monokai-charcoal (yellow)",
+    "editor.acceptSuggestionOnEnter": "smart",
+    "editor.suggest.filterGraceful": true,
+    "editor.autoClosingOvertype": "always",
+    "editor.autoIndent": "full",
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "notebook.insertFinalNewline": true,
+    "editor.suggest.selectionMode": "whenQuickSuggestion",
+    "workbench.sash.size": 20,
 }

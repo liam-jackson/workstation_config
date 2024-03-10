@@ -35,7 +35,7 @@ function cdwscfg() {
 }
 _fzf_complete_cdwscfg() {
 	_fzf_complete +m --reverse --border --ansi \
-		--preview 'eza--all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+		--preview 'eza --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
 			fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${HOME}/workstation_config/"
 		)
 }
@@ -161,7 +161,32 @@ _fzf_complete_condaa_post() {
 
 ### Conda environment deactivation:
 function condad() {
-	conda deactivate
+	cur=${COMP_WORDS[COMP_CWORD]}
+	local help_
+	help_="Usage:
+		condad [-a|--all]
+
+		-a, --all	Deactivate all conda environments.
+
+		With no options, deactivate the current conda environment."
+
+	case "$1" in
+	"")
+		conda deactivate
+		;;
+	"-a" | "--all")
+		while ${CONDA_SHLVL} -gt 0; do
+			conda deactivate
+		done
+		;;
+	"-h" | "--help")
+		echo "${help_}"
+		;;
+	*)
+		echo "Invalid option: $1"
+		echo "${help_}"
+		;;
+	esac
 }
 
 function fman() {

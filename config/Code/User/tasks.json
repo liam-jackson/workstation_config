@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+        "detail": "https://code.visualstudio.com/docs/editor/variables-reference",
+      "label": "echo VSCode variable",
+      "type": "shell",
+      "command": "`${workspaceFolder}`:; echo; echo ${workspaceFolder}"
+    }
+  ]
+}

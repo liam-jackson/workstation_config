@@ -1,0 +1,33 @@
+{
+  "continue": {
+    "prefix": "prompt_continue",
+    "description": "insert in a script to prompt for confirmation before continuing",
+    "body": [
+      "read -p \"continue? \" -r -n 1 continue_response",
+      "echo",
+      "if [[ ! \\${continue_response} =~ [yY] ]]; then",
+      "    break",
+      "fi",
+      ""
+    ]
+  },
+  "print_script_vars": {
+    "prefix": "print_script_vars",
+    "description": "useful for getting the variables set in a script",
+    "body": [
+      "# Capture the list of original shell variables",
+      "set | grep \"^[A-Za-z0-9_]*=\" >/tmp/original_vars.txt",
+      "",
+      "# Capture the list of all variables at this point",
+      "set | grep \"^[A-Za-z0-9_]*=\" >/tmp/script_vars.txt",
+      "",
+      "# Display only the variables that have been added by the script",
+      "echo \"Variables set by script:\"",
+      "comm -13 <(sort /tmp/original_vars.txt) <(sort /tmp/script_vars.txt)",
+      "",
+      "# Clean up",
+      "/bin/rm /tmp/original_vars.txt /tmp/script_vars.txt",
+      ""
+    ]
+  }
+}

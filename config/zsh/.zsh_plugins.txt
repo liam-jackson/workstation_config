@@ -29,17 +29,21 @@
 #   autoload -Uz compinit && compinit
 #
 ###
+# fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets,
+# such as zsh-autosuggestions or fast-syntax-highlighting
 Aloxaf/fzf-tab
-zsh-users/zsh-autosuggestions
+joshskidmore/zsh-fzf-history-search
 
 # With antidote, using Zephyr's completion plugin is recommended. This plugin is meant
 # to be run near the TOP of your .zsh_plugins.txt file.
-# mattmc3/zephyr path:plugins/completion
 # mattmc3/zephyr path:plugins/
+# mattmc3/zephyr path:plugins/completion
+MenkeTechnologies/zsh-cargo-completion
+ytet5uy4/fzf-widgets
 
 # zsh-users/zsh-completions is a popular plugin for adding supplemental completions.
 # We combine the `path:` and `kind:fpath` annotations here:
-# zsh-users/zsh-completions path:src kind:fpath
+zsh-users/zsh-completions path:src kind:fpath
 
 # Most other compinit plugins should be near the END of .zsh_plugins.txt so that $fpath
 # has been fully populated. One such plugin is zsh-utils and its completion subplugin.
@@ -53,7 +57,7 @@ zsh-users/zsh-autosuggestions
 ###
 # https://github.com/peterhurford/up.zsh
 # rummik/zsh-tailf
-# mattmc3/zman
+mattmc3/zman
 # agkozak/zsh-z
 
 ### Local Plugins
@@ -62,8 +66,7 @@ zsh-users/zsh-autosuggestions
 # host your own custom plugins.
 #
 ###
-# $ZDOTDIR/.aliases
-#$ZDOTDIR/custom/plugins/example
+# $ZDOTDIR/custom/plugins/example
 
 ### Local Plugins with Variables
 #
@@ -223,4 +226,4 @@ zdharma-continuum/fast-syntax-highlighting # kind:defer
 zsh-users/zsh-autosuggestions
 # zsh-users/zsh-history-substring-search
 
-# belak/zsh-utils path:completion
+belak/zsh-utils path:completion

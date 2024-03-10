@@ -33,7 +33,7 @@
   },
   {
     "name": "alsa-ucm-conf",
-    "version": "1.2.6.3-1ubuntu1.10"
+    "version": "1.2.6.3-1ubuntu1.11"
   },
   {
     "name": "alsa-utils",
@@ -305,7 +305,7 @@
   },
   {
     "name": "code",
-    "version": "1.87.0-1709078641"
+    "version": "1.87.1-1709685762"
   },
   {
     "name": "colord",
@@ -361,7 +361,7 @@
   },
   {
     "name": "cups",
-    "version": "2.4.1op1-1ubuntu4.7"
+    "version": "2.4.1op1-1ubuntu4.8"
   },
   {
     "name": "cups-browsed",
@@ -369,23 +369,23 @@
   },
   {
     "name": "cups-bsd",
-    "version": "2.4.1op1-1ubuntu4.7"
+    "version": "2.4.1op1-1ubuntu4.8"
   },
   {
     "name": "cups-client",
-    "version": "2.4.1op1-1ubuntu4.7"
+    "version": "2.4.1op1-1ubuntu4.8"
   },
   {
     "name": "cups-common",
-    "version": "2.4.1op1-1ubuntu4.7"
+    "version": "2.4.1op1-1ubuntu4.8"
   },
   {
     "name": "cups-core-drivers",
-    "version": "2.4.1op1-1ubuntu4.7"
+    "version": "2.4.1op1-1ubuntu4.8"
   },
   {
     "name": "cups-daemon",
-    "version": "2.4.1op1-1ubuntu4.7"
+    "version": "2.4.1op1-1ubuntu4.8"
   },
   {
     "name": "cups-filters",
@@ -397,7 +397,7 @@
   },
   {
     "name": "cups-ipp-utils",
-    "version": "2.4.1op1-1ubuntu4.7"
+    "version": "2.4.1op1-1ubuntu4.8"
   },
   {
     "name": "cups-pk-helper",
@@ -405,11 +405,11 @@
   },
   {
     "name": "cups-ppdc",
-    "version": "2.4.1op1-1ubuntu4.7"
+    "version": "2.4.1op1-1ubuntu4.8"
   },
   {
     "name": "cups-server-common",
-    "version": "2.4.1op1-1ubuntu4.7"
+    "version": "2.4.1op1-1ubuntu4.8"
   },
   {
     "name": "curl",
@@ -466,6 +466,10 @@
   {
     "name": "debianutils",
     "version": "5.5-1ubuntu2"
+  },
+  {
+    "name": "debsums",
+    "version": "3.0.2"
   },
   {
     "name": "debugedit",
@@ -545,23 +549,23 @@
   },
   {
     "name": "docker-buildx-plugin",
-    "version": "0.12.1-1~ubuntu.22.04~jammy"
+    "version": "0.13.0-1~ubuntu.22.04~jammy"
   },
   {
     "name": "docker-ce",
-    "version": "5:25.0.3-1~ubuntu.22.04~jammy"
+    "version": "5:25.0.4-1~ubuntu.22.04~jammy"
   },
   {
     "name": "docker-ce-cli",
-    "version": "5:25.0.3-1~ubuntu.22.04~jammy"
+    "version": "5:25.0.4-1~ubuntu.22.04~jammy"
   },
   {
     "name": "docker-ce-rootless-extras",
-    "version": "5:25.0.3-1~ubuntu.22.04~jammy"
+    "version": "5:25.0.4-1~ubuntu.22.04~jammy"
   },
   {
     "name": "docker-compose-plugin",
-    "version": "2.24.6-1~ubuntu.22.04~jammy"
+    "version": "2.24.7-1~ubuntu.22.04~jammy"
   },
   {
     "name": "dosfstools",
@@ -569,11 +573,11 @@
   },
   {
     "name": "dpkg",
-    "version": "1.21.1ubuntu2.2"
+    "version": "1.21.1ubuntu2.3"
   },
   {
     "name": "dpkg-dev",
-    "version": "1.21.1ubuntu2.2"
+    "version": "1.21.1ubuntu2.3"
   },
   {
     "name": "dwz",
@@ -612,6 +616,10 @@
     "version": "1.50+dfsg-10"
   },
   {
+    "name": "evemu-tools",
+    "version": "2.7.0-3"
+  },
+  {
     "name": "evince",
     "version": "42.3-0ubuntu3.1"
   },
@@ -626,6 +634,10 @@
   {
     "name": "evolution-data-server-common",
     "version": "3.44.4-0ubuntu1.1"
+  },
+  {
+    "name": "evtest",
+    "version": "1:1.34-1"
   },
   {
     "name": "fakeroot",
@@ -1168,6 +1180,22 @@
     "version": "4:11.2.0-1ubuntu1"
   },
   {
+    "name": "gconf-service",
+    "version": "3.2.6-7ubuntu2"
+  },
+  {
+    "name": "gconf-service-backend",
+    "version": "3.2.6-7ubuntu2"
+  },
+  {
+    "name": "gconf2",
+    "version": "3.2.6-7ubuntu2"
+  },
+  {
+    "name": "gconf2-common",
+    "version": "3.2.6-7ubuntu2"
+  },
+  {
     "name": "gcr",
     "version": "3.40.0-4"
   },
@@ -1190,6 +1218,90 @@
   {
     "name": "gedit-common",
     "version": "41.0-3"
+  },
+  {
+    "name": "gedit-plugin-bookmarks",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-bracket-completion",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-character-map",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-code-comment",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-color-picker",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-color-schemer",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-commander",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-draw-spaces",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-find-in-files",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-git",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-join-lines",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-multi-edit",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-session-saver",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-smart-spaces",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-synctex",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-terminal",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-text-size",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-translate",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugin-word-completion",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugins",
+    "version": "41.0-1"
+  },
+  {
+    "name": "gedit-plugins-common",
+    "version": "41.0-1"
   },
   {
     "name": "geoclue-2.0",
@@ -1292,6 +1404,10 @@
     "version": "2.5.7-3ubuntu3"
   },
   {
+    "name": "gir1.2-ggit-1.0:amd64",
+    "version": "1.0.0.1-1"
+  },
+  {
     "name": "gir1.2-glib-2.0:amd64",
     "version": "1.72.0-1"
   },
@@ -1334,6 +1450,10 @@
   {
     "name": "gir1.2-gtksource-4:amd64",
     "version": "4.8.3-1"
+  },
+  {
+    "name": "gir1.2-gucharmap-2.90:amd64",
+    "version": "1:14.0.3-1"
   },
   {
     "name": "gir1.2-gweather-3.0:amd64",
@@ -1433,7 +1553,7 @@
   },
   {
     "name": "git-lfs",
-    "version": "3.4.1"
+    "version": "3.5.1"
   },
   {
     "name": "git-man",
@@ -1681,7 +1801,7 @@
   },
   {
     "name": "google-chrome-stable",
-    "version": "122.0.6261.94-1"
+    "version": "122.0.6261.111-1"
   },
   {
     "name": "goreleaser",
@@ -1830,6 +1950,10 @@
   {
     "name": "gtk2-engines-pixbuf:amd64",
     "version": "2.24.33-2ubuntu2"
+  },
+  {
+    "name": "guile-2.2-libs:amd64",
+    "version": "2.2.7+1-6build2"
   },
   {
     "name": "guvcview",
@@ -2529,7 +2653,7 @@
   },
   {
     "name": "libc-ares2:amd64",
-    "version": "1.18.1-1ubuntu0.22.04.2"
+    "version": "1.18.1-1ubuntu0.22.04.3"
   },
   {
     "name": "libc-bin",
@@ -2801,7 +2925,7 @@
   },
   {
     "name": "libcups2:amd64",
-    "version": "2.4.1op1-1ubuntu4.7"
+    "version": "2.4.1op1-1ubuntu4.8"
   },
   {
     "name": "libcupsfilters1:amd64",
@@ -2809,7 +2933,7 @@
   },
   {
     "name": "libcupsimage2:amd64",
-    "version": "2.4.1op1-1ubuntu4.7"
+    "version": "2.4.1op1-1ubuntu4.8"
   },
   {
     "name": "libcurl3-gnutls:amd64",
@@ -2873,7 +2997,7 @@
   },
   {
     "name": "libde265-0:amd64",
-    "version": "1.0.8-1ubuntu0.2"
+    "version": "1.0.8-1ubuntu0.3"
   },
   {
     "name": "libdebconfclient0:amd64",
@@ -2937,7 +3061,7 @@
   },
   {
     "name": "libdpkg-perl",
-    "version": "1.21.1ubuntu2.2"
+    "version": "1.21.1ubuntu2.3"
   },
   {
     "name": "libdrm-amdgpu1:amd64",
@@ -3108,6 +3232,10 @@
     "version": "42.3-0ubuntu3.1"
   },
   {
+    "name": "libevemu3:amd64",
+    "version": "2.7.0-3"
+  },
+  {
     "name": "libevview3-3:amd64",
     "version": "42.3-0ubuntu3.1"
   },
@@ -3190,6 +3318,10 @@
   {
     "name": "libfile-desktopentry-perl",
     "version": "0.22-2"
+  },
+  {
+    "name": "libfile-fnmatch-perl",
+    "version": "0.02-2build8"
   },
   {
     "name": "libfile-listing-perl",
@@ -3348,6 +3480,10 @@
     "version": "3.40.0-4"
   },
   {
+    "name": "libgconf-2-4:amd64",
+    "version": "3.2.6-7ubuntu2"
+  },
+  {
     "name": "libgcr-base-3-1:amd64",
     "version": "3.40.0-4"
   },
@@ -3438,6 +3574,14 @@
   {
     "name": "libgirepository-1.0-1:amd64",
     "version": "1.72.0-1"
+  },
+  {
+    "name": "libgit2-1.1:amd64",
+    "version": "1.1.0+dfsg.1-4.1ubuntu0.1"
+  },
+  {
+    "name": "libgit2-glib-1.0-0:amd64",
+    "version": "1.0.0.1-1"
   },
   {
     "name": "libgjs0g:amd64",
@@ -3605,7 +3749,7 @@
   },
   {
     "name": "libgpgme11:amd64",
-    "version": "1.16.0-1.2ubuntu4.1"
+    "version": "1.16.0-1.2ubuntu4.2"
   },
   {
     "name": "libgphoto2-6:amd64",
@@ -3772,6 +3916,10 @@
     "version": "2.40.0-2build3"
   },
   {
+    "name": "libgucharmap-2-90-7:amd64",
+    "version": "1:14.0.3-1"
+  },
+  {
     "name": "libgudev-1.0-0:amd64",
     "version": "1:237-2build1"
   },
@@ -3878,6 +4026,10 @@
   {
     "name": "libhttp-negotiate-perl",
     "version": "6.01-1"
+  },
+  {
+    "name": "libhttp-parser2.9:amd64",
+    "version": "2.9.4-4"
   },
   {
     "name": "libhunspell-1.7-0:amd64",
@@ -4432,6 +4584,18 @@
     "version": "1.5.2-1build2"
   },
   {
+    "name": "libmbedcrypto7:amd64",
+    "version": "2.28.0-1build1"
+  },
+  {
+    "name": "libmbedtls14:amd64",
+    "version": "2.28.0-1build1"
+  },
+  {
+    "name": "libmbedx509-1:amd64",
+    "version": "2.28.0-1build1"
+  },
+  {
     "name": "libmbim-glib4:amd64",
     "version": "1.28.0-1~ubuntu20.04.1"
   },
@@ -4637,11 +4801,11 @@
   },
   {
     "name": "libnode-dev",
-    "version": "12.22.9~dfsg-1ubuntu3.3"
+    "version": "12.22.9~dfsg-1ubuntu3.4"
   },
   {
     "name": "libnode72:amd64",
-    "version": "12.22.9~dfsg-1ubuntu3.3"
+    "version": "12.22.9~dfsg-1ubuntu3.4"
   },
   {
     "name": "libnorm1:amd64",
@@ -6657,39 +6821,39 @@
   },
   {
     "name": "linux-firmware",
-    "version": "20220329.git681281e4-0ubuntu3.26"
+    "version": "20220329.git681281e4-0ubuntu3.29"
   },
   {
     "name": "linux-generic-hwe-22.04",
-    "version": "6.5.0.21.21~22.04.11"
+    "version": "6.5.0.25.25~22.04.12"
   },
   {
     "name": "linux-headers-6.2.0-26-generic",
     "version": "6.2.0-26.26~22.04.1"
   },
   {
-    "name": "linux-headers-6.5.0-18-generic",
-    "version": "6.5.0-18.18~22.04.1"
-  },
-  {
     "name": "linux-headers-6.5.0-21-generic",
     "version": "6.5.0-21.21~22.04.1"
   },
   {
+    "name": "linux-headers-6.5.0-25-generic",
+    "version": "6.5.0-25.25~22.04.1"
+  },
+  {
     "name": "linux-headers-generic-hwe-22.04",
-    "version": "6.5.0.21.21~22.04.11"
+    "version": "6.5.0.25.25~22.04.12"
   },
   {
     "name": "linux-hwe-6.2-headers-6.2.0-26",
     "version": "6.2.0-26.26~22.04.1"
   },
   {
-    "name": "linux-hwe-6.5-headers-6.5.0-18",
-    "version": "6.5.0-18.18~22.04.1"
-  },
-  {
     "name": "linux-hwe-6.5-headers-6.5.0-21",
     "version": "6.5.0-21.21~22.04.1"
+  },
+  {
+    "name": "linux-hwe-6.5-headers-6.5.0-25",
+    "version": "6.5.0-25.25~22.04.1"
   },
   {
     "name": "linux-image-6.2.0-26-generic",
@@ -6712,12 +6876,16 @@
     "version": "6.5.0-21.21~22.04.1"
   },
   {
+    "name": "linux-image-6.5.0-25-generic",
+    "version": "6.5.0-25.25~22.04.1"
+  },
+  {
     "name": "linux-image-generic-hwe-22.04",
-    "version": "6.5.0.21.21~22.04.11"
+    "version": "6.5.0.25.25~22.04.12"
   },
   {
     "name": "linux-libc-dev:amd64",
-    "version": "5.15.0-97.107"
+    "version": "5.15.0-100.110"
   },
   {
     "name": "linux-modules-6.2.0-26-generic",
@@ -6740,6 +6908,10 @@
     "version": "6.5.0-21.21~22.04.1"
   },
   {
+    "name": "linux-modules-6.5.0-25-generic",
+    "version": "6.5.0-25.25~22.04.1"
+  },
+  {
     "name": "linux-modules-extra-6.2.0-26-generic",
     "version": "6.2.0-26.26~22.04.1"
   },
@@ -6754,6 +6926,10 @@
   {
     "name": "linux-modules-extra-6.5.0-21-generic",
     "version": "6.5.0-21.21~22.04.1"
+  },
+  {
+    "name": "linux-modules-extra-6.5.0-25-generic",
+    "version": "6.5.0-25.25~22.04.1"
   },
   {
     "name": "linux-modules-nvidia-390-6.2.0-26-generic",
@@ -8133,11 +8309,11 @@
   },
   {
     "name": "nodejs",
-    "version": "12.22.9~dfsg-1ubuntu3.3"
+    "version": "12.22.9~dfsg-1ubuntu3.4"
   },
   {
     "name": "nodejs-doc",
-    "version": "12.22.9~dfsg-1ubuntu3.3"
+    "version": "12.22.9~dfsg-1ubuntu3.4"
   },
   {
     "name": "npm",
@@ -8565,7 +8741,7 @@
   },
   {
     "name": "python3-cryptography",
-    "version": "3.4.8-1ubuntu2.1"
+    "version": "3.4.8-1ubuntu2.2"
   },
   {
     "name": "python3-cups:amd64",
@@ -9256,6 +9432,10 @@
     "version": "3.01-1ubuntu1"
   },
   {
+    "name": "tabby-terminal",
+    "version": "1.0.207"
+  },
+  {
     "name": "tar",
     "version": "1.34+dfsg-1ubuntu0.1.22.04.2"
   },
@@ -9568,6 +9748,10 @@
     "version": "2020.12.07-2"
   },
   {
+    "name": "warp-terminal",
+    "version": "0.2024.03.05.08.02.stable.01"
+  },
+  {
     "name": "wbritish",
     "version": "2020.12.07-2"
   },
@@ -9638,6 +9822,10 @@
   {
     "name": "xaw3dg:amd64",
     "version": "1.5+F-1build1"
+  },
+  {
+    "name": "xbindkeys",
+    "version": "1.8.7-1"
   },
   {
     "name": "xbitmaps",

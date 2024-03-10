@@ -68,47 +68,23 @@ bindkey_writer() {
     cp "${new_keymap}" "${cur_keymap}"
 }
 
+# User configuration
+setopt EXTENDED_GLOB
+setopt GLOB_DOTS
+setopt AUTO_CD
+
 # Ensure path arrays do not contain duplicates.
 typeset -gU path fpath
 
-# History settings
-if [[ -f "${ZDOTDIR}/.zsh_history_config" ]]; then
-    source "${ZDOTDIR}/.zsh_history_config"
-    bindkey_writer "historycfg"
-fi
-
-# Adding to fpath
-fpath_additions=(
-    "${WORKSTATION_DIR}/src/eza/completions/zsh",
-)
-for fpath_addition in "${fpath_additions[@]}"; do
-    if [[ -e "${fpath_addition}" ]]; then
-        fpath=("${fpath_addition}" $fpath)
-    fi
-done
-
-# # Autoload functions you might want to use with antidote.
-# CUST_COMP_DIR="${CONFIG_DIR}/zsh/.zfunc"
-# if [[ -d "${CUST_COMP_DIR}" ]]; then
-#     fpath=("${CUST_COMP_DIR}" $fpath)
-# fi
-# bindkey_writer "custcomp"
-
-ZFUNCDIR="${ZFUNCDIR:-${ZDOTDIR}/functions}"
-if [[ -d "${ZFUNCDIR}" ]]; then
-    fpath=("${ZFUNCDIR}" $fpath)
-fi
-bindkey_writer "zfuncdir"
-
-# Source zstyles you might use with antidote.
-[[ -e "${ZDOTDIR:-~}/.zstyles" ]] && source "${ZDOTDIR:-~}/.zstyles"
-bindkey_writer "zstyles"
+# ZDOTDIR="${CONFIG_DIR:-${HOME}/.config}/zsh"
+# ZSH_CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/zsh"
 
 # Clone antidote if necessary.
-[[ -d ${ZDOTDIR:-~}/.antidote ]] ||
-    git clone https://github.com/mattmc3/antidote "${ZDOTDIR:-${HOME}}/.antidote"
+ANTIDOTE_DIR="${ZDOTDIR:-${HOME}}/.antidote"
+[[ -d "${ANTIDOTE_DIR}" ]] ||
+    git clone https://github.com/mattmc3/antidote "${ANTIDOTE_DIR}"
 
-ANTIDOTE_PATH="${ZDOTDIR:-${HOME}}/.antidote/antidote.zsh"
+ANTIDOTE_PATH="${ANTIDOTE_DIR}/antidote.zsh"
 if [[ -f "${ANTIDOTE_PATH}" ]]; then
     source "${ANTIDOTE_PATH}"
     bindkey_writer "antidote"
@@ -117,11 +93,37 @@ else
     echo "Initialize/update submodules (includes antidote) and try again."
     return 1
 fi
+autoload -Uz compinit && compinit
 
-export ZSH="$(antidote path ohmyzsh/ohmyzsh)"
-bindkey_writer "omz"
+# Load the default completion system (considers "--help" output)
+# [note: must call after compinit]
+compdef _gnu_generic -default- -P '*'
+bindkey_writer "compdef"
+
+# History settings
+if [[ -f "${ZDOTDIR}/.zsh_history_config" ]]; then
+    source "${ZDOTDIR}/.zsh_history_config"
+    bindkey_writer "historycfg"
+fi
+
+# Autoload functions you might want to use with antidote.
+export ZFUNCDIR="${ZDOTDIR}/.zfunc"
+[[ -d "${ZFUNCDIR}" ]] && fpath=("${ZFUNCDIR}" $fpath)
+
+# Adding to fpath
+fpath_additions=(
+    "${WORKSTATION_DIR}/src/eza/completions/zsh",
+)
+for fpath_addition in "${fpath_additions[@]}"; do
+    [[ -e "${fpath_addition}" ]] && fpath=("${fpath_addition}" $fpath)
+done
+
+# Source zstyles you might use with antidote.
+ZSTYLES_PATH="${ZDOTDIR}/.zstyles"
+[[ -f "${ZSTYLES_PATH}" ]] && source "${ZSTYLES_PATH}" && bindkey_writer "zstyles"
 
 # Load conda
+export CONDARC="${CONFIG_DIR}/conda/.condarc"
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$("${HOME}/miniforge3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
@@ -144,8 +146,6 @@ if command -v mamba &>/dev/null; then
     alias condaconda="${HOME}/miniforge3/bin/conda"
     alias conda=mamba
 fi
-# export CONDARC="${CONFIG_DIR}/conda/.condarc"
-bindkey_writer "conda"
 
 # Custom pip completion
 _pip_completion() {
@@ -157,23 +157,9 @@ _pip_completion() {
         PIP_AUTO_COMPLETE=1 $words[1]))
 }
 compctl -K _pip_completion pip _pip3_completion pip3
-bindkey_writer "pipcomp"
 
 autoload -Uz $fpath[1]/*(.:t)
 bindkey_writer "autoload"
-
-# User configuration
-setopt EXTENDED_GLOB
-setopt GLOB_DOTS
-setopt AUTO_CD
-
-ZSH_PLUGINS_PATH="${ZDOTDIR:-${HOME}}/.zsh_plugins.txt"
-if [[ -f "${ZSH_PLUGINS_PATH}" ]]; then
-    antidote load "${ZSH_PLUGINS_PATH}"
-else
-    echo "No zsh plugins file found at ${ZSH_PLUGINS_PATH}"
-fi
-bindkey_writer "antidote_load"
 
 source_files=(
     "${HOME}/.fzf.zsh"
@@ -215,16 +201,22 @@ done
 bindkey    "^[[3~"          delete-char
 bindkey    "^[3;5~"         delete-char
 
+bindkey -s '\e[1;5D' '\eb'
+bindkey -s '\e[1;5C' '\ef'
+
+compinit && bindkey_writer "compinit"
+
+
+
+ZSH_PLUGINS_PATH="${ZDOTDIR:-${HOME}}/.zsh_plugins.txt"
+if [[ -f "${ZSH_PLUGINS_PATH}" ]]; then
+    antidote load "${ZSH_PLUGINS_PATH}"
+    bindkey_writer "antidote_load"
+else
+    echo "No zsh plugins file found at ${ZSH_PLUGINS_PATH}"
+fi
+
 #################################################
-bindkey_writer "keymap_zshrc_after_143"
-
-autoload -Uz compinit && compinit
-bindkey_writer "compinit"
-
-# Load the default completion system (considers "--help" output)
-# [note: must call after compinit]
-compdef _gnu_generic -default- -P '*'
-bindkey_writer "compdef"
 
 if ! command -v zoxide &>/dev/null; then
     curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
