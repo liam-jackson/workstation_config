@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 # echo "entered .zsh_history_config"
 
 # Save 100,000 lines of history in memory
@@ -7,23 +7,6 @@ HISTSIZE=100000
 SAVEHIST=2000000
 # History file
 HISTFILE="${HOME}/.zsh_history"
-
-# History command configuration
-setopt extended_history       # record timestamp of command in HISTFILE
-setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt hist_ignore_dups       # ignore duplicated commands history list
-setopt hist_ignore_space      # ignore commands that start with space
-setopt hist_verify            # show command with history expansion to user before running it
-setopt inc_append_history     # add commands to HISTFILE in order of execution
-setopt share_history          # share command history data
-setopt SHARE_HISTORY
-
-# Append to history instead of overwrite
-setopt APPEND_HISTORY
-
-# Ignore redundant or space commands
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
 
 # Ignore specific commands
 HISTIGNORE="ls:ll:ls -alh:pwd:clear:history:echo:clear:exit"
@@ -41,9 +24,17 @@ zshaddhistory() {
     esac
 }
 
+# History command configuration
+setopt append_history         # append to history instead of overwrite
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands starting with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt share_history          # share command history data
+
 # Set time format (Zsh uses `print -P` formatting)
 # This will prepend the current timestamp as an EPOCH time to each history entry
-setopt EXTENDED_HISTORY
+setopt extended_history
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -52,11 +43,8 @@ setopt EXTENDED_HISTORY
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
-HIST_STAMPS="%Y-%m-%d-%H%M"
+HIST_STAMPS="%Y-%m-%d %H:%M"
+HISTTIMEFORMAT="%F %T "
 
 # Multiple commands on one line show up as a single line
-setopt INC_APPEND_HISTORY
-
-# Append new history lines, clear the history list, re-read the history list, print prompt.
-# Note: history management is automatically handled in Zsh so we don't need an equivalent for PROMPT_COMMAND
-# However, you could use the precmd hook for similar functionality if needed.
+setopt inc_append_history

@@ -83,7 +83,7 @@ style = 'fg:bold #000000 bg:#bc57eb'
 format = "[  $duration ]($style)"
 show_milliseconds = true
 min_time = 500
-show_notifications = true
+show_notifications = false
 min_time_to_notify = 300_000
 notification_timeout = 5_000
 

@@ -23,7 +23,9 @@
 # for completion functions, which are functions named with a leading underscore
 # (eg: _git). You need to add all supplemental completions to your fpath prior to
 # running `compinit` to use completions functionality properly. You will want to find
-# a completion plugin that runs `compinit` for you, or you can run it yourself in
+# a completion plugin that runs `compinit` for you,
+# seletskiy/zsh-zgen-compinit-tweak
+# or you can run it yourself in
 # your .zshrc after antidote loads like this:
 #
 #   autoload -Uz compinit && compinit
@@ -115,7 +117,8 @@ mattmc3/zman
 # bundles can often be made available simply with the `kind:path` annotation.
 #
 ###
-# romkatv/zsh-bench kind:path
+romkatv/zsh-bench kind:path
+# psprint/zsh-sweep
 
 ### Frameworks
 #
@@ -127,65 +130,6 @@ mattmc3/zman
 # Frameworks are handled in antidote using the `path:location/of/plugin` annotation.
 #
 ###
-
-### Framework: Oh-My-Zsh
-#
-# Oh-My-Zsh is a very popular Zsh framework. You might choose to use plugins from OMZ
-# in your own config. Depending on which plugins you use, you may also need to include
-# OMZ's entire "lib" directory. If you do this, be careful - "lib" configures a lot of
-# very broad settings. If you are familiar with what you are doing, you may choose to
-# only include parts of "lib".
-#
-#   # use all of lib
-#   ohmyzsh/ohmyzsh path:lib
-#   # -OR-, only use only the specific files we care about
-#   ohmyzsh/ohmyzsh path:lib/clipboard.zsh
-#
-####
-# ohmyzsh/ohmyzsh path:lib/clipboard.zsh
-# ohmyzsh/ohmyzsh path:plugins/copybuffer
-# ohmyzsh/ohmyzsh path:plugins/copyfile
-# ohmyzsh/ohmyzsh path:plugins/copypath
-# ohmyzsh/ohmyzsh path:plugins/extract
-# ohmyzsh/ohmyzsh path:plugins/magic-enter
-# ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
-
-### Framework: Prezto
-#
-# Prezto is another popular Zsh framework. You might choose to use parts of it in your
-# config alongside/instead of OMZ. Prezto has some key differences from OMZ. For
-# starters, it doesn't have a lib directory and it calls its plugins 'modules'. Its
-# modules also often have functions directories that need autoloaded. And, because it's
-# meant to be used as an integrated framework, Prezto modules don't operate well as
-# cherry-picking independent plugins, so using Prezto with antidote is not recommended
-# for anyone but the most advanced Zsh users.
-#
-###
-
-# Prezto can be difficult to assemble because it's so interdependent.
-# Use at your own risk.
-# sorin-ionescu/prezto path:modules/helper/functions kind:autoload
-# sorin-ionescu/prezto path:modules/helper
-# sorin-ionescu/prezto path:modules/environment
-# sorin-ionescu/prezto path:modules/terminal
-# sorin-ionescu/prezto path:modules/editor
-# sorin-ionescu/prezto path:modules/directory
-# sorin-ionescu/prezto path:modules/git/functions kind:autoload
-# sorin-ionescu/prezto path:modules/git
-
-# And Prezto has tons more...
-# sorin-ionescu/prezto path:modules/history
-# sorin-ionescu/prezto path:modules/spectrum
-# sorin-ionescu/prezto path:modules/utility/functions kind:autoload
-# sorin-ionescu/prezto path:modules/utility
-# sorin-ionescu/prezto path:modules/completion
-# sorin-ionescu/prezto path:modules/history-substring-search
-# sorin-ionescu/prezto path:modules/prompt/functions kind:autoload
-# sorin-ionescu/prezto path:modules/prompt
-# sorin-ionescu/prezto path:modules/python
-# sorin-ionescu/prezto path:modules/python/functions kind:autoload
-# sorin-ionescu/prezto path:modules/osx conditional:ismacos
-# sorin-ionescu/prezto path:modules/osx/functions kind:autoload conditional:ismacos
 
 ### Framework: zsh-utils
 #

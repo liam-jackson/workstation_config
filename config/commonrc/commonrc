@@ -30,10 +30,26 @@ export MANPATH="/snap/htop/current/usr/local/share/man:${MANPATH}"
 #     export MANPAGER="most"
 # else
 # fi
-export LESS='-iRFX --shift=10 --mouse --header=1 --jump-target=2 --LINE-NUMBERS --wordwrap' # -s -M +Gg
+# export LESS='-iRFX --shift=10 --mouse --header=1 --jump-target=2 --LINE-NUMBERS --wordwrap -s -M +Gg'
+LESS="--ignore-case \
+--shift=10 \
+--mouse \
+--header=1 \
+--jump-target=2 \
+--quit-if-one-screen \
+--redraw-on-quit \
+--squeeze-blank-lines \
+--RAW-CONTROL-CHARS \
+--wordwrap \
+--no-init \
+--LONG-PROMPT \
+--hilite-search \
+--search-options=W"
 
 export PAGER="less ${LESS}"
-export MANPAGER="less"
+export DELTA_PAGER="${PAGER}"
+export BAT_PAGER="${PAGER}"
+export MANPAGER="${PAGER}"
 
 if command -v nano &>/dev/null; then
     export EDITOR="nano"
@@ -41,12 +57,10 @@ else
     export EDITOR="vim"
 fi
 
-if command -v code &>/dev/null; then
-    export VISUAL="code"
-elif command -v gedit &>/dev/null; then
-    export VISUAL="gedit"
-elif command -v nano &>/dev/null; then
+if command -v nano &>/dev/null; then
     export VISUAL="nano"
+elif command -v vi &>/dev/null; then
+    export VISUAL="vi"
 fi
 
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
@@ -204,43 +218,43 @@ if [[ -x "/usr/bin/dircolors" ]]; then
     fi
 fi
 
-if command -v less &>/dev/null; then
-    # Have less display colors
-    export LESS_TERMCAP_mb=$(
-        tput bold
-        tput setaf 2
-    ) # green
-    export LESS_TERMCAP_md=$(
-        tput bold
-        tput setaf 6
-    ) # cyan
-    export LESS_TERMCAP_me=$(tput sgr0)
-    export LESS_TERMCAP_so=$(
-        tput bold
-        tput setaf 3
-        tput setab 4
-    ) # yellow on blue
-    export LESS_TERMCAP_se=$(
-        tput rmso
-        tput sgr0
-    )
-    export LESS_TERMCAP_us=$(
-        tput smul
-        tput bold
-        tput setaf 7
-    ) # white
-    export LESS_TERMCAP_ue=$(
-        tput rmul
-        tput sgr0
-    )
-    export LESS_TERMCAP_mr=$(tput rev)
-    export LESS_TERMCAP_mh=$(tput dim)
-    export LESS_TERMCAP_ZN=$(tput ssubm)
-    export LESS_TERMCAP_ZV=$(tput rsubm)
-    export LESS_TERMCAP_ZO=$(tput ssupm)
-    export LESS_TERMCAP_ZW=$(tput rsupm)
-    export GROFF_NO_SGR=1 # For Konsole and Gnome-terminal
-fi
+# Have less display colors
+export LESS_TERMCAP_mb=$(
+    tput bold
+    tput setaf 2
+) # green
+export LESS_TERMCAP_md=$(
+    tput bold
+    tput setaf 6
+) # cyan
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_so=$(
+    tput bold
+    tput setaf 3
+    tput setab 4
+) # yellow on blue
+export LESS_TERMCAP_se=$(
+    tput rmso
+    tput sgr0
+)
+export LESS_TERMCAP_us=$(
+    tput smul
+    tput bold
+    tput setaf 7
+) # white
+export LESS_TERMCAP_ue=$(
+    tput rmul
+    tput sgr0
+)
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)
+export LESS_TERMCAP_ZN=$(tput ssubm)
+export LESS_TERMCAP_ZV=$(tput rsubm)
+
+export LESS_TERMCAP_ZO=$(tput ssupm)
+export LESS_TERMCAP_ZW=$(tput rsupm)
+export GROFF_NO_SGR=1 # For Konsole and Gnome-terminal
+# export MANROFFOPT="-c"
 
 # colored GCC warnings and errors
 if command -v gcc &>/dev/null; then

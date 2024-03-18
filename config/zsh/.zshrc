@@ -1,10 +1,48 @@
 #!/usr/bin/zsh
 # echo "entered .zshrc"
 
+#################################################
+######### Start-up Debugging Utilities: #########
+
 # zmodload zsh/zprof
+
+export zs_set_path=1
 
 # If not running interactively, don't do anything
 [[ $- == *i* ]] || return
+
+function kbdcmp() {
+    local prev_kbd_file curr_kbd_file keybinds_
+
+    prev_kbd_file="${1:-${ZDOTDIR}/keybinds_prev.txt}"
+    # Check if the old keybindings file exists; if not, create it.
+    if ! [[ -f "${prev_kbd_file}" ]]; then
+        bindkey -L | sort -k 3 >"${prev_kbd_file}"
+        echo "Initial keybindings saved to ${prev_kbd_file}."
+        # echo "Restart your terminal. This command will execute again \
+        # at the end of the startup scripts to capture \
+        # the resulting keyboard shortcuts bound for your shell."
+        return 0
+    fi
+
+    curr_kbd_file="${1:-${ZDOTDIR}/keybinds_curr.txt}"
+    bindkey -L | sort -k 3 >"${curr_kbd_file}"
+    # Use delta if available; otherwise, fall back to diff.
+    local diff_cmd_
+    if command -v delta &>/dev/null; then
+        alias diff_cmd_='delta'
+    else
+        alias diff_cmd_='diff -u'
+    fi
+    keybinds_="$(diff_cmd_ <(sort -k 3 "${prev_kbd_file}") <(sort -k 3 "${curr_kbd_file}"))"
+    if [[ -n ${keybinds_} ]]; then
+        echo "These keybinds changed:"
+        echo "${keybinds_}" | tee "${ZDOTDIR}/keybinds_diff.txt"
+    fi
+}
+# kbdcmp
+
+# typeset -ft fzf
 
 DBG_STARTUP=0
 if [[ ${DBG_STARTUP} == 1 ]]; then
@@ -39,7 +77,6 @@ bindkey_writer() {
         bindkey >"${new_keymap}"
     fi
 
-
     # Compare with previous log and find differences
     echo "Comparing with previous keybinds..."
     local new_binds=$(comm -13 <(sort "${cur_keymap}") <(sort "${new_keymap}"))
@@ -68,14 +105,13 @@ bindkey_writer() {
     cp "${new_keymap}" "${cur_keymap}"
 }
 
-# User configuration
-setopt EXTENDED_GLOB
-setopt GLOB_DOTS
-setopt AUTO_CD
+#################################################
+####### Getting Zsh to start correctly: #########
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU path fpath
 
+# Do not modify: (modified in .zshenv, I got annoyed flipping back and forth)
 # ZDOTDIR="${CONFIG_DIR:-${HOME}/.config}/zsh"
 # ZSH_CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/zsh"
 
@@ -87,23 +123,37 @@ ANTIDOTE_DIR="${ZDOTDIR:-${HOME}}/.antidote"
 ANTIDOTE_PATH="${ANTIDOTE_DIR}/antidote.zsh"
 if [[ -f "${ANTIDOTE_PATH}" ]]; then
     source "${ANTIDOTE_PATH}"
-    bindkey_writer "antidote"
+    # && bindkey_writer "antidote"
 else
     echo "Antidote not found at ${ANTIDOTE_PATH}"
     echo "Initialize/update submodules (includes antidote) and try again."
     return 1
 fi
+
+# User configuration
+setopt INTERACTIVE_COMMENTS
+setopt EXTENDED_GLOB
+setopt GLOB_DOTS
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt COMPLETE_ALIASES
+setopt COMPLETE_IN_WORD
+
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
 autoload -Uz compinit && compinit
+
+unalias run-help 2>/dev/null
+autoload -Uz run-help
 
 # Load the default completion system (considers "--help" output)
 # [note: must call after compinit]
 compdef _gnu_generic -default- -P '*'
-bindkey_writer "compdef"
+# && bindkey_writer "compdef"
 
 # History settings
 if [[ -f "${ZDOTDIR}/.zsh_history_config" ]]; then
-    source "${ZDOTDIR}/.zsh_history_config"
-    bindkey_writer "historycfg"
+    source "${ZDOTDIR}/.zsh_history_config" && bindkey_writer "historycfg"
 fi
 
 # Autoload functions you might want to use with antidote.
@@ -123,6 +173,7 @@ ZSTYLES_PATH="${ZDOTDIR}/.zstyles"
 [[ -f "${ZSTYLES_PATH}" ]] && source "${ZSTYLES_PATH}" && bindkey_writer "zstyles"
 
 # Load conda
+unalias conda 2>/dev/null
 export CONDARC="${CONFIG_DIR}/conda/.condarc"
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -173,12 +224,21 @@ source_files=(
 )
 for source_file in "${source_files[@]}"; do
     if [[ -f "${source_file}" ]]; then
-        source "${source_file}"
-        bindkey_writer ""$(basename ${source_file})""
+        source "${source_file}" && bindkey_writer ""$(basename ${source_file})""
     else
         echo "File not found: ${source_file}"
     fi
 done
+
+ZSH_PLUGINS_PATH="${ZDOTDIR:-${HOME}}/.zsh_plugins.txt"
+if [[ -f "${ZSH_PLUGINS_PATH}" ]]; then
+    antidote load "${ZSH_PLUGINS_PATH}" && bindkey_writer "antidote_load"
+else
+    echo "No zsh plugins file found at ${ZSH_PLUGINS_PATH}"
+fi
+
+#################################################
+######### Keybinds and other settings: ##########
 
 () {
     local -a prefix=( '\e'{\[,O} )
@@ -198,36 +258,49 @@ done
 # bindkey "^P" history-beginning-search-backward-end
 # bindkey "^N" history-beginning-search-forward-end
 
-bindkey    "^[[3~"          delete-char
-bindkey    "^[3;5~"         delete-char
-
+# alt+backspace
+bindkey '^[^?'           backward-kill-word
+# del
+bindkey '^[[3~'          delete-char
+# ctrl+del
+bindkey '^[[3;5~'        kill-word
+# alt+del
+bindkey '^[[3;3~'        kill-word
+# ctrl+left arrow
 bindkey -s '\e[1;5D' '\eb'
+# ctrl+right arrow
 bindkey -s '\e[1;5C' '\ef'
+# alt+shift+M
+bindkey '^[M' set-mark-command
 
-compinit && bindkey_writer "compinit"
+#
+# zsh-users/zsh-autosuggestions
+#
+# ctrl+space (toggle suggestions)
+bindkey '^ ' autosuggest-toggle
+# ctrl+f / forward-char (accept full suggestion)
+# alt+f  / forward-word (accept partial suggestion)
+[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#8000FF,bg=#000000,bold,underline"
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="${ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE:-20}"
 
-
-
-ZSH_PLUGINS_PATH="${ZDOTDIR:-${HOME}}/.zsh_plugins.txt"
-if [[ -f "${ZSH_PLUGINS_PATH}" ]]; then
-    antidote load "${ZSH_PLUGINS_PATH}"
-    bindkey_writer "antidote_load"
-else
-    echo "No zsh plugins file found at ${ZSH_PLUGINS_PATH}"
-fi
-
-#################################################
-
+#
+# zoxide
+#
 if ! command -v zoxide &>/dev/null; then
     curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 fi
-eval "$(zoxide init zsh --cmd cd)" || echo "zoxide init failed"
-bindkey_writer "zoxide"
+eval "$(zoxide init zsh --cmd cd)" && bindkey_writer "zoxide" || echo "zoxide init failed"
 
+#
+# Starship Prompt
+#
 if ! command -v starship &>/dev/null; then
     curl -sS https://starship.rs/install.sh | sh
 fi
-eval "$(starship init zsh)" || echo "starship init failed"
-bindkey_writer "starship"
+eval "$(starship init zsh)" && bindkey_writer "starship" || echo "starship init failed"
 
+# ( Clean-up )
 unset DBG_STARTUP
+
+# kbdcmp "${ZDOTDIR}/keybinds_curr.txt"

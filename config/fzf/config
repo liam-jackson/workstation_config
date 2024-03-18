@@ -1,6 +1,6 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
-export FZF_DEFAULT_OPTS=" \
+export FZF_DEFAULT_OPTS="--height=60% \
 --multi \
 --cycle \
 --hscroll-off=10 \
@@ -8,36 +8,60 @@ export FZF_DEFAULT_OPTS=" \
 --layout=reverse \
 --border \
 --margin=1 \
+--padding=1 \
 --info=inline \
 --marker='+' \
 --ansi \
 --tabstop=4 \
---preview-window 'border-top' \
+--preview-window 'border-bottom' \
 --bind 'ctrl-/:change-preview-window(75%|50%|25%|hidden|)' \
 --bind 'shift-up:preview-up' \
 --bind 'shift-down:preview-down' \
---bind 'bspace:backward-delete-char/eof,ctrl-h:backward-delete-char/eof' \
-"
+--bind 'bspace:backward-delete-char/eof,ctrl-h:backward-delete-char/eof'"
 
 export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree trash"
-export FZF_COMPLETION_OPTS="${FZF_DEFAULT_OPTS} --border --info=inline --prompt=' FZF fzf/config > '"
+export FZF_COMPLETION_OPTS="${FZF_DEFAULT_OPTS} \
+--border \
+--info=inline \
+--prompt=' FZF (comp)  '"
 
-export FZF_CTRL_T_COMMAND="$(command -v eza) --all --sort=type --oneline --color=always --icons"
-export FZF_ALT_C_COMMAND="$(command -v eza) --all --all --only-dirs --oneline --color=always --icons"
+if command -v eza &>/dev/null; then
+    export FZF_CTRL_T_COMMAND="eza \
+    --all \
+    --long \
+    --oneline \
+    --color=always \
+    --icons=always \
+    "
+    export FZF_CTRL_T_OPTS=" \
+    ${FZF_DEFAULT_OPTS} \
+    --prompt=' FZF (ctlT)  ' \
+    --preview='eza_bat_preview {}' \
+    --bind='enter:execute(eza_icon_strip {})' \
+    "
 
-# export FZF_CTRL_T_OPTS=""
-# export FZF_ALT_C_OPTS="${FZF_DEFAULT_OPTS} --prompt=' FZF  ' \
-# --preview='local sel; sel="\$(echo {} | cut -d' ' -f3-)"; \
-# 	[[ \$(file --mime-type \${sel}) =~ binary ]] && echo {} is a binary file || \$(bat ${sel})' \
-# 	"
+    export FZF_ALT_C_COMMAND="eza \
+    --all \
+    --only-dirs \
+    --long \
+    --oneline \
+    --color=always \
+    --icons=always \
+    "
+    export FZF_ALT_C_OPTS=" \
+    --prompt=' FZF (altC)  ' \
+    --preview='eza_bat_preview {}' \
+    --bind='enter:execute(eza_icon_strip {})' \
+    "
+fi
 
-# autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 # add-zsh-hook chpwd chpwd_recent_dirs
 
 # Enable Exact-match by fzf-insert-history
 typeset -gA FZF_WIDGET_OPTS
-FZF_WIDGET_OPTS[insert-history]='--exact'
-FZF_WIDGET_OPTS[fzf-git-add-files]='--multi --bind ctrl-space:toggle'
+FZF_WIDGET_OPTS['insert-history']='--exact'
+FZF_WIDGET_OPTS['fzf-git-add-files']='--multi --bind ctrl-space:toggle'
 
 # Start fzf in a tmux pane
 # FZF_WIDGET_TMUX=1

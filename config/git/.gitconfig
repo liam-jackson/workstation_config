@@ -19,8 +19,8 @@ required = true
 
 [core]
 sshCommand = "ssh -F ~/.ssh/config"
-#    pager = less -RFX
 pager = delta
+# pager = less --ignore-case --shift=10 --mouse --header=1 --jump-target=2 --quit-if-one-screen --redraw-on-quit --LINE-NUMBERS --squeeze-blank-lines --RAW-CONTROL-CHARS --wordwrap --no-init --LONG-PROMPT --hilite-search
 
 [interactive]
 diffFilter = delta --color-only
@@ -36,9 +36,9 @@ uncommit = reset --soft HEAD~1
 colorMoved = default
 
 [delta]
-navigate = true         # use n and N to move between diff sections
-light = false           # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
-pager = less --header 0 # -RFX
+true-color = always
+navigate = true # use n and N to move between diff sections
+light = false   # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
 line-numbers = true
 
 hyperlinks = true

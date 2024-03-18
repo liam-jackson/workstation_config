@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # echo "entered aliases"
 
 #################################################
@@ -24,24 +24,29 @@ alias grep='grep --color=auto'
 alias gss="git status"
 alias gsu="git status -uno"
 alias howdoi='howdoi --color'
-alias less='less $LESS'
+
+# Check if 'less' is aliased; if not, assign it
+if ! type less 2>/dev/null | grep -q "alias"; then
+    alias less="less ${LESS:-}"
+fi
 
 # list aliases
 if command -v eza &>/dev/null; then
-    alias eza='eza --color=auto'
-    alias ls='eza'
-    alias l='eza --oneline --classify'
+    alias ls="eza"
+    alias l="eza --oneline --classify"
     # ll - lists everything with directories first
-    alias ll='eza --long --all --group-directories-first'
+    alias ll="eza --long --all --group-directories-first"
     # ld - lists only directories (no files)
-    alias ld='eza --long --only-dirs'
+    alias ld="eza --long --only-dirs"
     # lf - lists only files (no directories)
-    alias lf='eza --long --classify | grep --invert-match /'
+    alias lf="eza --long --classify | grep --invert-match /"
     # lh - lists only hidden files and directories
-    alias lh='eza --long --all --group-directories-first .*'
+    alias lh="eza --long --all --group-directories-first .*"
     # lt - lists everything sorted by time modified
-    alias lt='eza -al --sort=modified'
-    alias ltr='eza -al --sort=modified --reverse'
+    alias lt="eza -al --sort=modified"
+    alias ltr="eza -al --sort=modified --reverse"
+    export FZF_CTRL_T_COMMAND="eza --all --sort=type --oneline --color=always --icons"
+    export FZF_ALT_C_COMMAND="eza --all --all --only-dirs --oneline --color=always --icons"
 else
     alias ls='ls --color=auto'
     alias l='ls -CF'
@@ -49,10 +54,17 @@ else
     alias ll='ls -lAF'
     alias lt='ls -lAF --sort=time'
     alias ltr='ls -lAF --sort=time --reverse'
+    export FZF_CTRL_T_COMMAND="lt"
+    export FZF_ALT_C_COMMAND="ll \./*/"
 fi
 alias menu='${WORKSTATION_DIR}/bin/fzfmenu.sh'
 alias nalalistup='sudo nala list --upgradable'
-alias nalaupall='sudo nala upgrade --fix-broken --full --install-recommends --install-suggests --update'
+alias nalaupall="sudo nala upgrade \
+--fix-broken \
+--full \
+--install-recommends \
+--install-suggests \
+--update"
 alias numchars="wc --chars"
 alias numlines="wc --lines"
 alias numwords="wc --words"
@@ -64,7 +76,8 @@ alias untar='tar -xzf'
 alias vdir='vdir --color=auto'
 alias watchdir='watch -n 1 --color tree --prune -C'
 
-alias allhist='find . \( -path '\''*zsh_history'\'' -o -path '\''*bash_history'\'' -o -path '\''*.history'\'' \) -a -type f | fzfp'
+alias allhist='find "${HOME}" \( -path '\''*zsh_history'\'' -o -path '\''*bash_history'\'' -o -path '\''*.history'\'' \) -a -type f | fzfp'
+alias bathelp='bat --language=help'
 alias wscfg='code ${WORKSTATION_DIR}/workstation_config.code-workspace'
 
 # Shell-specific aliases
@@ -84,22 +97,14 @@ if [[ "${SHELL}" == *"bash"* && -n "${BASH_VERSION}" ]]; then
     }
 elif [[ "${SHELL}" == *"zsh"* && -z "${BASH_VERSION}" ]]; then
     src() {
-        local zsh_sources=(
-            "${CONFIG_DIR}/zsh/.zshenv"
-            "${CONFIG_DIR}/zsh/.zshrc"
-        )
-        for zsh_source in "${zsh_sources[@]}"; do
-            if [[ -f "${zsh_source}" ]]; then
-                source "${zsh_source}"
-            else
-                echo "File not found: ${zsh_source}"
-            fi
-        done
+        env -i HOME="${HOME}"
+        exec zsh
     }
 
-    alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
-    alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
-    alias -g -- \?='--help 2>&1 | bat --language=help --style=plain'
+    alias -g -- -h='-h 2>&1 | bat --language=help --plain'
+    alias -g -- --help='--help 2>&1 | bat --language=help --plain'
+    alias -g -- \?='--help 2>&1 | bat --language=help --plain'
+    alias history='history -t ${HIST_STAMPS}'
 
     alias -s html='google-chrome'
     alias -s py='python3'

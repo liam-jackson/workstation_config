@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 #
 # .zstyles - Set zstyle settings for plugins that need them.
 #
@@ -7,7 +7,12 @@ zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}'
 zstyle ':completion:*' max-errors 2
 zstyle ':completion:*' menu select
 zstyle ':completion:*' verbose yes
-zstyle :compinstall filename '${HOME}/.zshrc'
+
+#
+# Setting the insert-tab tag to false will prevent a tab from being inserted when there are no characters to the left of the cursor.
+# (https://unix.stackexchange.com/questions/97017/zsh-disable-tab-insert)
+#
+zstyle ':completion:*' insert-tab false
 
 #
 # Aloxaf/fzf-tab
@@ -18,16 +23,19 @@ zstyle ':completion:*:git-checkout:*' sort false
 # NOTE: don't use escape sequences here, fzf-tab will ignore them
 zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':completion:*' menu no
 # preview directory's content with eza when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview "eza -1 --color=always $realpath"
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
 #
 # Antidote
 #
-zstyle ':antidote:bundle' file "${ZDOTDIR:-~}/.zplugins.txt"
+zstyle ':antidote:bundle' file "${ZDOTDIR:-$HOME}/.zsh_plugins.txt"
 zstyle ':antidote:bundle' use-friendly-names 'yes'
+zstyle ':antidote:static' file "${ZDOTDIR:-$HOME}/.zsh_plugins.zsh"
+
+zstyle :compinstall filename "${HOME}/.zshrc"

@@ -1,43 +1,41 @@
-#!/usr/bin/zsh
+#!/usr/bin/bash
 # echo "entered funcdefs"
 
 # To use custom commands instead of find, override _fzf_compgen_{path,dir}
 _fzf_compgen_path() {
-	$(command -v eza) --all --color=always -1 "$1" 2>/dev/null
+	eza --all --all --oneline --color=always --icons always "$1" 2>/dev/null
 }
 
 _fzf_compgen_dir() {
-	$(command -v eza) --all --all --only-dirs --color=always -1 "$1" 2>/dev/null
+	eza --all --all --only-dirs --oneline --color=always --icons always "$1" 2>/dev/null
 }
 
-function cdh() {
-	if [[ $# -gt 0 ]]; then
-		cd "$1" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-}
-_fzf_complete_cdh() {
-	_fzf_complete +m --reverse --border --ansi \
-		--preview 'eza --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
-			dir -a -1 "${HOME}"
-		)
-	# fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${HOME}"
+# fh - repeat history
+fh() {
+	print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
 }
 
-function cdwscfg() {
-	if [[ $# -gt 0 ]]; then
-		cd "$1" || exit
-	else
-		cd "${HOME}/workstation_config/" || exit
-	fi
-	conda deactivate
+help() {
+	"$@" --help 2>&1 | bathelp
 }
-_fzf_complete_cdwscfg() {
-	_fzf_complete +m --reverse --border --ansi \
-		--preview 'eza --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
-			fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${HOME}/workstation_config/"
-		)
+
+fkbd() {
+	_keybinds_and_widgets=$(mktemp)
+
+	bindkey | sort -k 2 | awk '{print $1 " " $2}' >"${_keybinds_and_widgets}"
+
+	_selected_keybind=$(
+		awk '{print $1}' <"${_keybinds_and_widgets}" | fzf \
+			--preview "grep --fixed-strings {} ${_keybinds_and_widgets} | awk '{\$1=\"\"; 'print' \$0}'" \
+			--preview-window=down:3:wrap \
+			--preview-label="Widget for selected keybind:"
+	)
+
+	/bin/rm -f "${_keybinds_and_widgets}"
+
+	if [[ -n "${_selected_keybind}" ]]; then
+		echo "Selected keybind: ${_selected_keybind}"
+	fi
 }
 
 function fzfp() {
@@ -50,6 +48,27 @@ function fzfp() {
 				echo 'bat --color=always {}'
 			fi
 		)"
+}
+
+function eza_icon_strip() {
+	! [[ $# -gt 0 ]] && return 0
+	$EZA_ICON_SPACING
+	spaces=$(printf "%-${EZA_ICON_SPACING}s" "")
+	echo "${1}" | awk --field-separator "${spaces}" '{print $NF}'
+}
+
+function eza_bat_preview() {
+	! [[ $# -gt 0 ]] && return 0
+
+	local fs_element=$(echo "${1}" | awk '{print $2}')
+
+	if [[ -d "${fs_element}" ]]; then
+		eza --all --tree --level 3 --long --oneline --color=always --icons always --git "${fs_element}"
+	elif ! [[ $(file --mime-type ${fs_element}) =~ "binary" ]]; then
+		bat --color=always "${fs_element}"
+	else
+		echo "Type: $(type "${fs_element}")"
+	fi
 }
 
 function isfile() {
@@ -163,13 +182,13 @@ _fzf_complete_condaa_post() {
 function condad() {
 	cur=${COMP_WORDS[COMP_CWORD]}
 	local help_
-	help_="Usage:
+	help_="Doesn't really work right. WIP. \
+	Usage:
 		condad [-a|--all]
 
-		-a, --all	Deactivate all conda environments.
+		-a, --all	Deactivate all conda environments. \
 
 		With no options, deactivate the current conda environment."
-
 	case "$1" in
 	"")
 		conda deactivate
@@ -383,4 +402,34 @@ function lf() {
 # 	# cat /tmp/apt-fzf-selections
 
 # 	# /bin/rm -f /tmp/apt-fzf-{available, installed}
+# }
+
+# function cdh() {
+# 	if [[ $# -gt 0 ]]; then
+# 		cd "$1" || exit
+# 	else
+# 		cd "${HOME}" || exit
+# 	fi
+# }
+# _fzf_complete_cdh() {
+# 	_fzf_complete +m --reverse --border --ansi \
+# 		--preview 'eza --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+# 			dir -a -1 "${HOME}"
+# 		)
+# 	# fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${HOME}"
+# }
+
+# function cdwscfg() {
+# 	if [[ $# -gt 0 ]]; then
+# 		cd "$1" || exit
+# 	else
+# 		cd "${HOME}/workstation_config/" || exit
+# 	fi
+# 	conda deactivate
+# }
+# _fzf_complete_cdwscfg() {
+# 	_fzf_complete +m --reverse --border --ansi \
+# 		--preview 'eza --all --tree --level=2 --color=always --icons {}' -- "$@" < <(
+# 			fd --type=d --hidden --max-depth=1 --no-ignore --color=always . "${HOME}/workstation_config/"
+# 		)
 # }

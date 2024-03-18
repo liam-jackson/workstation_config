@@ -1,0 +1,25 @@
+{
+  "prefs": {
+    "InputMode": "\"Waterfall\"",
+    "ExperimentId": "1df2dfc2-bd93-4756-bbbf-6af1d8a03608",
+    "OpenWindowsAtCustomSize": "false",
+    "SelectedSystemThemes": "{\"light\":\"RedRock\",\"dark\":\"CyberWave\"}",
+    "WorkflowsBoxOpen": "true",
+    "ShouldDimInactivePanes": "true",
+    "WelcomeTipsFeaturesUsed": "[{\"Action\":\"OpenWarpDrive\"},{\"Action\":\"CommandSearch\"},{\"Action\":\"ThemePicker\"},{\"Action\":\"AiCommandSearch\"},{\"Action\":\"WarpAI\"},{\"Hint\":\"CreateBlock\"},{\"Action\":\"CommandPalette\"},{\"Action\":\"SplitPane\"}]",
+    "StartupShellOverride": "\"zsh\"",
+    "FontName": "\"FiraCode Nerd Font\"",
+    "Theme": "\"CyberWave\"",
+    "OpenFileEditor": "\"VSCode\"",
+    "HasAutoOpenedWelcomeFolder": "true",
+    "AIAssistantRequestLimitInfo": "{\"limit\":100,\"num_requests_used_since_refresh\":0,\"next_refresh_time\":\"2024-03-07T18:56:47.044980Z\"}",
+    "ReceivedReferralTheme": "\"Inactive\"",
+    "AutosuggestionAcceptedCount": "2",
+    "HonorPS1": "true",
+    "SystemTheme": "true",
+    "FontSize": "13.0",
+    "Shortcuts": "true",
+    "DismissedWarpAIWarmWelcome": "true",
+    "ChangelogVersions": "{\"v0.2024.03.05.08.02.stable_00\":true}"
+  }
+}
