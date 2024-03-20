@@ -31,7 +31,7 @@ export MANPATH="/snap/htop/current/usr/local/share/man:${MANPATH}"
 # else
 # fi
 # export LESS='-iRFX --shift=10 --mouse --header=1 --jump-target=2 --LINE-NUMBERS --wordwrap -s -M +Gg'
-LESS="--ignore-case \
+export LESS="--ignore-case \
 --shift=10 \
 --mouse \
 --header=1 \
@@ -47,8 +47,8 @@ LESS="--ignore-case \
 --search-options=W"
 
 export PAGER="less ${LESS}"
-export DELTA_PAGER="${PAGER}"
 export BAT_PAGER="${PAGER}"
+export DELTA_PAGER="${PAGER}"
 export MANPAGER="${PAGER}"
 
 if command -v nano &>/dev/null; then

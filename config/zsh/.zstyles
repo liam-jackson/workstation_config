@@ -1,4 +1,9 @@
 #!/usr/bin/zsh
+# echo "entered .zstyles" # <- you know the drill
+
+# zstyles are modifications to behaviors that get used by plugins and other features of zsh.
+# run 'man zshmodules' and search for 'zstyle' to see the full list of options.
+
 #
 # .zstyles - Set zstyle settings for plugins that need them.
 #

@@ -1,7 +1,7 @@
 [
   {
     "name": "accountsservice",
-    "version": "22.07.5-2ubuntu1.4"
+    "version": "22.07.5-2ubuntu1.5"
   },
   {
     "name": "acl",
@@ -305,7 +305,7 @@
   },
   {
     "name": "code",
-    "version": "1.87.1-1709685762"
+    "version": "1.87.2-1709912201"
   },
   {
     "name": "colord",
@@ -1353,7 +1353,7 @@
   },
   {
     "name": "gir1.2-accountsservice-1.0:amd64",
-    "version": "22.07.5-2ubuntu1.4"
+    "version": "22.07.5-2ubuntu1.5"
   },
   {
     "name": "gir1.2-adw-1:amd64",
@@ -1550,6 +1550,10 @@
   {
     "name": "git",
     "version": "1:2.34.1-1ubuntu1.10"
+  },
+  {
+    "name": "git-delta",
+    "version": "0.16.5"
   },
   {
     "name": "git-lfs",
@@ -1801,7 +1805,7 @@
   },
   {
     "name": "google-chrome-stable",
-    "version": "122.0.6261.111-1"
+    "version": "122.0.6261.128-1"
   },
   {
     "name": "goreleaser",
@@ -2301,7 +2305,7 @@
   },
   {
     "name": "libaccountsservice0:amd64",
-    "version": "22.07.5-2ubuntu1.4"
+    "version": "22.07.5-2ubuntu1.5"
   },
   {
     "name": "libacl1:amd64",
@@ -3253,15 +3257,15 @@
   },
   {
     "name": "libexpat1:amd64",
-    "version": "2.4.7-1ubuntu0.2"
+    "version": "2.4.7-1ubuntu0.3"
   },
   {
     "name": "libexpat1:i386",
-    "version": "2.4.7-1ubuntu0.2"
+    "version": "2.4.7-1ubuntu0.3"
   },
   {
     "name": "libexpat1-dev:amd64",
-    "version": "2.4.7-1ubuntu0.2"
+    "version": "2.4.7-1ubuntu0.3"
   },
   {
     "name": "libext2fs2:amd64",
@@ -4381,7 +4385,7 @@
   },
   {
     "name": "libkpathsea6:amd64",
-    "version": "2021.20210626.59705-1ubuntu0.1"
+    "version": "2021.20210626.59705-1ubuntu0.2"
   },
   {
     "name": "libkrb5-3:amd64",
@@ -4417,11 +4421,11 @@
   },
   {
     "name": "libldap-2.5-0:amd64",
-    "version": "2.5.16+dfsg-0ubuntu0.22.04.2"
+    "version": "2.5.17+dfsg-0ubuntu0.22.04.1"
   },
   {
     "name": "libldap-common",
-    "version": "2.5.16+dfsg-0ubuntu0.22.04.2"
+    "version": "2.5.17+dfsg-0ubuntu0.22.04.1"
   },
   {
     "name": "libldb2:amd64",
@@ -5805,7 +5809,7 @@
   },
   {
     "name": "libsynctex2:amd64",
-    "version": "2021.20210626.59705-1ubuntu0.1"
+    "version": "2021.20210626.59705-1ubuntu0.2"
   },
   {
     "name": "libsys-hostname-long-perl",
@@ -9117,7 +9121,7 @@
   },
   {
     "name": "python3-socksio",
-    "version": "1.0.0-2"
+    "version": "1.0.0-3"
   },
   {
     "name": "python3-software-properties",
@@ -9173,7 +9177,7 @@
   },
   {
     "name": "python3-update-manager",
-    "version": "1:22.04.18"
+    "version": "1:22.04.19"
   },
   {
     "name": "python3-urllib3",
@@ -9509,7 +9513,7 @@
   },
   {
     "name": "ubuntu-advantage-tools",
-    "version": "30~22.04"
+    "version": "31.2~22.04"
   },
   {
     "name": "ubuntu-desktop",
@@ -9540,8 +9544,12 @@
     "version": "20.10-0ubuntu2"
   },
   {
+    "name": "ubuntu-pro-client",
+    "version": "31.2~22.04"
+  },
+  {
     "name": "ubuntu-pro-client-l10n",
-    "version": "30~22.04"
+    "version": "31.2~22.04"
   },
   {
     "name": "ubuntu-release-upgrader-core",
@@ -9605,11 +9613,11 @@
   },
   {
     "name": "update-manager",
-    "version": "1:22.04.18"
+    "version": "1:22.04.19"
   },
   {
     "name": "update-manager-core",
-    "version": "1:22.04.18"
+    "version": "1:22.04.19"
   },
   {
     "name": "update-notifier",
@@ -9749,7 +9757,7 @@
   },
   {
     "name": "warp-terminal",
-    "version": "0.2024.03.05.08.02.stable.01"
+    "version": "0.2024.03.12.08.02.stable.01"
   },
   {
     "name": "wbritish",
@@ -9834,6 +9842,10 @@
   {
     "name": "xbrlapi",
     "version": "6.4-4ubuntu3"
+  },
+  {
+    "name": "xclip",
+    "version": "0.13-2"
   },
   {
     "name": "xcursor-themes",
@@ -10062,6 +10074,10 @@
   {
     "name": "zlib1g-dev:amd64",
     "version": "1:1.2.11.dfsg-2ubuntu9.2"
+  },
+  {
+    "name": "zoom",
+    "version": "5.17.11.3835"
   },
   {
     "name": "zsh",

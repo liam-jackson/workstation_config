@@ -5,6 +5,7 @@
     },
     "[cpp]": {
         "editor.defaultFormatter": "xaver.clang-format",
+        "editor.tabSize": 2,
         "editor.definitionLinkOpensInPeek": false,
         "editor.semanticHighlighting.enabled": true,
         "editor.suggest.insertMode": "replace",
@@ -27,7 +28,8 @@
         "editor.suggest.insertMode": "replace"
     },
     "[jupyter-notebook][notebook]": {
-        "editor.defaultFormatter": "ms-python.autopep8"
+        "editor.defaultFormatter": "ms-python.autopep8",
+        "editor.tabSize": 4,
     },
     "[matlab]": {
         "editor.defaultFormatter": "ms-python.autopep8",
@@ -48,6 +50,7 @@
         "editor.autoClosingQuotes": "always",
         "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.wordBasedSuggestions": "off",
+        "editor.tabSize": 4,
     },
     "[shellscript][ignore]": {
         "editor.defaultFormatter": "foxundermoon.shell-format"
@@ -81,15 +84,18 @@
     //     "--ignore",
     //     "F841"
     // ],
+    "editor.suggest.matchOnWordStartOnly": false,
+    "python.analysis.addImport.exactMatchOnly": false,
     "bashIde.backgroundAnalysisMaxFiles": 1,
     "bashIde.explainshellEndpoint": "http://localhost:5000",
     "bashIde.includeAllWorkspaceSymbols": true,
     "bashIde.shellcheckPath": "/usr/bin/shellcheck",
     "C_Cpp.clang_format_path": "/usr/bin/clang-format",
-    "C_Cpp.clang_format_style": "/home/liam/Workspace/tenbeauty/.clang-format",
+    // "C_Cpp.clang_format_style": "/home/liam/Workspace/tenbeauty/.clang-format",
     "C_Cpp.default.cppStandard": "c++17",
     "C_Cpp.default.includePath": [
-        "~/Workspace/tenbeauty/**"
+        "${default}/**",
+        "/usr/include/**",
     ],
     "C_Cpp.formatting": "clangFormat",
     "C_Cpp.intelliSenseUpdateDelay": 500,
@@ -142,7 +148,7 @@
     "editor.renderLineHighlight": "all",
     "editor.semanticHighlighting.enabled": true,
     "editor.showFoldingControls": "always",
-    "editor.snippetSuggestions": "bottom",
+    "editor.snippetSuggestions": "none",
     "editor.stickyScroll.defaultModel": "outlineModel",
     "editor.stickyScroll.enabled": true,
     "editor.stickyScroll.maxLineCount": 5,
@@ -320,7 +326,7 @@
     "local-history.saveDelay": 5,
     "markdown-preview-enhanced.enablePreviewZenMode": false,
     "markdown-preview-enhanced.enableTypographer": true,
-    "markdown-preview-enhanced.hideDefaultVSCodeMarkdownPreviewButtons": true,
+    "markdown-preview-enhanced.hidedefaultVSCodeMarkdownPreviewButtons": true,
     "markdown-preview-enhanced.liveUpdate": true,
     "markdown-preview-enhanced.markdownFileExtensions": [
         ".md",
@@ -675,9 +681,9 @@
     "window.customMenuBarAltFocus": false,
     "window.titleBarStyle": "custom",
     "workbench.colorCustomizations": {
-        "diffEditor.insertedTextBackground": "#ffaaff80",
-        "diffEditor.insertedTextBorder": "#139dc780",
-        "diffEditor.insertedLineBackground": "#0fafff80",
+        // "diffEditor.insertedTextBackground": "#ffaaff80",
+        // "diffEditor.insertedTextBorder": "#139dc780",
+        // "diffEditor.insertedLineBackground": "#0fafff80",
         // "diffEditorOverview.insertedForeground": "#ff00ff",
         // "diffEditor.move.border": "#ffaaff80",
         // "diffEditor.border": "#fff00080",
@@ -687,29 +693,38 @@
 
         // "diffEditor.unchangedRegionBackground": "#ff0000",
 
-        "editorGutter.addedBackground": "#00ff0080",
-        "editorGutter.modifiedBackground": "#b42ae680",
-        "editorGutter.deletedBackground": "#ff0000",
-
-        "editorIndentGuide.activeBackground1": "#ff6600",
-        "editorIndentGuide.background1": "#a02e2e80",
-
-        "editor.findMatchBackground": "#ffff0080",
-        "editor.findMatchBorder": "#ff770080",
-        "editor.findMatchHighlightBackground": "#ffff0080",
-        "editor.findMatchHighlightBorder": "#00ff0080",
+        "editor.findMatchBackground": "#ff0000ee",
+        "editor.findMatchBorder": "#ff000080",
+        "editor.findMatchHighlightBackground": "#ffffff40",
+        "editor.findMatchHighlightBorder": "#00ff00",
         "editor.findRangeHighlightBackground": "#0000ff80",
         "editor.findRangeHighlightBorder": "#ff00ff80",
 
         "editor.selectionHighlightBackground": "#ff000080",
         "editor.selectionBackground": "#8800ff80",
         "editor.selectionForeground": "#00ff00",
+
         "editor.activeSelectionForeground": "#00ff00",
-        "editor.wordHighlightTextBackground": "#9128a880",
+
+        "editor.wordHighlightTextBackground": "#9128a840",
         "editor.wordHighlightStrongBackground": "#9128a880",
 
-        "minimapGutter.addedBackground": "#00ff00",
+        "editorIndentGuide.background1": "#ff000080",
+        "editorIndentGuide.activeBackground1": "#ff000080",
+        "editorIndentGuide.background2": "#ff550080",
+        "editorIndentGuide.activeBackground2": "#8080ff",
+        "editorIndentGuide.background3": "#00ff0080",
+        "editorIndentGuide.activeBackground3": "#00ff0080",
+        "editorIndentGuide.background4": "#8080ee80",
+        "editorIndentGuide.activeBackground4": "#8080ee80",
+
+        "editorGutter.addedbackground": "#00ff0080",
+        "editorGutter.modifiedBackground": "#b42ae680",
+        "editorGutter.deletedBackground": "#ff000080",
+
+        "minimapGutter.addedbackground": "#00ff00",
         "minimapGutter.deletedBackground": "#ff0000",
+
         "minimap.modifiedResourceForeground": "#ffff00",
         "minimap.untrackedResourceForeground": "#00aaff",
         "minimap.conflictingResourceForeground": "#ff6600",
@@ -718,15 +733,22 @@
         "list.activeSelectionBackground": "#8800ff",
         "list.activeSelectionForeground": "#00ff00",
 
-        "tab.inactiveBackground": "#7528a880",
-        "tab.activeBorder": "#ffff00",
-        "tab.activeBorderTop": "#ffff00",
-        "tab.unfocusedActiveBorder": "#ff6600",
-        "tab.unfocusedActiveBorderTop": "#ff6600",
-        "tab.activeModifiedBorder": "#ff00ff",
-        "tab.inactiveModifiedBorder": "#8800ff",
+        "tab.activeBackground": "#4080ff60",
+        "tab.activeForeground": "#ffffffff",
 
-        "gitDecoration.ignoredResourceForeground": "#FFFFFF80",
+        "tab.inactiveBackground": "#7528a840",
+        "tab.inactiveForeground": "#ffffffff",
+
+        "tab.unfocusedActiveBackground": "#ff80ff60",
+        "tab.unfocusedActiveForeground": "#ffffffff",
+
+        "tab.unfocusedInactiveBackground": "#7528a840",
+        "tab.unfocusedInactiveForeground": "#ffffffff",
+
+        "tab.activeModifiedBorder": "#ff00ff",
+        "tab.unfocusedActiveBorder": "#ff8000",
+
+        "gitDecoration.ignoredResourceForeground": "#ffffff80",
         "gitDecoration.addedResourceForeground": "#00ff00",
         "gitDecoration.deletedResourceForeground": "#ff0000",
         "gitDecoration.modifiedResourceForeground": "#ffff00",
@@ -811,4 +833,7 @@
     "leetcode.endpoint": "leetcode-cn",
     "editor.suggest.snippetsPreventQuickSuggestions": true,
     "vim.disableExtension": true,
+    "C_Cpp.default.intelliSenseMode": "linux-gcc-x86",
+    "C_Cpp.default.mergeConfigurations": true,
+    "C_Cpp.debugShortcut": true,
 }

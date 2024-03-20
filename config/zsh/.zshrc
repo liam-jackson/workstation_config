@@ -1,6 +1,18 @@
 #!/usr/bin/zsh
 # echo "entered .zshrc"
 
+# the best guide and the place I go for answers/the "how"/"why" of zsh:
+# https://zsh.sourceforge.io/Guide/zshguide.html
+#
+# also make sure you get the zman plugin for zsh, it's a game changer.
+#
+
+# the following functions are debugging utilities I wrote up quick to figure out keybinds and how they change over
+# the course of zsh starting up (loading plugins, sourcing files, etc. basically trying to track the gross changes to the
+# keymap that happen with every call to 'bindkey').
+#
+# I'm not sure if they'd be useful to you, but maybe.
+
 #################################################
 ######### Start-up Debugging Utilities: #########
 
@@ -281,7 +293,7 @@ bindkey '^ ' autosuggest-toggle
 # ctrl+f / forward-char (accept full suggestion)
 # alt+f  / forward-word (accept partial suggestion)
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#8000FF,bg=#000000,bold,underline"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#8000FF,bold,underline"
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="${ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE:-20}"
 
 #

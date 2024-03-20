@@ -17,10 +17,12 @@ smudge = git-lfs smudge -- %f
 process = git-lfs filter-process
 required = true
 
+# if you have delta installed, you can use it as your pager:
+# WARNING: if you don't have delta installed, this will make your git look broken.
+# If you don't have delta, you can probably just comment out the following lines.
 [core]
 sshCommand = "ssh -F ~/.ssh/config"
 pager = delta
-# pager = less --ignore-case --shift=10 --mouse --header=1 --jump-target=2 --quit-if-one-screen --redraw-on-quit --LINE-NUMBERS --squeeze-blank-lines --RAW-CONTROL-CHARS --wordwrap --no-init --LONG-PROMPT --hilite-search
 
 [interactive]
 diffFilter = delta --color-only

@@ -15,10 +15,13 @@ fh() {
 	print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
 }
 
+# bathelp is an alias in config/commonrc/aliases
 help() {
 	"$@" --help 2>&1 | bathelp
 }
 
+# Shows the keybinds/the widgets they trigger that you might've
+# collected from the debug functions in .zshrc:
 fkbd() {
 	_keybinds_and_widgets=$(mktemp)
 
@@ -38,6 +41,7 @@ fkbd() {
 	fi
 }
 
+# dedicated fzf function to abbreviate --preview for most common use cases:
 function fzfp() {
 	fzf \
 		--preview \
@@ -50,9 +54,11 @@ function fzfp() {
 		)"
 }
 
+# The next two are used by fzf-cd-widget/fzf-insert-files to preview the directory contents. Doesn't work perfect, but it's a start.
+# Look at src/fzf/shell/key-bindings.zsh and config/fzf/config for more info.
 function eza_icon_strip() {
 	! [[ $# -gt 0 ]] && return 0
-	$EZA_ICON_SPACING
+
 	spaces=$(printf "%-${EZA_ICON_SPACING}s" "")
 	echo "${1}" | awk --field-separator "${spaces}" '{print $NF}'
 }
@@ -71,6 +77,7 @@ function eza_bat_preview() {
 	fi
 }
 
+# just some utilities to check existence quickly:
 function isfile() {
 	for __f_name in "$@"; do
 		test -f "$__f_name" && echo "+++ $__f_name exists. +++" || echo "--- $__f_name does not exist. ---"
@@ -83,6 +90,8 @@ function isdir() {
 	done
 }
 
+# I think I was making a widget that you could select 2 files with, and show a delta-diff between them...
+# Not sure if it works correctly/ever did.
 function fzf-delta() {
 	fzf --multi=2 \
 		--preview 'delta {+} --width=${FZF_PREVIEW_COLUMNS} || echo "Select 2 files using TAB"' \
@@ -120,6 +129,8 @@ function fzf-delta() {
 # }
 # endregion conda fzf env act
 
+# if you have conda, and you keep the alias 'condaa=conda activate',
+# you can type 'condaa **<TAB>' and it will show you a list of conda environments and the packages installed in them.
 ### Conda environment activation:
 function fzf-conda-activate() {
 	choice=(
@@ -224,6 +235,7 @@ function fenv() {
 	# 	--bind "enter:execute(echo {} | tr -d '\n' | pbcopy)"
 }
 
+# Pipe output to these to make them upper/lowercase:
 function upper() {
 	echo "$1" | tr '[:lower:]' '[:upper:]'
 }
@@ -232,6 +244,7 @@ function lower() {
 	echo "$1" | tr '[:upper:]' '[:lower:]'
 }
 
+# I don't think I've ever actually used this, wouldn't recommend.
 function reset-path() {
 	if [[ $# -eq 0 ]]; then
 		echo "No variable name provided. Resetting PATH to DEFAULT_PATH $($DEFAULT_PATH | tr ':' '\n')."
@@ -251,6 +264,7 @@ function reset-path() {
 	fi
 }
 
+# same here:
 function clean-path-var() {
 	local search_string="python"
 	local path_list="$PATH"
@@ -270,6 +284,7 @@ function clean-path-var() {
 	python3 ~/clean_path_var.py -n "$input_var"
 }
 
+# makes a temp directory and opens it in vscode
 function sandbox() {
 	local tmpdir="$(mktemp -d -t sandbox-$(date +%Y-%m-%d-%H-%M-%S)-XXXXXX)"
 
@@ -283,6 +298,8 @@ function sandbox() {
 	code "$tmpdir"
 }
 
+# this one is handy, Ctrl-H or Ctrl-Backspace opens fzf with all the man pages you have.
+# Then you can search them quickly:
 if [[ -n $ZSH_VERSION ]]; then
 	fzf-man-widget() {
 		batman="man {1} | col -bx | \
@@ -313,6 +330,7 @@ if [[ -n $ZSH_VERSION ]]; then
 	# Icon used is nerdfont
 fi
 
+# Strips the Unicode color codes from a string:
 function get_color_code() {
 	local str="$1"
 	local hash=0
@@ -324,6 +342,7 @@ function get_color_code() {
 	echo "$hash"
 }
 
+# Don't remember what this does, but it was probably useful at some point:
 function cdd() {
 	if [[ "$#" != 0 ]]; then
 		builtin cd "$@"
@@ -352,6 +371,7 @@ function cdd() {
 	done
 }
 
+# same here:
 function lf() {
 	if [[ "$#" != 0 ]]; then
 		builtin ls -AFG "$@"
@@ -372,6 +392,7 @@ function lf() {
 	done
 }
 
+# The rest is kind of a graveyard of broken ideas/things I never finished/took out from lack of use.
 # function show_colored() {
 # 	echo "$@" | awk '/Package:|Version:/{print "\033[1;31m" $0 "\033[0m"; next} /Description:/{print "\033[1;32m" $0 "\033[0m"; next} {print}'
 # }

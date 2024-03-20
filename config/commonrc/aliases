@@ -6,28 +6,51 @@
 #################################################
 
 if command -v bat &>/dev/null; then
+    # Use bat instead of cat
     alias cat='bat'
+fi
+
+alias grep='grep --color=auto'
+if command -v egrep &>/dev/null; then
+    alias egrep='egrep --color=auto'
+else
+    alias egrep='grep -E --color=auto'
+fi
+if command -v fgrep &>/dev/null; then
+    alias fgrep='fgrep --color=auto'
+else
+    alias fgrep='grep -F --color=auto'
+fi
+if command -v rgrep &>/dev/null; then
+    alias rgrep='rgrep --color=auto'
+else
+    alias rgrep='grep -r --color=auto'
+fi
+if command -v howdoi &>/dev/null; then
+    alias howdoi='howdoi --color'
+fi
+if command -v delta &>/dev/null; then
+    # Use delta instead of diff, it makes CLI diffs more readable
+    alias diff='delta'
+else
+    alias diff='diff --color'
 fi
 
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias cdwsc='cd ${WORKSTATION_DIR}'
 alias cpwd='pwd | pbcopy'
-alias diff='diff --color'
 alias dir='dir --color=auto'
-alias egrep='egrep --color=auto'
 alias el='eza --all --long --header --icons'
 alias elt='eza --all --long --header --icons --sort=time'
 alias fapt='${WORKSTATION_DIR}/bin/pkgsearch.sh'
-alias fgrep='fgrep --color=auto'
 alias frf='${WORKSTATION_DIR}/bin/rfv.sh'
-alias grep='grep --color=auto'
 alias gss="git status"
 alias gsu="git status -uno"
-alias howdoi='howdoi --color'
+alias -- -='cd -'
 
 # Check if 'less' is aliased; if not, assign it
 if ! type less 2>/dev/null | grep -q "alias"; then
-    alias less="less ${LESS:-}"
+    alias less='less ${LESS:-}'
 fi
 
 # list aliases
@@ -45,8 +68,8 @@ if command -v eza &>/dev/null; then
     # lt - lists everything sorted by time modified
     alias lt="eza -al --sort=modified"
     alias ltr="eza -al --sort=modified --reverse"
-    export FZF_CTRL_T_COMMAND="eza --all --sort=type --oneline --color=always --icons"
-    export FZF_ALT_C_COMMAND="eza --all --all --only-dirs --oneline --color=always --icons"
+    # export FZF_CTRL_T_COMMAND="eza --all --sort=type --oneline --color=always --icons"
+    # export FZF_ALT_C_COMMAND="eza --all --all --only-dirs --oneline --color=always --icons"
 else
     alias ls='ls --color=auto'
     alias l='ls -CF'
@@ -54,8 +77,8 @@ else
     alias ll='ls -lAF'
     alias lt='ls -lAF --sort=time'
     alias ltr='ls -lAF --sort=time --reverse'
-    export FZF_CTRL_T_COMMAND="lt"
-    export FZF_ALT_C_COMMAND="ll \./*/"
+    # export FZF_CTRL_T_COMMAND="lt"
+    # export FZF_ALT_C_COMMAND="ll \./*/"
 fi
 alias menu='${WORKSTATION_DIR}/bin/fzfmenu.sh'
 alias nalalistup='sudo nala list --upgradable'
@@ -76,6 +99,7 @@ alias untar='tar -xzf'
 alias vdir='vdir --color=auto'
 alias watchdir='watch -n 1 --color tree --prune -C'
 
+# browse any shell history file following the standard patterns:
 alias allhist='find "${HOME}" \( -path '\''*zsh_history'\'' -o -path '\''*bash_history'\'' -o -path '\''*.history'\'' \) -a -type f | fzfp'
 alias bathelp='bat --language=help'
 alias wscfg='code ${WORKSTATION_DIR}/workstation_config.code-workspace'
@@ -96,11 +120,14 @@ if [[ "${SHELL}" == *"bash"* && -n "${BASH_VERSION}" ]]; then
         done
     }
 elif [[ "${SHELL}" == *"zsh"* && -z "${BASH_VERSION}" ]]; then
+    # src -> basically resets the shell and loads any modifications to the environment
     src() {
         env -i HOME="${HOME}"
         exec zsh
     }
 
+    # These are handy, basically pretty-fies the output of -h, --help, and \?
+    # Note: -h is not always a flag that shows help.
     alias -g -- -h='-h 2>&1 | bat --language=help --plain'
     alias -g -- --help='--help 2>&1 | bat --language=help --plain'
     alias -g -- \?='--help 2>&1 | bat --language=help --plain'
