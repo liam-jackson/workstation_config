@@ -37,7 +37,7 @@ if command -v eza &>/dev/null; then
     ${FZF_DEFAULT_OPTS} \
     --prompt=' FZF (ctlT)  ' \
     --preview='eza_bat_preview {}' \
-    --bind='enter:execute(eza_icon_strip {})' \
+    --bind='enter:execute:eza_icon_strip {}' \
     "
 
     export FZF_ALT_C_COMMAND="eza \
@@ -83,7 +83,7 @@ bindkey '^\' fzf-select-widget
 ## Git
 # bindkey '\egg' fzf-select-git-widget
 bindkey '\ega' fzf-git-add-files
-# bindkey '\egc' fzf-git-change-repository
+bindkey '\egc' fzf-git-change-repository
 
 # GitHub
 # bindkey '^@h' fzf-select-github-widget

@@ -101,7 +101,7 @@ alias watchdir='watch -n 1 --color tree --prune -C'
 
 # browse any shell history file following the standard patterns:
 alias allhist='find "${HOME}" \( -path '\''*zsh_history'\'' -o -path '\''*bash_history'\'' -o -path '\''*.history'\'' \) -a -type f | fzfp'
-alias bathelp='bat --language=help'
+alias bathelp='bat --language=help --pager=${PAGER} --plain'
 alias wscfg='code ${WORKSTATION_DIR}/workstation_config.code-workspace'
 
 # Shell-specific aliases
@@ -128,9 +128,9 @@ elif [[ "${SHELL}" == *"zsh"* && -z "${BASH_VERSION}" ]]; then
 
     # These are handy, basically pretty-fies the output of -h, --help, and \?
     # Note: -h is not always a flag that shows help.
-    alias -g -- -h='-h 2>&1 | bat --language=help --plain'
-    alias -g -- --help='--help 2>&1 | bat --language=help --plain'
-    alias -g -- \?='--help 2>&1 | bat --language=help --plain'
+    alias -g -- -h='-h 2>&1 | bat --language=help --plain --pager=${PAGER}'
+    alias -g -- --help='--help 2>&1 | bat --language=help --plain --pager=${PAGER}'
+    alias -g -- \?='--help 2>&1 | bat --language=help --plain --pager=${PAGER}'
     alias history='history -t ${HIST_STAMPS}'
 
     alias -s html='google-chrome'

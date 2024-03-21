@@ -22,22 +22,189 @@ help() {
 
 # Shows the keybinds/the widgets they trigger that you might've
 # collected from the debug functions in .zshrc:
-fkbd() {
+fkbd1() {
+	local _help _filter _keybinds_and_widgets _selected_keybind _sort_by_keybind _sort_by_widget _filter_label
+
+	_help='Interactively browse the keybinds and widgets they trigger using fzf.
+
+	Usage:
+		fkbd [-f|--filter=binds|widgets] [-b|binds] [-w|--widgets] [-h|--help]
+
+		-f, --filter=binds|widgets	filter by keybind/widget.
+		-b, --binds	filter by keybind (shortcut for --filter=binds).
+		-w, --widgets	filter by widget (shortcut for --filter=widgets).
+		-h, --help	show this help message.
+	'
+	_filter='binds'
+
+	if $# -gt 0; then
+		case "${1}" in
+		"-f" | "--filter")
+			_filter=$2
+			shift 2
+			;;
+		"-b" | "--binds")
+			_filter="binds"
+			shift
+			;;
+		"-w" | "--widgets")
+			_filter="widgets"
+			shift
+			;;
+		"-h" | "--help")
+			echo "${_help}"
+			return 0
+			;;
+		*)
+			echo "Unknown usage."
+			echo "${_help}"
+			return 1
+			;;
+		esac
+	fi
+
 	_keybinds_and_widgets=$(mktemp)
 
-	bindkey | sort -k 2 | awk '{print $1 " " $2}' >"${_keybinds_and_widgets}"
+	function _get_keybinds_and_widgets() {
+		bindkey | sort -k"$([[ "${_filter}" =~ "bind" ]] && echo '1' || echo '2')" | awk '{print $1 " " $2}' >"${_keybinds_and_widgets}"
 
-	_selected_keybind=$(
-		awk '{print $1}' <"${_keybinds_and_widgets}" | fzf \
-			--preview "grep --fixed-strings {} ${_keybinds_and_widgets} | awk '{\$1=\"\"; 'print' \$0}'" \
-			--preview-window=down:3:wrap \
-			--preview-label="Widget for selected keybind:"
+		awk '{print $1}' <"${_keybinds_and_widgets}"
+	}
+
+	_sort_by_keybind='_filter=binds; _get_keybinds_and_widgets'
+	_sort_by_widget='_filter=widgets; _get_keybinds_and_widgets'
+	_filter_label="$([[ "${_filter}" =~ "bind" ]] && echo "Keybind" || echo "Widget") for selected $(echo "${_filter}" | tr 'a-z' 'A-Z'):"
+	_selected=$(
+		fzf \
+			--bind "start:reload(_get_keybinds_and_widgets)"
+		# --preview "grep --fixed-strings {} ${_keybinds_and_widgets} | awk '{\$1=\"\"; 'print' \$0}'" \
+		# --preview-window 'right,border-top,<72(down,border-top)' \
+		# --preview-label="${_filter_label}" \
+		# --preview-label-pos '0:top' \
+		# --bind 'ctrl-w:reload(_sort_by_widget)' \
+		# --bind 'ctrl-b:reload(_sort_by_keybind)'
 	)
 
 	/bin/rm -f "${_keybinds_and_widgets}"
 
-	if [[ -n "${_selected_keybind}" ]]; then
-		echo "Selected keybind: ${_selected_keybind}"
+	if [[ -n "${_selected}" ]]; then
+		echo "Selected $([[ "${_filter}" =~ "bind" ]] && echo "keybind" || echo "widget"): ${_selected}"
+	fi
+}
+fkbd2() {
+	local _help _filter _keybinds_and_widgets _selected _sort_by_keybind _sort_by_widget _filter_label
+
+	_help='Interactively browse the keybinds and widgets they trigger using fzf.
+
+	Usage:
+		fkbd [-f|--filter=binds|widgets] [-b|binds] [-w|--widgets] [-h|--help]
+
+		-f, --filter=binds|widgets	filter by keybind/widget.
+		-b, --binds	filter by keybind (shortcut for --filter=binds).
+		-w, --widgets	filter by widget (shortcut for --filter=widgets).
+		-h, --help	show this help message.
+	'
+	_filter='binds'
+
+	while [[ "$#" -gt 0 ]]; do
+		case "${1}" in
+		"-f" | "--filter")
+			_filter=$2
+			shift 2
+			;;
+		"-b" | "--binds")
+			_filter="binds"
+			shift
+			;;
+		"-w" | "--widgets")
+			_filter="widgets"
+			shift
+			;;
+		"-h" | "--help")
+			echo "${_help}"
+			return 0
+			;;
+		*)
+			echo "Unknown usage."
+			echo "${_help}"
+			return 1
+			;;
+		esac
+	done
+
+	_keybinds_and_widgets=$(mktemp)
+	bindkey | sort -k"$([[ "${_filter}" == "binds" ]] && echo '1' || echo '2')" | awk '{print $1 " " $2}' >"${_keybinds_and_widgets}"
+
+	# You need to prepopulate your data before calling fzf and then directly work on that data
+	_selected=$(fzf \
+		--preview "grep --fixed-strings {} ${_keybinds_and_widgets} | awk '{\$1=\"\"; 'print' \$0}'" \
+		--preview-window 'right,border-top,<72(down,border-top)' \
+		--preview-label="${_filter_label}" \
+		--preview-label-pos '0:top' \
+		--bind 'ctrl-w:reload(_sort_by_widget)' \
+		--bind 'ctrl-b:reload(_sort_by_keybind)' \
+		--prompt="Select a ${_filter}: " <"${_keybinds_and_widgets}")
+
+	/bin/rm -f "${_keybinds_and_widgets}"
+
+	if [[ -n "${_selected}" ]]; then
+		echo "Selected $([[ "${_filter}" =~ "bind" ]] && echo "keybind" || echo "widget"): ${_selected}"
+	fi
+}
+
+fkbd() {
+	local _help _keybinds_and_widgets _selected
+
+	_help="Interactively browse the keybinds and widgets they trigger using fzf.
+
+		Usage:
+			fkbd [-f|--filter=[binds,widgets]] [-b|--binds] [-w|--widgets] [-h|--help]
+
+			-f, --filter=[binds|widgets]  filter by keybind/widget.
+			-b, --binds filter by keybind (shortcut for --filter=binds).
+			-w, --widgets filter by widget (shortcut for --filter=widgets).
+			-h, --help show this help message.
+		"
+	_filter='binds'
+
+	# Handle command-line arguments
+	case "$1" in
+	"-f" | "--filter") _filter=$2 ;;
+	"-b" | "--binds") _filter="binds" ;;
+	"-w" | "--widgets") _filter="widgets" ;;
+	"-h" | "--help")
+		echo "$_help"
+		return 0
+		;;
+	*)
+		[ -n "$1" ] && echo "Unknown option: $1" && echo "$_help" && return 1
+		;;
+	esac
+
+	_keybinds_and_widgets=$(mktemp)
+
+	# Populate the temporary file with keybinds and widgets
+	bindkey | awk '{print $1 " " $2}' >"${_keybinds_and_widgets}"
+
+	export _filter='"${_filter}"'
+	export _filter_label='"$([[ "${_filter}" =~ "bind" ]] && echo "Keybind" || echo "Widget") for selected $(echo "${_filter}" | tr 'a-z' 'A-Z'):"'
+
+	_selected=$(
+		fzf \
+			--bind "start:reload(awk '{print \$1 \" \" \$2}' <${_keybinds_and_widgets} | sort -k1)+change-preview-label(${_filter_label})" \
+			--bind "ctrl-b:reload(awk '{print \$1 \" \" \$2}' <${_keybinds_and_widgets} | sort -k1)+change-preview-label(${_filter_label})" \
+			--bind "ctrl-w:reload(awk '{print \$2 \" \" \$1}' <${_keybinds_and_widgets} | sort -k1)+change-preview-label(${_filter_label})" \
+			--preview "grep --fixed-strings {2} ${_keybinds_and_widgets}" \
+			--preview-window down:3:wrap \
+			--preview-window 'right,border-top,<72(down,border-top)' \
+			--preview-label="${_filter_label}" \
+			--preview-label-pos '0:top'
+	)
+
+	/bin/rm "${_keybinds_and_widgets}"
+
+	if [ -n "${_selected}" ]; then
+		echo "Selected: ${_selected}"
 	fi
 }
 
@@ -66,7 +233,8 @@ function eza_icon_strip() {
 function eza_bat_preview() {
 	! [[ $# -gt 0 ]] && return 0
 
-	local fs_element=$(echo "${1}" | awk '{print $2}')
+	local fs_element
+	fs_element=$(echo "${1}" | awk '{print $2}')
 
 	if [[ -d "${fs_element}" ]]; then
 		eza --all --tree --level 3 --long --oneline --color=always --icons always --git "${fs_element}"

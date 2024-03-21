@@ -44,7 +44,8 @@ export LESS="--ignore-case \
 --no-init \
 --LONG-PROMPT \
 --hilite-search \
---search-options=W"
+--search-options=W \
+--no-lessopen"
 
 export PAGER="less ${LESS}"
 export BAT_PAGER="${PAGER}"

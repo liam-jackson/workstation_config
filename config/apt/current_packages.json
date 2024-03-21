@@ -48,6 +48,10 @@
     "version": "2.3-31ubuntu2"
   },
   {
+    "name": "anydesk",
+    "version": "6.3.1"
+  },
+  {
     "name": "apg",
     "version": "2.2.3.dfsg.1-5build2"
   },
@@ -165,7 +169,7 @@
   },
   {
     "name": "bash",
-    "version": "5.1-6ubuntu1"
+    "version": "5.1-6ubuntu1.1"
   },
   {
     "name": "bash-completion",
@@ -329,7 +333,7 @@
   },
   {
     "name": "containerd.io",
-    "version": "1.6.28-1"
+    "version": "1.6.28-2"
   },
   {
     "name": "coreutils",
@@ -509,7 +513,7 @@
   },
   {
     "name": "discord",
-    "version": "0.0.43"
+    "version": "0.0.46"
   },
   {
     "name": "distro-info",
@@ -549,23 +553,23 @@
   },
   {
     "name": "docker-buildx-plugin",
-    "version": "0.13.0-1~ubuntu.22.04~jammy"
+    "version": "0.13.1-1~ubuntu.22.04~jammy"
   },
   {
     "name": "docker-ce",
-    "version": "5:25.0.4-1~ubuntu.22.04~jammy"
+    "version": "5:26.0.0-1~ubuntu.22.04~jammy"
   },
   {
     "name": "docker-ce-cli",
-    "version": "5:25.0.4-1~ubuntu.22.04~jammy"
+    "version": "5:26.0.0-1~ubuntu.22.04~jammy"
   },
   {
     "name": "docker-ce-rootless-extras",
-    "version": "5:25.0.4-1~ubuntu.22.04~jammy"
+    "version": "5:26.0.0-1~ubuntu.22.04~jammy"
   },
   {
     "name": "docker-compose-plugin",
-    "version": "2.24.7-1~ubuntu.22.04~jammy"
+    "version": "2.25.0-1~ubuntu.22.04~jammy"
   },
   {
     "name": "dosfstools",
@@ -1584,6 +1588,10 @@
     "version": "2.72.0-1"
   },
   {
+    "name": "glow",
+    "version": "1.5.1"
+  },
+  {
     "name": "gnome-accessibility-themes",
     "version": "3.28-1ubuntu3"
   },
@@ -1805,7 +1813,7 @@
   },
   {
     "name": "google-chrome-stable",
-    "version": "122.0.6261.128-1"
+    "version": "123.0.6312.58-1"
   },
   {
     "name": "goreleaser",
@@ -3900,8 +3908,20 @@
     "version": "3.10.0-1ubuntu1"
   },
   {
+    "name": "libgtkglext1:amd64",
+    "version": "1.2.0-11"
+  },
+  {
     "name": "libgtkmm-3.0-1v5:amd64",
     "version": "3.24.5-1build1"
+  },
+  {
+    "name": "libgtksourceview-3.0-1:amd64",
+    "version": "3.24.11-2build1"
+  },
+  {
+    "name": "libgtksourceview-3.0-common",
+    "version": "3.24.11-2build1"
   },
   {
     "name": "libgtksourceview-4-0:amd64",
@@ -6829,35 +6849,35 @@
   },
   {
     "name": "linux-generic-hwe-22.04",
-    "version": "6.5.0.25.25~22.04.12"
+    "version": "6.5.0.26.26~22.04.13"
   },
   {
     "name": "linux-headers-6.2.0-26-generic",
     "version": "6.2.0-26.26~22.04.1"
   },
   {
-    "name": "linux-headers-6.5.0-21-generic",
-    "version": "6.5.0-21.21~22.04.1"
-  },
-  {
     "name": "linux-headers-6.5.0-25-generic",
     "version": "6.5.0-25.25~22.04.1"
   },
   {
+    "name": "linux-headers-6.5.0-26-generic",
+    "version": "6.5.0-26.26~22.04.1"
+  },
+  {
     "name": "linux-headers-generic-hwe-22.04",
-    "version": "6.5.0.25.25~22.04.12"
+    "version": "6.5.0.26.26~22.04.13"
   },
   {
     "name": "linux-hwe-6.2-headers-6.2.0-26",
     "version": "6.2.0-26.26~22.04.1"
   },
   {
-    "name": "linux-hwe-6.5-headers-6.5.0-21",
-    "version": "6.5.0-21.21~22.04.1"
-  },
-  {
     "name": "linux-hwe-6.5-headers-6.5.0-25",
     "version": "6.5.0-25.25~22.04.1"
+  },
+  {
+    "name": "linux-hwe-6.5-headers-6.5.0-26",
+    "version": "6.5.0-26.26~22.04.1"
   },
   {
     "name": "linux-image-6.2.0-26-generic",
@@ -6884,12 +6904,16 @@
     "version": "6.5.0-25.25~22.04.1"
   },
   {
+    "name": "linux-image-6.5.0-26-generic",
+    "version": "6.5.0-26.26~22.04.1"
+  },
+  {
     "name": "linux-image-generic-hwe-22.04",
-    "version": "6.5.0.25.25~22.04.12"
+    "version": "6.5.0.26.26~22.04.13"
   },
   {
     "name": "linux-libc-dev:amd64",
-    "version": "5.15.0-100.110"
+    "version": "5.15.0-101.111"
   },
   {
     "name": "linux-modules-6.2.0-26-generic",
@@ -6916,6 +6940,10 @@
     "version": "6.5.0-25.25~22.04.1"
   },
   {
+    "name": "linux-modules-6.5.0-26-generic",
+    "version": "6.5.0-26.26~22.04.1"
+  },
+  {
     "name": "linux-modules-extra-6.2.0-26-generic",
     "version": "6.2.0-26.26~22.04.1"
   },
@@ -6934,6 +6962,10 @@
   {
     "name": "linux-modules-extra-6.5.0-25-generic",
     "version": "6.5.0-25.25~22.04.1"
+  },
+  {
+    "name": "linux-modules-extra-6.5.0-26-generic",
+    "version": "6.5.0-26.26~22.04.1"
   },
   {
     "name": "linux-modules-nvidia-390-6.2.0-26-generic",
@@ -9685,11 +9717,11 @@
   },
   {
     "name": "vim-common",
-    "version": "2:8.2.3995-1ubuntu2.15"
+    "version": "2:8.2.3995-1ubuntu2.16"
   },
   {
     "name": "vim-tiny",
-    "version": "2:8.2.3995-1ubuntu2.15"
+    "version": "2:8.2.3995-1ubuntu2.16"
   },
   {
     "name": "vlc",
@@ -9757,7 +9789,7 @@
   },
   {
     "name": "warp-terminal",
-    "version": "0.2024.03.12.08.02.stable.01"
+    "version": "0.2024.03.12.08.02.stable.02"
   },
   {
     "name": "wbritish",
@@ -9928,6 +9960,10 @@
     "version": "1:1.11-1.1"
   },
   {
+    "name": "xpad",
+    "version": "5.4.0-2"
+  },
+  {
     "name": "xsel",
     "version": "1.2.0+git9bfc13d.20180109-3"
   },
@@ -10017,7 +10053,7 @@
   },
   {
     "name": "xxd",
-    "version": "2:8.2.3995-1ubuntu2.15"
+    "version": "2:8.2.3995-1ubuntu2.16"
   },
   {
     "name": "xz-utils",

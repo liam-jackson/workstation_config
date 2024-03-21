@@ -91,7 +91,7 @@
     "bashIde.includeAllWorkspaceSymbols": true,
     "bashIde.shellcheckPath": "/usr/bin/shellcheck",
     "C_Cpp.clang_format_path": "/usr/bin/clang-format",
-    // "C_Cpp.clang_format_style": "/home/liam/Workspace/tenbeauty/.clang-format",
+    // "C_Cpp.clang_format_style": "/home/liam/Workspace/.clang-format",
     "C_Cpp.default.cppStandard": "c++17",
     "C_Cpp.default.includePath": [
         "${default}/**",
@@ -771,12 +771,12 @@
         "https://docs.sourcery.ai/resources/sourcery_yaml_schema.json": ".sourcery.yaml",
         "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json": "docker-compose*.yml"
     },
-    "yapf.args": [
-        "--ignore",
-        "F401",
-        "--style",
-        "~/Workspace/tenbeauty/vis_pipe_ref/.style.yapf"
-    ],
+    // "yapf.args": [
+    //     "--ignore",
+    //     "F401",
+    //     "--style",
+    //     "~/Workspace/.style.yapf"
+    // ],
     // "workbench.settings.useSplitJSON": true,
     "Z9_end_of_file": true,
     "colorize.colorized_variables": [
@@ -820,7 +820,7 @@
     "json.format.keepLines": true,
     "git.branchPrefix": "liam/",
     "security.workspace.trust.untrustedFiles": "open",
-    "explorer.excludeGitIgnore": true,
+    "explorer.excludeGitIgnore": false,
     "workbench.colorTheme": "monokai-charcoal (yellow)",
     "editor.acceptSuggestionOnEnter": "smart",
     "editor.suggest.filterGraceful": true,
@@ -836,4 +836,6 @@
     "C_Cpp.default.intelliSenseMode": "linux-gcc-x86",
     "C_Cpp.default.mergeConfigurations": true,
     "C_Cpp.debugShortcut": true,
+    "gitlens.views.branches.branches.layout": "list",
+    "terminal.integrated.tabs.enabled": false,
 }
